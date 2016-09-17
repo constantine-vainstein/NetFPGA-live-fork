@@ -28,7 +28,7 @@
 # @NETFPGA_LICENSE_HEADER_END@
 #
 
-export SUME_FOLDER=${HOME}/NetFPGA-SUME-live
+#export SUME_FOLDER=${HOME}/NetFPGA-SUME-live
 export XILINX_PATH=/opt/Xilinx/Vivado/2014.4
 export NF_PROJECT_NAME=reference_switch
 export PROJECTS=${SUME_FOLDER}/projects
