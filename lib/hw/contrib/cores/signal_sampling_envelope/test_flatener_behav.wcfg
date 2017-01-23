@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="test_flatener_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="test_flatener" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject db_ref_id="1" type="logic" fp_name="/test_flatener/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/test_flatener/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/cycle">
+      <obj_property name="ElementShortName">cycle[3:0]</obj_property>
+      <obj_property name="ObjectShortName">cycle[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/intensity">
+      <obj_property name="ElementShortName">intensity[7:0]</obj_property>
+      <obj_property name="ObjectShortName">intensity[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/test_flatener/we">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/sig">
+      <obj_property name="ElementShortName">sig[0:1][0:1][7:0]</obj_property>
+      <obj_property name="ObjectShortName">sig[0:1][0:1][7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/sinal_time_area_cube">
+      <obj_property name="ElementShortName">sinal_time_area_cube[0:3][0:1][0:1][7:0]</obj_property>
+      <obj_property name="ObjectShortName">sinal_time_area_cube[0:3][0:1][0:1][7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/flaten/signal_history">
+      <obj_property name="ElementShortName">signal_history[0:3][0:1][0:1][7:0]</obj_property>
+      <obj_property name="ObjectShortName">signal_history[0:3][0:1][0:1][7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/flaten/signal_history[0]">
+         <obj_property name="ElementShortName">[0][0:1][0:1][7:0]</obj_property>
+         <obj_property name="ObjectShortName">signal_history[0][0:1][0:1][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/flaten/signal_history[1]">
+         <obj_property name="ElementShortName">[1][0:1][0:1][7:0]</obj_property>
+         <obj_property name="ObjectShortName">signal_history[1][0:1][0:1][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/flaten/signal_history[2]">
+         <obj_property name="ElementShortName">[2][0:1][0:1][7:0]</obj_property>
+         <obj_property name="ObjectShortName">signal_history[2][0:1][0:1][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/test_flatener/flaten/signal_history[3]">
+         <obj_property name="ElementShortName">[3][0:1][0:1][7:0]</obj_property>
+         <obj_property name="ObjectShortName">signal_history[3][0:1][0:1][7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
