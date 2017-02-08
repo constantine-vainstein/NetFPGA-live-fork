@@ -1,7 +1,0 @@
-Running: xsim.dir/test_flatener_behav/xsimk -simmode gui -wdb test_flatener_behav.wdb -simrunnum 0 -socket 55173
-Design successfully loaded
-Design Loading Memory Usage: 119052 KB (Peak: 119076 KB)
-Design Loading CPU Usage: 10 ms
-Simulation completed
-Simulation Memory Usage: 192788 KB (Peak: 258320 KB)
-Simulation CPU Usage: 50 ms
