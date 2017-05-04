@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="spad_ctrl_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="spad_ctrl_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="69600001fs"></ZoomEndTime>
+      <Cursor1Time time="100000000fs"></Cursor1Time>
+   </zoom_setting>
+   <WVObjectSize size="17" />
+   <wvobject fp_name="/spad_ctrl_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/LatchSpad" type="logic">
+      <obj_property name="ElementShortName">LatchSpad</obj_property>
+      <obj_property name="ObjectShortName">LatchSpad</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/ResetSpad" type="logic">
+      <obj_property name="ElementShortName">ResetSpad</obj_property>
+      <obj_property name="ObjectShortName">ResetSpad</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/RowSelect" type="array">
+      <obj_property name="ElementShortName">RowSelect[2:0]</obj_property>
+      <obj_property name="ObjectShortName">RowSelect[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/ColSelect" type="array">
+      <obj_property name="ElementShortName">ColSelect[5:0]</obj_property>
+      <obj_property name="ObjectShortName">ColSelect[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_0" type="array">
+      <obj_property name="ElementShortName">FrameData_0[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_0[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_1" type="array">
+      <obj_property name="ElementShortName">FrameData_1[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_1[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_2" type="array">
+      <obj_property name="ElementShortName">FrameData_2[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_2[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_3" type="array">
+      <obj_property name="ElementShortName">FrameData_3[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_3[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_4" type="array">
+      <obj_property name="ElementShortName">FrameData_4[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_4[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_5" type="array">
+      <obj_property name="ElementShortName">FrameData_5[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_5[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_6" type="array">
+      <obj_property name="ElementShortName">FrameData_6[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_6[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/FrameData_7" type="array">
+      <obj_property name="ElementShortName">FrameData_7[63:0]</obj_property>
+      <obj_property name="ObjectShortName">FrameData_7[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/controller/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/controller/state_next" type="array">
+      <obj_property name="ElementShortName">state_next[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_next[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spad_ctrl_tb/controller/state_counter" type="array">
+      <obj_property name="ElementShortName">state_counter[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_counter[3:0]</obj_property>
+   </wvobject>
+</wave_config>
