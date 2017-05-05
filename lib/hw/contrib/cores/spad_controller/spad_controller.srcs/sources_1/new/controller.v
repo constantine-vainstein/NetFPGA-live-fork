@@ -58,11 +58,15 @@ module controller(
     
     reg [STATE_SIZE_BITS - 1 : 0] state; 
     
-    reg [3 : 0] state_counter;
+    reg [13 : 0] state_counter;
     
-    reg [3 : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
+    reg [13 : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
     
     reg [8 : 0] requested_address;
+    
+    wire state_time_expired;
+    
+
     
     task set_next_state;
         begin
@@ -70,12 +74,13 @@ module controller(
         end
     endtask
     
+   
     task commandToSpad;
-        input [3 : 0] delay_clk ;
+        input is_next_state_needed;
         begin
             state_counter = state_counter + 1;
             // next state
-            if (state_counter >= delay_clk) begin
+            if (is_next_state_needed) begin
                 set_next_state;
                 state_counter = 0;
             end
@@ -86,22 +91,37 @@ module controller(
         state_durations[STATE_LATCH] = 2;
         state_durations[STATE_PAUSE_LATCH_RESET] = 1;
         state_durations[STATE_RESET] = 2;
-        state_durations[STATE_READDATA] = 1;        
+        state_durations[STATE_READDATA] = 6395;        
     end
     
     assign LatchSpad = state[0];
     assign ResetSpad = state[2];
+    assign state_time_expired = (state_counter + 1 >= state_durations[state]);
+    assign RowSelect = requested_address[8 : 6];
+    assign ColSelect = requested_address[5 : 0];
    
     always @(posedge clk) begin
-        //state_next = state; // by default, if there was no reason to change the state, it will remain the same.
         
         if (reset) begin
             state_counter = 0;
             state = STATE_LATCH;
         end else begin
-            commandToSpad(state_durations[state]);            
+            commandToSpad(state_time_expired);
+            
+            if (state == STATE_READDATA)
+            begin
+                if(state_time_expired)
+                begin
+                    requested_address = 0;
+                end else begin
+                    if(state_counter[2:0] == 0) // state_counter should be a multiple of 80 ns to increment the requested_address.
+                    begin
+                         requested_address = (requested_address != 9'b111111111) ? requested_address + 1 : requested_address;
+                    end
+                end
+            end        
         end
-        //state <= state_next;
+        
     end
 
 endmodule
