@@ -57,15 +57,16 @@ module controller(
     // ---------------- wires and regs
     
     reg [STATE_SIZE_BITS - 1 : 0] state; 
-    reg [STATE_SIZE_BITS - 1 : 0] state_next;
     
     reg [3 : 0] state_counter;
     
     reg [3 : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
     
+    reg [8 : 0] requested_address;
+    
     task set_next_state;
         begin
-            state_next = {state_next[STATE_SIZE_BITS - 2 : 0], state_next[STATE_SIZE_BITS - 1]};
+            state = {state[STATE_SIZE_BITS - 2 : 0], state[STATE_SIZE_BITS - 1]};
         end
     endtask
     
@@ -88,42 +89,19 @@ module controller(
         state_durations[STATE_READDATA] = 1;        
     end
     
-    assign LatchSpad = state_next[0];
-    assign ResetSpad = state_next[2];
+    assign LatchSpad = state[0];
+    assign ResetSpad = state[2];
    
     always @(posedge clk) begin
-        state_next = state; // by default, if there was no reason to change the state, it will remain the same.
+        //state_next = state; // by default, if there was no reason to change the state, it will remain the same.
         
         if (reset) begin
             state_counter = 0;
-            state_next = STATE_LATCH;
+            state = STATE_LATCH;
         end else begin
-            commandToSpad(state_durations[state]);
-        /*
-            case(state)
-                STATE_LATCH: begin
-                    commandToSpad(2);           
-                end
-                
-                STATE_PAUSE_LATCH_RESET: begin
-                    commandToSpad(1);                  
-                end
-                
-                STATE_RESET: begin
-                    commandToSpad(2);  
-                end
-                
-                STATE_READDATA: begin
-                    commandToSpad(1);
-                end
-                
-                default: begin
-                    state_next = state;
-                end
-                
-            endcase*/
+            commandToSpad(state_durations[state]);            
         end
-        state <= state_next;
+        //state <= state_next;
     end
 
 endmodule
