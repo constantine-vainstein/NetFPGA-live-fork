@@ -39,6 +39,14 @@
 
 # the first argument is target
 
+ifeq ($(OS),Windows_NT)
+PATHSEP_SPACE=/
+else
+PATHSEP_SPACE=\\
+endif
+PATHSEP=$(strip $(PATHSEP_SPACE))
+
+
 SCRIPTS_DIR  = tools/
 LIB_REPO = lib/hw/ip_repo
 LIB_HW_DIR  = lib/hw

@@ -51,6 +51,8 @@ module controller(
     localparam STATE_RESET = 4;
     localparam STATE_READDATA = 8;
     localparam STATE_SIZE_BITS = 4;
+    localparam STATE_FIRST_STATE = STATE_LATCH;
+    localparam STATE_LAST_STATE = STATE_READDATA;
     
     // ---------------- wires and regs
     
@@ -59,10 +61,35 @@ module controller(
     
     reg [3 : 0] state_counter;
     
-    //begin
-       assign LatchSpad = state_next[0];
-       assign ResetSpad = state_next[2];
-    //end
+    reg [3 : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
+    
+    task set_next_state;
+        begin
+            state_next = {state_next[STATE_SIZE_BITS - 2 : 0], state_next[STATE_SIZE_BITS - 1]};
+        end
+    endtask
+    
+    task commandToSpad;
+        input [3 : 0] delay_clk ;
+        begin
+            state_counter = state_counter + 1;
+            // next state
+            if (state_counter >= delay_clk) begin
+                set_next_state;
+                state_counter = 0;
+            end
+        end
+    endtask
+    
+    initial begin
+        state_durations[STATE_LATCH] = 2;
+        state_durations[STATE_PAUSE_LATCH_RESET] = 1;
+        state_durations[STATE_RESET] = 2;
+        state_durations[STATE_READDATA] = 1;        
+    end
+    
+    assign LatchSpad = state_next[0];
+    assign ResetSpad = state_next[2];
    
     always @(posedge clk) begin
         state_next = state; // by default, if there was no reason to change the state, it will remain the same.
@@ -71,53 +98,30 @@ module controller(
             state_counter = 0;
             state_next = STATE_LATCH;
         end else begin
-        
+            commandToSpad(state_durations[state]);
+        /*
             case(state)
                 STATE_LATCH: begin
-                    // external effect
-                    // internal effect
-                    state_counter = state_counter + 1;
-                    // next state
-                    if (state_counter >= 2) begin
-                        state_next = STATE_PAUSE_LATCH_RESET;
-                        state_counter = 0;
-                    end                    
+                    commandToSpad(2);           
                 end
                 
                 STATE_PAUSE_LATCH_RESET: begin
-                    // external effect
-                    // internal effect
-                    state_counter = state_counter + 1;
-                    // next state
-                    if (state_counter >= 1) begin
-                        state_next = STATE_RESET;
-                        state_counter = 0;
-                    end                    
+                    commandToSpad(1);                  
                 end
                 
                 STATE_RESET: begin
-                    // external effect
-                    // internal effect
-                    state_counter = state_counter + 1;
-                    // next state
-                    if (state_counter >= 2) begin
-                        state_next = STATE_READDATA;
-                        state_counter = 0;
-                    end   
+                    commandToSpad(2);  
                 end
                 
                 STATE_READDATA: begin
-                    // external effect
-                    // internal effect
-                    state_counter = state_counter + 1;
-                    // next state
-                    if (state_counter >= 1) begin
-                        state_next = STATE_RESET;
-                        state_counter = 0;
-                    end 
+                    commandToSpad(1);
                 end
                 
-            endcase
+                default: begin
+                    state_next = state;
+                end
+                
+            endcase*/
         end
         state <= state_next;
     end
