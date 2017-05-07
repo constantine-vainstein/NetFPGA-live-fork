@@ -31,18 +31,11 @@
 module controller(
     output LatchSpad,
     output ResetSpad,
+    output ReadData,
     output [2:0] RowSelect,
     output [5:0] ColSelect,
     input clk,
-    input reset,
-    input [63:0] FrameData_0,
-    input [63:0] FrameData_1,
-    input [63:0] FrameData_2,
-    input [63:0] FrameData_3,
-    input [63:0] FrameData_4,
-    input [63:0] FrameData_5,
-    input [63:0] FrameData_6,
-    input [63:0] FrameData_7
+    input reset
     );
     
     // ------------------- Internal Parameters
@@ -96,6 +89,7 @@ module controller(
     
     assign LatchSpad = state[0];
     assign ResetSpad = state[2];
+    assign ReadData = state[3];
     assign state_time_expired = (state_counter + 1 >= state_durations[state]);
     assign RowSelect = requested_address[8 : 6];
     assign ColSelect = requested_address[5 : 0];

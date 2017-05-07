@@ -29,15 +29,8 @@ module spad_ctrl_tb(
     
     wire [2:0] RowSelect;
     wire [5:0] ColSelect;
+    wire read_data;
 
-    wire [63:0] FrameData_0;
-    wire [63:0] FrameData_1;
-    wire [63:0] FrameData_2;
-    wire [63:0] FrameData_3;
-    wire [63:0] FrameData_4;
-    wire [63:0] FrameData_5;
-    wire [63:0] FrameData_6;
-    wire [63:0] FrameData_7;
     
     controller controller(
         .clk(clk),
@@ -46,15 +39,7 @@ module spad_ctrl_tb(
         .ResetSpad(ResetSpad),
         .RowSelect(RowSelect),
         .ColSelect(ColSelect),
-
-        .FrameData_0(FrameData_0),
-        .FrameData_1(FrameData_1),
-        .FrameData_2(FrameData_2),
-        .FrameData_3(FrameData_3),
-        .FrameData_4(FrameData_4),
-        .FrameData_5(FrameData_5),
-        .FrameData_6(FrameData_6),
-        .FrameData_7(FrameData_7)
+        .ReadData(read_data)
         );
     
     initial begin

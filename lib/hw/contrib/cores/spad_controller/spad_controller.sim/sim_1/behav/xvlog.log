@@ -1,6 +1,10 @@
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Constantine/OneDrive - Technion/Studies/FireSourceDetection/repo/NetFPGA-live-fork/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/controller.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module controller
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Constantine/OneDrive - Technion/Studies/FireSourceDetection/repo/NetFPGA-live-fork/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/manager.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module spad_manager
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Constantine/OneDrive - Technion/Studies/FireSourceDetection/repo/NetFPGA-live-fork/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_ctrl_tb.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module spad_ctrl_tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Constantine/OneDrive - Technion/Studies/FireSourceDetection/repo/NetFPGA-live-fork/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_manager_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module spad_manager_tb
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Constantine/OneDrive - Technion/Studies/FireSourceDetection/repo/NetFPGA-live-fork/lib/hw/contrib/cores/spad_controller/spad_controller.sim/sim_1/behav/glbl.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module glbl
