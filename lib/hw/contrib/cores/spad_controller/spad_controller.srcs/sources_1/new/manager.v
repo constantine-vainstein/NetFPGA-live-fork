@@ -34,11 +34,11 @@ module spad_manager(
     input [7:0] PixelIn2,
     input [7:0] PixelIn3,
     
-    output ReadEnable,
     output [7:0] PixelOut0,
     output [7:0] PixelOut1,
     output [7:0] PixelOut2,
-    output [7:0] PixelOut3
+    output [7:0] PixelOut3,
+    output ReadEnable
     );
     
 
