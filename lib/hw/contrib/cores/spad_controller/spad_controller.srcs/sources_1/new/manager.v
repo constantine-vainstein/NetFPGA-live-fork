@@ -28,7 +28,7 @@ module spad_manager(
     output ResetSpad,
     output [2:0] RowSelect,
     output [5:0] ColSelect,
-    output isSecondHalfOfRows,
+    output RowGroup,
     input [7:0] PixelIn0,
     input [7:0] PixelIn1,
     input [7:0] PixelIn2,
@@ -41,19 +41,16 @@ module spad_manager(
     output ReadEnable
     );
     
-
-    reg [3 : 0] read_cycle_counter;
-    reg clock_divider;
-    wire read_data;
-    
+  
     controller controller(
-        .clk(clock_divider),
+        .clk(clk),
         .reset(reset),
         .LatchSpad(LatchSpad),
         .ResetSpad(ResetSpad),
         .RowSelect(RowSelect),
         .ColSelect(ColSelect),
-        .ReadData(read_data)
+        .HighLowRows(RowGroup),
+        .ReadEnable(ReadEnable)
     );
     
     assign PixelOut0 = PixelIn0;
@@ -61,21 +58,5 @@ module spad_manager(
     assign PixelOut2 = PixelIn2;
     assign PixelOut3 = PixelIn3;
     
-    assign isSecondHalfOfRows = read_cycle_counter[3];
-    assign ReadEnable = read_cycle_counter[2];
-    
-    initial begin
-        clock_divider = 0;
-    end
-    
-    always @(posedge clk) begin    
-        clock_divider = ~clock_divider;
-        
-        if(reset | ~read_data) begin
-            read_cycle_counter = 0;
-        end else begin
-            read_cycle_counter = read_cycle_counter + 1;
-        end
-    end
 
 endmodule

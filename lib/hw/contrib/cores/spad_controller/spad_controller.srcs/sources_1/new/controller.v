@@ -31,9 +31,10 @@
 module controller(
     output LatchSpad,
     output ResetSpad,
-    output ReadData,
+    output ReadEnable,
     output [2:0] RowSelect,
     output [5:0] ColSelect,
+    output HighLowRows,
     input clk,
     input reset
     );
@@ -55,9 +56,9 @@ module controller(
     
     reg [13 : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
     
-    reg [8 : 0] requested_address;
-    
     wire state_time_expired;
+    
+    wire read_data;
     
 
     
@@ -84,38 +85,33 @@ module controller(
         state_durations[STATE_LATCH] = 2;
         state_durations[STATE_PAUSE_LATCH_RESET] = 1;
         state_durations[STATE_RESET] = 2;
-        state_durations[STATE_READDATA] = 6395;        
+        state_durations[STATE_READDATA] = 4608;        
     end
     
     assign LatchSpad = state[0];
     assign ResetSpad = state[2];
-    assign ReadData = state[3];
+    assign read_data = state[3];
     assign state_time_expired = (state_counter + 1 >= state_durations[state]);
-    assign RowSelect = requested_address[8 : 6];
-    assign ColSelect = requested_address[5 : 0];
-   
+  
     always @(posedge clk) begin
         
         if (reset) begin
             state_counter = 0;
             state = STATE_LATCH;
         end else begin
-            commandToSpad(state_time_expired);
-            
-            if (state == STATE_READDATA)
-            begin
-                if(state_time_expired)
-                begin
-                    requested_address = 0;
-                end else begin
-                    if(state_counter[2:0] == 0) // state_counter should be a multiple of 80 ns to increment the requested_address.
-                    begin
-                         requested_address = (requested_address != 9'b111111111) ? requested_address + 1 : requested_address;
-                    end
-                end
-            end        
+            commandToSpad(state_time_expired); 
         end
         
     end
+    
+    read_process_manager read_process_manager (
+            .clk(clk),
+            .reset(reset),
+            .ReadData(read_data),
+            .ReadEnable(ReadEnable),
+            .RowSelect(RowSelect),
+            .ColSelect(ColSelect),
+            .HighLowRows(HighLowRows)
+            );
 
 endmodule
