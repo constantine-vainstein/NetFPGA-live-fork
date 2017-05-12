@@ -73,16 +73,17 @@ module spad_manager_tb(
     
     always #5 clk = ~clk;
     
-   /* spad_sim spad_sim(
+    spad_sim spad_sim(
         .clk(clk),
+        .reset(reset),
         .Latch(latch_spad),
         .Reset(reset_spad),
         .row_select(row_select),
         .col_select(col_select),
-        .second_half_rows(second_half_of_rows),
+        .second_half_rows(row_group),
         .pixel_out_0(pixel_in_0),
         .pixel_out_1(pixel_in_1),
         .pixel_out_2(pixel_in_2),
         .pixel_out_3(pixel_in_3)
-        );*/
+        );
 endmodule

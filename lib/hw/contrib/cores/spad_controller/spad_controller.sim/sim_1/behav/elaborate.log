@@ -10,6 +10,7 @@ Time Resolution for simulation is 1ps
 Compiling module xil_defaultlib.read_process_manager_default
 Compiling module xil_defaultlib.controller_default
 Compiling module xil_defaultlib.spad_manager
+Compiling module xil_defaultlib.spad_sim
 Compiling module xil_defaultlib.spad_manager_tb
 Compiling module xil_defaultlib.glbl
 Built simulation snapshot spad_manager_tb_behav

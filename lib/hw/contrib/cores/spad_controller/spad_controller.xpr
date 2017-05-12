@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="12" Path="C:/Users/Constantine/OneDrive - Technion/Studies/FireSourceDetection/repo/NetFPGA-live-fork/lib/hw/contrib/cores/spad_controller/spad_controller.xpr">
+<Project Version="7" Minor="12" Path="W:/lib/hw/contrib/cores/spad_controller/spad_controller.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="923f1d9abd884dcc9bf7ef8035a851ba"/>
@@ -25,7 +25,7 @@
     <Option Name="IPUserFilesDir" Val="$PPRDIR/spad_controller.ip_user_files"/>
     <Option Name="IPStaticSourceDir" Val="$PPRDIR/spad_controller.ip_user_files/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
-    <Option Name="WTXSimLaunchSim" Val="117"/>
+    <Option Name="WTXSimLaunchSim" Val="150"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
