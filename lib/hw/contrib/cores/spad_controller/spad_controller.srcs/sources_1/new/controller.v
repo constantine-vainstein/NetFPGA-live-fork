@@ -19,15 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-`define DURATION_RESET_NS 20
-`define DURATION_LATCH_NS 20
-
-`define CLK_PERIOD_NS 10
-
-`define DURATION_RESET_CLK (DURATION_RESET_NS / CLK_PERIOD_NS)
-`define DURATION_LATCH_CLK 2
-//(DURATION_LATCH_NS / CLK_PERIOD_NS)
-
 module controller(
     output LatchSpad,
     output ResetSpad,
