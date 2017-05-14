@@ -19,6 +19,8 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+`include "spad_controller_definitions.vh" 
+
 module controller(
     output LatchSpad,
     output ResetSpad,
@@ -26,6 +28,9 @@ module controller(
     output [2:0] RowSelect,
     output [5:0] ColSelect,
     output HighLowRows,
+    input [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] FrameDurationRequestedClks,
+    output FrameDurationChangeEnable,
+    output [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] FrameDurationCurrentClks,
     input clk,
     input reset
     );
@@ -43,9 +48,9 @@ module controller(
     
     reg [STATE_SIZE_BITS - 1 : 0] state; 
     
-    reg [13 : 0] state_counter;
+    reg [`MAXIMAL_STATE_DURATION_CLKS_BITS : 0] state_counter;
     
-    reg [13 : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
+    reg [`MAXIMAL_STATE_DURATION_CLKS_BITS : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
     
     wire state_time_expired;
     
@@ -76,21 +81,42 @@ module controller(
         state_durations[STATE_LATCH] = 2;
         state_durations[STATE_PAUSE_LATCH_RESET] = 1;
         state_durations[STATE_RESET] = 2;
-        state_durations[STATE_READDATA] = 4608;        
+        state_durations[STATE_READDATA] = 4608;   
     end
     
     assign LatchSpad = state[0];
     assign ResetSpad = state[2];
     assign read_data = state[3];
     assign state_time_expired = (state_counter + 1 >= state_durations[state]);
+    
+    assign FrameDurationChangeEnable = ~read_data;
+    
+    assign FrameDurationCurrentClks = state_durations[STATE_LATCH] + 
+                                    state_durations[STATE_PAUSE_LATCH_RESET] +
+                                    state_durations[STATE_RESET] +
+                                    state_durations[STATE_READDATA];  
   
     always @(posedge clk) begin
         
         if (reset) begin
             state_counter = 0;
             state = STATE_LATCH;
+            state_durations[STATE_READDATA] =   `MINIMAL_FRAME_DURATION_CLKS - 
+                                                (state_durations[STATE_LATCH] + 
+                                                state_durations[STATE_PAUSE_LATCH_RESET] + 
+                                                state_durations[STATE_RESET]);
         end else begin
             commandToSpad(state_time_expired); 
+            // Handle Frame duration  change
+            if (FrameDurationChangeEnable &
+                    (FrameDurationRequestedClks >= `MINIMAL_FRAME_DURATION_CLKS)) 
+            begin
+                state_durations[STATE_READDATA] =   FrameDurationRequestedClks - 
+                                                    (state_durations[STATE_LATCH] + 
+                                                    state_durations[STATE_PAUSE_LATCH_RESET] + 
+                                                    state_durations[STATE_RESET]);                
+            end
+            
         end
         
     end

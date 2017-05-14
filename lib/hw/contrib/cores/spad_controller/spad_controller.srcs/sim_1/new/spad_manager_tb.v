@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`include "spad_controller_definitions.vh"
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -42,6 +43,10 @@ module spad_manager_tb(
     wire [7:0] pixel_out_1;
     wire [7:0] pixel_out_2;
     wire [7:0] pixel_out_3;
+    
+    reg [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] frame_duration_requested_clks;
+    wire FrameDurationChangeEnable;
+    wire [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] frame_duration_current_clks;
 
     
     spad_manager spad_manager(
@@ -62,13 +67,27 @@ module spad_manager_tb(
         .PixelOut2(pixel_out_2),
         .PixelOut3(pixel_out_3),
         
-        .ReadEnable(read_enable)
+        .ReadEnable(read_enable),
+
+        .FrameDurationRequestedClks(frame_duration_requested_clks),
+        .FrameDurationChangeEnable(FrameDurationChangeEnable),
+        .FrameDurationCurrentClks(frame_duration_current_clks)
         );
     
     initial begin
         clk = 1;
         reset <= 1;
         reset <= #10 0;
+        
+        frame_duration_requested_clks <= 0;
+        frame_duration_requested_clks <= #60 5000;
+        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10) 5001;
+        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+10) 5002;
+        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+20) 5003;
+        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+30) 5004;
+        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+40) 5005;
+        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+50) 5006;
+        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+60) 5007;
     end
     
     always #5 clk = ~clk;

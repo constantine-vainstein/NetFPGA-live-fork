@@ -58,8 +58,8 @@ module spad_sim(
     wire [5 : 0] exact_row_2;
     wire [5 : 0] exact_row_3;
     
-    integer /*[1:0]*/ row_index;
-    integer /*[5:0]*/ exact_row;
+    integer row_index;
+    integer exact_row;
     integer data_file; 
     integer captured_data;
     integer row;
@@ -112,10 +112,10 @@ module spad_sim(
         
     end;
     
-    assign time_from_address_change_ns = (reset | (prev_row_select != row_select) | (prev_col_select != col_select)) ?
+    assign time_from_address_change_ns = (Latch | prev_latch | reset | (prev_row_select != row_select) | (prev_col_select != col_select)) ?
         0 : prev_time_from_address_change_ns + 10;
         
-    assign time_from_row_group_change_ns = (reset | (prev_second_half_rows != second_half_rows)) ? 
+    assign time_from_row_group_change_ns = (Latch | prev_latch | reset | (prev_second_half_rows != second_half_rows)) ? 
         0 : prev_time_from_row_group_change_ns + 10;
           
     always @(posedge clk) begin

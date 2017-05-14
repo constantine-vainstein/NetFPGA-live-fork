@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`include "spad_controller_definitions.vh"
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -38,7 +39,11 @@ module spad_manager(
     output [7:0] PixelOut1,
     output [7:0] PixelOut2,
     output [7:0] PixelOut3,
-    output ReadEnable
+    output ReadEnable,
+    
+    input [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] FrameDurationRequestedClks,
+    output FrameDurationChangeEnable,
+    output [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] FrameDurationCurrentClks
     );
     
   
@@ -50,7 +55,10 @@ module spad_manager(
         .RowSelect(RowSelect),
         .ColSelect(ColSelect),
         .HighLowRows(RowGroup),
-        .ReadEnable(ReadEnable)
+        .ReadEnable(ReadEnable),
+        .FrameDurationRequestedClks(FrameDurationRequestedClks),
+        .FrameDurationChangeEnable(FrameDurationChangeEnable),
+        .FrameDurationCurrentClks(FrameDurationCurrentClks)
     );
     
     assign PixelOut0 = PixelIn0;

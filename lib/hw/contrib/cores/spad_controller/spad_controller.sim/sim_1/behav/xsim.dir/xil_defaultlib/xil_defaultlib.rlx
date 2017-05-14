@@ -1,9 +1,10 @@
 0.2
 2016.1
 W:/lib/hw/contrib/cores/spad_controller/spad_controller.sim/sim_1/behav/glbl.v,1460148552,verilog,,,,,,,,,
-W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_ctrl_tb.v,1494194306,verilog,,,,,,,,,
-W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_manager_tb.v,1494569638,verilog,,,,,,,,,
-W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_sim.v,1494569622,verilog,,,,,,,,,
-W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/controller.v,1494451771,verilog,,,,,,,,,
-W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/manager.v,1494424541,verilog,,,,,,,,,
-W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/read_process_manager.v,1494451262,verilog,,,,,,,,,
+W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_ctrl_tb.v,1494194306,verilog,,,,../../../spad_controller.srcs/sources_1/new,,,,,
+W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_manager_tb.v,1494708058,verilog,,,,../../../spad_controller.srcs/sources_1/new,,,,,
+W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sim_1/new/spad_sim.v,1494790472,verilog,,,,../../../spad_controller.srcs/sources_1/new,,,,,
+W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/controller.v,1494706945,verilog,,,,../../../spad_controller.srcs/sources_1/new,,,,,
+W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/manager.v,1494706948,verilog,,,,../../../spad_controller.srcs/sources_1/new,,,,,
+W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/read_process_manager.v,1494451262,verilog,,,,../../../spad_controller.srcs/sources_1/new,,,,,
+W:/lib/hw/contrib/cores/spad_controller/spad_controller.srcs/sources_1/new/spad_controller_definitions.vh,1494706856,,,,,,,,,,
