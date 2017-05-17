@@ -1,4 +1,0 @@
-Running: xsim.dir/spad_manager_tb_behav/xsimk.exe -simmode gui -wdb spad_manager_tb_behav.wdb -simrunnum 0 -socket 50543
-Design successfully loaded
-Design Loading Memory Usage: 21788 KB (Peak: 21788 KB)
-Design Loading CPU Usage: 186 ms
