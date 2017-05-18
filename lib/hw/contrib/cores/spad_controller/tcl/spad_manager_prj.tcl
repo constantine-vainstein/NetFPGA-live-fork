@@ -7,9 +7,9 @@ source -notrace $thisDir/utils.tcl
 # Create project
 
 
-set hdlRoot ../hdl/sources_1/new
-set simRoot ../hdl/sim_1/new
-set xdcRoot ../xdc
+set hdlRoot hdl/sources_1/new
+set simRoot hdl/sim_1/new
+set xdcRoot xdc
 
 # Create project
 create_project -force spad_manager . -part xc7k70tfbv676-1
@@ -17,7 +17,7 @@ create_project -force spad_manager . -part xc7k70tfbv676-1
 # 
 
 # Set project properties
-set obj [get_projects top]
+set obj [get_projects spad_manager]
 set_property "simulator_language" "Mixed" $obj
 set_property "target_language" "Verilog" $obj
 

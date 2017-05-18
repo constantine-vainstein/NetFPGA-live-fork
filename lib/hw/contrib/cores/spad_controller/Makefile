@@ -1,7 +1,5 @@
 # these are the sources - everything depends upon them
-RTL=hdl/sources_1/new/manager.v \ 
-	hdl/sources_1/new/controller.v \
-	hdl/sources_1/new/read_process_manager.v
+RTL=hdl/sources_1/new/manager.v hdl/sources_1/new/controller.v hdl/sources_1/new/read_process_manager.v
 	
 #XDC=xdc/top.xdc ../xdc/top_io_simple.xdc
 
