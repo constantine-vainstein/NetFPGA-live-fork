@@ -40,7 +40,8 @@ source -notrace $thisDir/utils.tcl
 #### Change design settings here #######
 set design spad_manager
 set top spad_manager
-set device xc7vx690t-3-ffg1761
+set device xc7k70tfbv676-1
+# xc7vx690t-3-ffg1761
 set proj_dir ./ip_proj
 set ip_version 1.00
 set lib_name NetFPGA
@@ -82,11 +83,11 @@ set_property display_name ${design} [ipx::current_core]
 set_property description ${design} [ipx::current_core]
 
 
-ipx::add_user_parameter {C_M_AXIS_DATA_WIDTH} [ipx::current_core]
-set_property value_resolve_type {user} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
-set_property display_name {C_M_AXIS_DATA_WIDTH} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
-set_property value {256} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
-set_property value_format {long} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
+# ipx::add_user_parameter {C_M_AXIS_DATA_WIDTH} [ipx::current_core]
+# set_property value_resolve_type {user} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
+# set_property display_name {C_M_AXIS_DATA_WIDTH} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
+# set_property value {256} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
+# set_property value_format {long} [ipx::get_user_parameter C_M_AXIS_DATA_WIDTH [ipx::current_core]]
 
 update_ip_catalog -rebuild 
 ipx::infer_user_parameters [ipx::current_core]
@@ -95,3 +96,6 @@ ipx::check_integrity [ipx::current_core]
 ipx::save_core [ipx::current_core]
 update_ip_catalog
 close_project
+
+# If successful, "touch" a file so the make utility will know it's done 
+touch {.ip.done}
