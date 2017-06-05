@@ -66,7 +66,7 @@ set_property is_enabled true [get_files ${bit_settings}]
 set_property is_enabled true [get_files ${project_constraints}]
 
 update_ip_catalog
-create_ip -name switch_lite_output_port_lookup -vendor NetFPGA -library NetFPGA -module_name output_port_lookup_ip
+create_ip -name muzzle_flash_detector_output_port_lookup -vendor NetFPGA -library NetFPGA -module_name output_port_lookup_ip
 set_property -dict [list CONFIG.C_BASEADDR $OUTPUT_PORT_LOOKUP_BASEADDR] [get_ips output_port_lookup_ip]
 set_property generate_synth_checkpoint false [get_files output_port_lookup_ip.xci]
 reset_target all [get_ips output_port_lookup_ip]
