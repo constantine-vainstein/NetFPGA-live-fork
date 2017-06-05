@@ -115,6 +115,10 @@ module muzzle_flash_detector_output_port_lookup
     input      [C_S_AXI_ADDR_WIDTH-1 : 0]     S_AXI_ARADDR,
     input                                     S_AXI_ARVALID,
     input                                     S_AXI_RREADY,
+	output     [31:0]                         dst_ip,
+	output     [31:0]                         src_ip,
+	output     [15:0]                         dst_udp_port,
+	output     [15:0]                         src_udp_port,
     output                                    S_AXI_ARREADY,
     output     [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_RDATA,
     output     [1 : 0]                        S_AXI_RRESP,
@@ -216,11 +220,16 @@ module muzzle_flash_detector_output_port_lookup
           .valid    (s_axis_tvalid & s_axis_tready),
 	      .tlast    (s_axis_tlast),
           
-		  .dst_mac  (dst_mac),
-          .src_mac  (src_mac),
-          .eth_done (eth_done),
-          .src_port (src_port),
-          .reset    (~axis_resetn),
+		  .dst_mac      (dst_mac),
+          .src_mac      (src_mac),
+          .eth_done     (eth_done),
+          .src_port     (src_port),
+          .reset        (~axis_resetn),
+		  .dst_ip       (dst_ip),   
+		  .src_ip       (src_ip),   
+		  .dst_udp_port (dst_udp_port),
+		  .src_udp_port (src_udp_port),		  
+		  
           .clk      (axis_aclk));
 
    mac_cam_lut
