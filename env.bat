@@ -13,6 +13,7 @@ REM adding msys, git, and vim to the path env variable
 SET PATH=C:\Xilinx\Vivado\%VER%\tps\win64\git-1.9.5\bin;%PATH%
 SET PATH=C:\Xilinx\Vivado\%VER%\tps\share\vim\vim74;%PATH%
 SET PATH=C:\Xilinx\Vivado_HLS\%VER%\msys\bin;%PATH%
+SET PATH=C:\Xilinx\Vivado\%VER%\tps\mingw\4.4.3\win64.o\nt64\bin;%PATH%
 
 REM some useful aliases to work better in linux
 %SYSTEMROOT%\System32\doskey.exe ll=ls -altr $*

@@ -29,6 +29,9 @@
 
 all: clean
 	vivado -mode batch -source router_output_port_lookup.tcl
+	
+project: 
+	vivado -mode batch -source router_output_port_lookup_prj.tcl
 
 clean:
-	rm -rf ip_*  vivado*.* *.xml xgui/ .Xil* *.*~ *.zip hdl/axi_lite_ipif/
+	rm -rf ip_* *.xpr vivado*.* *.xml xgui/ .Xil* *.*~ *.zip hdl/axi_lite_ipif/
