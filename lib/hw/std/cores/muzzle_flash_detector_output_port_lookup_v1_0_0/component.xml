@@ -1055,7 +1055,7 @@
       <spirit:file>
         <spirit:name>hdl/muzzle_flash_detector_output_port_lookup.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_4d5abbd0</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_45acc0ca</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1216,7 +1216,7 @@
       <xilinx:vendorDisplayName>NetFPGA</xilinx:vendorDisplayName>
       <xilinx:vendorURL>http://www.netfpga.org</xilinx:vendorURL>
       <xilinx:coreRevision>1</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2017-02-08T11:29:46Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2017-06-09T23:10:52Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2014.4</xilinx:xilinxVersion>

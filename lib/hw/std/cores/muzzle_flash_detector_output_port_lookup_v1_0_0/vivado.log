@@ -2,8 +2,8 @@
 # Vivado v2014.4 (64-bit)
 # SW Build 1071353 on Tue Nov 18 16:47:07 MST 2014
 # IP Build 1070531 on Tue Nov 18 01:10:18 MST 2014
-# Start of session at: Wed Feb  8 13:29:42 2017
-# Process ID: 10857
+# Start of session at: Sat Jun 10 02:10:48 2017
+# Process ID: 3689
 # Log file: /home/administrator/NetFPGA-live-fork/lib/hw/std/cores/muzzle_flash_detector_output_port_lookup_v1_0_0/vivado.log
 # Journal file: /home/administrator/NetFPGA-live-fork/lib/hw/std/cores/muzzle_flash_detector_output_port_lookup_v1_0_0/vivado.jou
 #-----------------------------------------------------------
@@ -179,4 +179,4 @@ INFO: [IP_Flow 19-2187] The Product Guide file is missing.
 INFO: [IP_Flow 19-1839] IP Catalog is up to date.
 # close_project
 # file delete -force ${proj_dir} 
-INFO: [Common 17-206] Exiting Vivado at Wed Feb  8 13:29:46 2017...
+INFO: [Common 17-206] Exiting Vivado at Sat Jun 10 02:10:52 2017...
