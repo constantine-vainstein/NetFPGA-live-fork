@@ -90,10 +90,10 @@
 
    reg [47:0]                  dst_mac_w;
    reg [47:0]                  src_mac_w;
-   reg [31:0]                  dst_ip_w,
-   reg [31:0]                  src_ip_w,
-   reg [15:0]                  dst_udp_port_w,
-   reg [15:0]                  src_udp_port_w,
+   reg [31:0]                  dst_ip_w;
+   reg [31:0]                  src_ip_w;
+   reg [15:0]                  dst_udp_port_w;
+   reg [15:0]                  src_udp_port_w;
 
    reg                         eth_done_w;
    reg [NUM_QUEUES-1:0]        src_port_w;
@@ -103,6 +103,12 @@
    reg [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_tdata;
    
    reg [3:0]  ihl_w;
+
+   wire [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_data_shifted_after_ip_header;
+   wire [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] tdata_shifted_to_dst_port_in_third_cycle;
+
+   assign accumulated_data_shifted_after_ip_header = accumulated_tdata >> (144 + ihl_w * 32);
+   assign tdata_shifted_to_dst_port_in_third_cycle = tdata >> (144 + ihl_w * 32 + 16 - 512);
    
 
    // ------------ Logic ----------------
@@ -118,7 +124,7 @@
       src_udp_port_w = 0;
 	  ihl_w = 0;
 	  state_next     = state;
-	  accumulated_tdata   = {tdata[(C_S_AXIS_DATA_WIDTH * 2) - 1 : C_S_AXIS_DATA_WIDTH], accumulated_tdata[C_S_AXIS_DATA_WIDTH - 1 : 0]};
+	  accumulated_tdata   = {accumulated_tdata[C_S_AXIS_DATA_WIDTH - 1 : 0], tdata[C_S_AXIS_DATA_WIDTH - 1 : 0]};
       
 	  case(state)
         /* read the input source header and get the first word */
@@ -126,7 +132,8 @@
            if(valid) begin
               src_port_w   = tuser[SRC_PORT_POS+7:SRC_PORT_POS];
               dst_mac_w    = tdata[47:0];
-              src_mac_w    = tdata[95:48];			  
+              src_mac_w    = tdata[95:48];			 
+              ihl_w        = tdata[151:148];
               state_next = READ_IP_ADDRESSES_UDP;
            end
         end // case: READ_WORD_1
@@ -135,13 +142,12 @@
 		   if(valid) begin
 			  dst_ip_w = accumulated_tdata[303 : 272];
 			  src_ip_w = accumulated_tdata[271 : 240];
-			  src_udp_port_w = accumulated_tdata[144 + ihl_w * 32 + 16 - 1 : 144 + ihl_w * 32];
-			  ihl_w = accumulated_tdata[151:148];
+			  src_udp_port_w = accumulated_data_shifted_after_ip_header[15:0]; //[144 + ihl_w * 32 + 16 - 1 : 144 + ihl_w * 32];
 			  if (ihl_w > 11) begin
 				  state_next = COMPLETE_UDP;
 		      end else
 			  begin
-			      dst_udp_port_w = accumulated_tdata[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
+			      dst_udp_port_w = accumulated_data_shifted_after_ip_header[31:16];//[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
 				  state_next = WAIT_EOP;
 				  eth_done_w   = 1;
 			  end
@@ -149,7 +155,7 @@
 		end
 		
 		COMPLETE_UDP: begin
-			dst_udp_port_w = tdata[144 + ihl_w * 32 + 16 + 16 - 1 - 512 : 144 + ihl_w * 32 + 16 - 512];
+			dst_udp_port_w = tdata_shifted_to_dst_port_in_third_cycle[15:0];
             eth_done_w   = 1;
 			state_next = WAIT_EOP;
 		end
