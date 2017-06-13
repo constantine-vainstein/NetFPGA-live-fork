@@ -82,11 +82,10 @@ module eth_parser
     
  // ------------ Internal Params --------
 
-   localparam NUM_STATES         = 4;
+   localparam NUM_STATES         = 3;
    localparam READ_MAC_ADDRESSES = 1;
    localparam READ_IP_ADDRESSES_UDP  = 2;
-   localparam COMPLETE_UDP  = 4;
-   localparam WAIT_EOP           = 8;
+   localparam WAIT_EOP           = 4;
 
    // ------------- Regs/ wires -----------
 
@@ -108,10 +107,9 @@ module eth_parser
    
    reg [3:0]  ihl_w;
 
-   wire [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_data_shifted_after_ip_header;
+   reg [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_data_shifted_after_ip_header;
    wire [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] tdata_shifted_to_dst_port_in_third_cycle;
 
-   assign accumulated_data_shifted_after_ip_header = accumulated_tdata >> (144 + ihl_w * 32);
    assign tdata_shifted_to_dst_port_in_third_cycle = tdata >> (144 + ihl_w * 32 + 16 - 512);
    
 
@@ -153,15 +151,6 @@ module eth_parser
 	READ_IP_ADDRESSES_UDP: begin
 	end
 		
-	COMPLETE_UDP: begin
-		dst_udp_port_w = tdata_shifted_to_dst_port_in_third_cycle[15:0];
-		ip_done_w = 1;
-		parse_done_w = 1;
-		//$display("AccData COMP_UD state: %X", accumulated_tdata);
-		//$display("tData COMP_UD state  : %X", tdata);
-		state_next = WAIT_EOP;
-	end
-
 	WAIT_EOP: begin
 		if(valid && tlast) begin
 			state_next = READ_MAC_ADDRESSES;
@@ -185,20 +174,17 @@ module eth_parser
 	if(state == READ_IP_ADDRESSES_UDP && valid) begin
 		src_ip_w = accumulated_tdata[239 : 208];
 		dst_ip_w = accumulated_tdata[271 : 240];
+		accumulated_data_shifted_after_ip_header = accumulated_tdata >> (112 + (ihl_w * 32));
 		src_udp_port_w = accumulated_data_shifted_after_ip_header[15:0]; //[144 + ihl_w * 32 + 16 - 1 : 144 + ihl_w * 32];
-		if (ihl_w > 11) begin
-			state_next = COMPLETE_UDP;
-		end else
-		begin
-			dst_udp_port_w = accumulated_data_shifted_after_ip_header[31:16];//[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
-			state_next = WAIT_EOP;
-			ip_done_w = 1;
-			parse_done_w = 1;
-		end
-		//$display("SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
-		//$display("DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
-		//$display("AccData READ_IP state: %X", accumulated_tdata);
-		//$display("tData READ_IP state  : %X", tdata);
+		dst_udp_port_w = accumulated_data_shifted_after_ip_header[31:16];//[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
+		state_next = WAIT_EOP;
+		ip_done_w = 1;
+		parse_done_w = 1;
+		
+		$display("SRC IP: %d.%d.%d.%d:%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24], src_udp_port_w);
+		$display("DST IP: %d.%d.%d.%d:%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24], dst_udp_port_w);
+		$display("AccData READ_IP state: %X", accumulated_tdata);
+		$display("tData READ_IP state  : %X", tdata);
 	end
       if(reset) begin
 	     src_port <= {NUM_QUEUES{1'b0}};
