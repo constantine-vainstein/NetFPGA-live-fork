@@ -123,7 +123,6 @@ module eth_parser
 	dst_ip_w		 = 0;
 	src_ip_w       = 0;
 	eth_done_w     = 0;
-	parse_done_w     = 0;
 	dst_udp_port_w = 0;
 	src_port_w     = 0;
 	src_udp_port_w = 0;
@@ -139,8 +138,15 @@ module eth_parser
 			dst_mac_w    = tdata[47:0];
 			src_mac_w    = tdata[95:48];			 
 			eth_done_w   = 1;
-			$display("AccData READ_MC state: %X", accumulated_tdata);
-			$display("tData READ_MC state:   %X", tdata);
+			parse_done_w = 0;
+			// ethertype
+			if(tdata[111:96] != 8)
+			begin
+				parse_done_w = 1;
+				state_next = WAIT_EOP;
+			end
+			//$display("AccData READ_MC state: %X", accumulated_tdata);
+			//$display("tData READ_MC state:   %X", tdata);
 		end
 	end // case: READ_WORD_1
 		
@@ -151,8 +157,8 @@ module eth_parser
 		dst_udp_port_w = tdata_shifted_to_dst_port_in_third_cycle[15:0];
 		ip_done_w = 1;
 		parse_done_w = 1;
-		$display("AccData COMP_UD state: %X", accumulated_tdata);
-		$display("tData COMP_UD state  : %X", tdata);
+		//$display("AccData COMP_UD state: %X", accumulated_tdata);
+		//$display("tData COMP_UD state  : %X", tdata);
 		state_next = WAIT_EOP;
 	end
 
@@ -172,8 +178,8 @@ module eth_parser
 	if(state == READ_MAC_ADDRESSES && valid) begin
 		ihl_w = tdata[115:112];
 		state_next = READ_IP_ADDRESSES_UDP;
-		$display("posedge AccData READ_MC state: %X", accumulated_tdata);
-		$display("posedge tData READ_MC state:   %X", tdata);
+		//$display("posedge AccData READ_MC state: %X", accumulated_tdata);
+		//$display("posedge tData READ_MC state:   %X", tdata);
 	end
 		
 	if(state == READ_IP_ADDRESSES_UDP && valid) begin
@@ -189,10 +195,10 @@ module eth_parser
 			ip_done_w = 1;
 			parse_done_w = 1;
 		end
-		$display("SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
-		$display("DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
-		$display("AccData READ_IP state: %X", accumulated_tdata);
-		$display("tData READ_IP state  : %X", tdata);
+		//$display("SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
+		//$display("DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
+		//$display("AccData READ_IP state: %X", accumulated_tdata);
+		//$display("tData READ_IP state  : %X", tdata);
 	end
       if(reset) begin
 	     src_port <= {NUM_QUEUES{1'b0}};

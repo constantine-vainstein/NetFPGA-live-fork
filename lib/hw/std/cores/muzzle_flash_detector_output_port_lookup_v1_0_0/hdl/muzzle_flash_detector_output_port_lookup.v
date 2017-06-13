@@ -170,6 +170,8 @@ module muzzle_flash_detector_output_port_lookup
    
    reg  [NUM_STATES-1:0]           state, state_next;
 
+	wire parse_done;
+
 
    reg      [`REG_ID_BITS]    id_reg;
    reg      [`REG_VERSION_BITS]    version_reg;
@@ -186,6 +188,10 @@ module muzzle_flash_detector_output_port_lookup
    wire                             lutmiss_reg_clear;
    reg      [`REG_DEBUG_BITS]    ip2cpu_debug_reg;
    wire     [`REG_DEBUG_BITS]    cpu2ip_debug_reg;
+
+//debug
+   reg [31:0] cycle;
+//end debug
 
    wire clear_counters;
    wire reset_registers;
@@ -223,6 +229,7 @@ module muzzle_flash_detector_output_port_lookup
 		  .dst_mac      (dst_mac),
           .src_mac      (src_mac),
           .eth_done     (eth_done),
+          .parse_done     (parse_done),
           .src_port     (src_port),
           .reset        (~axis_resetn),
 		  .dst_ip       (dst_ip),   
@@ -286,19 +293,42 @@ module muzzle_flash_detector_output_port_lookup
 		  send_packet = 1;
                   dst_port_rd = 1;
            	  m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = dst_ports_latched;
-	       end	
 	    end
+	end
 
 	    SEND_STATE: begin
 	       if(m_axis_tlast & m_axis_tvalid & m_axis_tready)
 		      state_next = WAIT_STATE;
 	    end
       endcase // case(state)
+	// DEBUG
+             // Master Stream Ports (interface to data path)
+	if (m_axis_tvalid || s_axis_tvalid)
+	begin
+		$display("OUT_PORT_LU: cycle = %d", cycle);
+	end
+	if (m_axis_tvalid) begin
+		$display("OUT_PORT_LU: m_axis_tdata  = %X", m_axis_tdata);
+		$display("OUT_PORT_LU: m_axis_tkeep  = %X", m_axis_tkeep);
+		$display("OUT_PORT_LU: m_axis_tuser  = %X", m_axis_tuser);
+		$display("OUT_PORT_LU: m_axis_tready = %X", m_axis_tready);
+		$display("OUT_PORT_LU: m_axis_tlast  = %X", m_axis_tlast);
+	end
+	if (s_axis_tvalid) begin
+		$display("OUT_PORT_LU: s_axis_tdata  = %X", s_axis_tdata);
+		$display("OUT_PORT_LU: s_axis_tkeep  = %X", s_axis_tkeep);
+		$display("OUT_PORT_LU: s_axis_tuser  = %X", s_axis_tuser);
+		$display("OUT_PORT_LU: s_axis_tready = %X", s_axis_tready);
+		$display("OUT_PORT_LU: s_axis_tlast  = %X", s_axis_tlast);
+	end
+	cycle = cycle + 1;
+	//END DEBUG
    end // always @ (*)
 
    always @(posedge axis_aclk) begin
       if(~axis_resetn) begin
          state <= WAIT_STATE;
+	 cycle <= 0;
       end
       else begin
          state <= state_next;
@@ -306,7 +336,7 @@ module muzzle_flash_detector_output_port_lookup
    end
 
    // Control signals
-   assign m_axis_tvalid = ~in_fifo_empty & send_packet;
+   assign m_axis_tvalid = ~in_fifo_empty & send_packet & parse_done;
    assign in_fifo_rd_en = m_axis_tready & m_axis_tvalid;
 
 
