@@ -48,34 +48,34 @@
 *
 */
 
-  `timescale 1ns/1ps
+`timescale 1ns/1ps
 
-  module eth_parser
+module eth_parser
     #(parameter C_S_AXIS_DATA_WIDTH  = 256,
       parameter C_S_AXIS_TUSER_WIDTH = 128,
       parameter SRC_PORT_POS         = 16,
       parameter NUM_QUEUES           = 8
     )
     (
-      // --- Interface to the previous stage
-      input  [C_S_AXIS_DATA_WIDTH-1:0]   tdata,
-      input  [C_S_AXIS_TUSER_WIDTH-1:0]  tuser,
-      input                              valid,
-      input 				             tlast,
+	// --- Interface to the previous stage
+	input  [C_S_AXIS_DATA_WIDTH-1:0]   tdata,
+	input  [C_S_AXIS_TUSER_WIDTH-1:0]  tuser,
+	input                              valid,
+	input 				             tlast,
 
-      // --- Interface to output_port_lookup
-      output reg [47:0]                  dst_mac,
-      output reg [47:0]                  src_mac,
-	  output reg [31:0]                  dst_ip,
-	  output reg [31:0]                  src_ip,
-	  output reg [15:0]                  dst_udp_port,
-	  output reg [15:0]                  src_udp_port,
-      output reg                         eth_done,
-      output reg [NUM_QUEUES-1:0]        src_port,
+	// --- Interface to output_port_lookup
+	output reg [47:0]                  dst_mac,
+	output reg [47:0]                  src_mac,
+	output reg [31:0]                  dst_ip,
+	output reg [31:0]                  src_ip,
+	output reg [15:0]                  dst_udp_port,
+	output reg [15:0]                  src_udp_port,
+	output reg                         eth_done,
+	output reg [NUM_QUEUES-1:0]        src_port,
   
-      // --- Misc
-      input                              reset,
-      input                              clk
+	// --- Misc
+	input                              reset,
+	input                              clk
     );
     
  // ------------ Internal Params --------
@@ -96,10 +96,11 @@
    reg [15:0]                  src_udp_port_w;
 
    reg                         eth_done_w;
+   reg                         ip_done_w;
    reg [NUM_QUEUES-1:0]        src_port_w;
    
    reg [NUM_STATES-1:0]        state, state_next;
-   
+ 
    reg [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_tdata;
    
    reg [3:0]  ihl_w;
@@ -114,60 +115,79 @@
    // ------------ Logic ----------------
 
    always @(*) begin
-      src_mac_w      = 0;
-      dst_mac_w      = 0;
-	  dst_ip_w		 = 0;
-      src_ip_w       = 0;
-	  eth_done_w     = 0;
-      dst_udp_port_w = 0;
-	  src_port_w     = 0;
-      src_udp_port_w = 0;
-	  ihl_w = 0;
-	  state_next     = state;
-	  accumulated_tdata   = {accumulated_tdata[C_S_AXIS_DATA_WIDTH - 1 : 0], tdata[C_S_AXIS_DATA_WIDTH - 1 : 0]};
+	src_mac_w      = 0;
+	dst_mac_w      = 0;
+	dst_ip_w		 = 0;
+	src_ip_w       = 0;
+	eth_done_w     = 0;
+	dst_udp_port_w = 0;
+	src_port_w     = 0;
+	src_udp_port_w = 0;
+	ihl_w = 0;
+	ip_done_w = 0;
+	state_next     = state;
       
-	  case(state)
-        /* read the input source header and get the first word */
-        READ_MAC_ADDRESSES: begin
-           if(valid) begin
-              src_port_w   = tuser[SRC_PORT_POS+7:SRC_PORT_POS];
-              dst_mac_w    = tdata[47:0];
-              src_mac_w    = tdata[95:48];			 
-              ihl_w        = tdata[151:148];
-              state_next = READ_IP_ADDRESSES_UDP;
-           end
-        end // case: READ_WORD_1
-		
-		READ_IP_ADDRESSES_UDP: begin
-		   if(valid) begin
-			  dst_ip_w = accumulated_tdata[303 : 272];
-			  src_ip_w = accumulated_tdata[271 : 240];
-			  src_udp_port_w = accumulated_data_shifted_after_ip_header[15:0]; //[144 + ihl_w * 32 + 16 - 1 : 144 + ihl_w * 32];
-			  if (ihl_w > 11) begin
-				  state_next = COMPLETE_UDP;
-		      end else
-			  begin
-			      dst_udp_port_w = accumulated_data_shifted_after_ip_header[31:16];//[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
-				  state_next = WAIT_EOP;
-				  eth_done_w   = 1;
-			  end
-		   end
+	case(state)
+	/* read the input source header and get the first word */
+	READ_MAC_ADDRESSES: begin
+		if(valid) begin
+			src_port_w   = tuser[SRC_PORT_POS+7:SRC_PORT_POS];
+			dst_mac_w    = tdata[47:0];
+			src_mac_w    = tdata[95:48];			 
+			eth_done_w   = 1;
+			$display("AccData READ_MC state: %X", accumulated_tdata);
+			$display("tData READ_MC state:   %X", tdata);
 		end
+	end // case: READ_WORD_1
 		
-		COMPLETE_UDP: begin
-			dst_udp_port_w = tdata_shifted_to_dst_port_in_third_cycle[15:0];
-            eth_done_w   = 1;
-			state_next = WAIT_EOP;
-		end
+	READ_IP_ADDRESSES_UDP: begin
+	end
+		
+	COMPLETE_UDP: begin
+		dst_udp_port_w = tdata_shifted_to_dst_port_in_third_cycle[15:0];
+		ip_done_w   = 1;
+		$display("AccData COMP_UD state: %X", accumulated_tdata);
+		$display("tData COMP_UD state  : %X", tdata);
+		state_next = WAIT_EOP;
+	end
 
-        WAIT_EOP: begin
-           if(valid && tlast)
-              state_next = READ_MAC_ADDRESSES;
-           end
-      endcase // case(state)
+	WAIT_EOP: begin
+		if(valid && tlast) begin
+			state_next = READ_MAC_ADDRESSES;
+			accumulated_tdata = 0;
+		end
+	end
+	endcase // case(state)
    end // always @ (*)
 
    always @(posedge clk) begin
+	if(valid) begin
+	  accumulated_tdata   = {tdata[C_S_AXIS_DATA_WIDTH - 1 : 0], accumulated_tdata[C_S_AXIS_DATA_WIDTH * 2 - 1 : C_S_AXIS_DATA_WIDTH]};
+	end 	  
+	if(state == READ_MAC_ADDRESSES && valid) begin
+		ihl_w = tdata[115:112];
+		state_next = READ_IP_ADDRESSES_UDP;
+		$display("posedge AccData READ_MC state: %X", accumulated_tdata);
+		$display("posedge tData READ_MC state:   %X", tdata);
+	end
+		
+	if(state == READ_IP_ADDRESSES_UDP && valid) begin
+		src_ip_w = accumulated_tdata[239 : 208];
+		dst_ip_w = accumulated_tdata[271 : 240];
+		src_udp_port_w = accumulated_data_shifted_after_ip_header[15:0]; //[144 + ihl_w * 32 + 16 - 1 : 144 + ihl_w * 32];
+		if (ihl_w > 11) begin
+			state_next = COMPLETE_UDP;
+		end else
+		begin
+			dst_udp_port_w = accumulated_data_shifted_after_ip_header[31:16];//[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
+			state_next = WAIT_EOP;
+			ip_done_w   = 1;
+		end
+		$display("SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
+		$display("DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
+		$display("AccData READ_IP state: %X", accumulated_tdata);
+		$display("tData READ_IP state  : %X", tdata);
+	end
       if(reset) begin
 	     src_port <= {NUM_QUEUES{1'b0}};
 		 dst_mac  <= 48'b0;
@@ -177,6 +197,7 @@
 		 dst_udp_port <= 16'b0;
 		 src_udp_port <= 16'b0;
 		 eth_done <= 0;
+		 accumulated_tdata <= 0;
          state  <= READ_MAC_ADDRESSES;
       end
       else begin

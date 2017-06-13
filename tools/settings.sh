@@ -30,6 +30,7 @@
 
 #export SUME_FOLDER=${HOME}/NetFPGA-SUME-live
 export XILINX_PATH=/opt/Xilinx/Vivado/2014.4
+#export NF_PROJECT_NAME=reference_switch
 export NF_PROJECT_NAME=muzzle_flash_detector
 export PROJECTS=${SUME_FOLDER}/projects
 export DEV_PROJECTS=${SUME_FOLDER}/dev-projects
