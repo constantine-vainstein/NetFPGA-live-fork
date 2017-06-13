@@ -71,6 +71,8 @@ module eth_parser
 	output reg [15:0]                  dst_udp_port,
 	output reg [15:0]                  src_udp_port,
 	output reg                         eth_done,
+	output reg                         ip_done,
+	output reg                         parse_done,
 	output reg [NUM_QUEUES-1:0]        src_port,
   
 	// --- Misc
@@ -96,6 +98,7 @@ module eth_parser
    reg [15:0]                  src_udp_port_w;
 
    reg                         eth_done_w;
+   reg                         parse_done_w;
    reg                         ip_done_w;
    reg [NUM_QUEUES-1:0]        src_port_w;
    
@@ -120,6 +123,7 @@ module eth_parser
 	dst_ip_w		 = 0;
 	src_ip_w       = 0;
 	eth_done_w     = 0;
+	parse_done_w     = 0;
 	dst_udp_port_w = 0;
 	src_port_w     = 0;
 	src_udp_port_w = 0;
@@ -145,7 +149,8 @@ module eth_parser
 		
 	COMPLETE_UDP: begin
 		dst_udp_port_w = tdata_shifted_to_dst_port_in_third_cycle[15:0];
-		ip_done_w   = 1;
+		ip_done_w = 1;
+		parse_done_w = 1;
 		$display("AccData COMP_UD state: %X", accumulated_tdata);
 		$display("tData COMP_UD state  : %X", tdata);
 		state_next = WAIT_EOP;
@@ -181,7 +186,8 @@ module eth_parser
 		begin
 			dst_udp_port_w = accumulated_data_shifted_after_ip_header[31:16];//[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
 			state_next = WAIT_EOP;
-			ip_done_w   = 1;
+			ip_done_w = 1;
+			parse_done_w = 1;
 		end
 		$display("SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
 		$display("DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
@@ -197,20 +203,24 @@ module eth_parser
 		 dst_udp_port <= 16'b0;
 		 src_udp_port <= 16'b0;
 		 eth_done <= 0;
+		 ip_done <= 0;
+		 parse_done <= 0;
 		 accumulated_tdata <= 0;
          state  <= READ_MAC_ADDRESSES;
       end
       else begin
-	     src_port       <= src_port_w;
-		 dst_mac        <= dst_mac_w;
-		 src_mac        <= src_mac_w;
-		 eth_done       <= eth_done_w;
-		 dst_ip         <= dst_ip_w;
-		 src_ip         <= src_ip_w;
-		 dst_udp_port   <= dst_udp_port_w;
-		 src_udp_port   <= src_udp_port_w;
+	src_port <= src_port_w;
+	dst_mac <= dst_mac_w;
+	src_mac <= src_mac_w;
+	eth_done <= eth_done_w;
+	ip_done <= ip_done_w;
+	parse_done <= parse_done_w;
+	dst_ip <= dst_ip_w;
+	src_ip <= src_ip_w;
+	dst_udp_port <= dst_udp_port_w;
+	src_udp_port <= src_udp_port_w;
 		 
-         state  <= state_next;
+        state <= state_next;
       end // else: !if(reset)
    end // always @ (posedge clk)
 
