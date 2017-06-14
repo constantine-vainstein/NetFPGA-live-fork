@@ -104,27 +104,25 @@ module muzzle_flash_detector_output_port_lookup
 
 
 // Slave AXI Ports
-    input                                     S_AXI_ACLK,
-    input                                     S_AXI_ARESETN,
-    input      [C_S_AXI_ADDR_WIDTH-1 : 0]     S_AXI_AWADDR,
-    input                                     S_AXI_AWVALID,
-    input      [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_WDATA,
-    input      [C_S_AXI_DATA_WIDTH/8-1 : 0]   S_AXI_WSTRB,
-    input                                     S_AXI_WVALID,
-    input                                     S_AXI_BREADY,
-    input      [C_S_AXI_ADDR_WIDTH-1 : 0]     S_AXI_ARADDR,
-    input                                     S_AXI_ARVALID,
-    input                                     S_AXI_RREADY,
-	output     [31:0]                         dst_ip,
-	output     [31:0]                         src_ip,
-    output                                    S_AXI_ARREADY,
-    output     [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_RDATA,
-    output     [1 : 0]                        S_AXI_RRESP,
-    output                                    S_AXI_RVALID,
-    output                                    S_AXI_WREADY,
-    output     [1 :0]                         S_AXI_BRESP,
-    output                                    S_AXI_BVALID,
-    output                                    S_AXI_AWREADY
+	input                                     S_AXI_ACLK,
+	input                                     S_AXI_ARESETN,
+	input      [C_S_AXI_ADDR_WIDTH-1 : 0]     S_AXI_AWADDR,
+	input                                     S_AXI_AWVALID,
+	input      [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_WDATA,
+	input      [C_S_AXI_DATA_WIDTH/8-1 : 0]   S_AXI_WSTRB,
+	input                                     S_AXI_WVALID,
+	input                                     S_AXI_BREADY,
+	input      [C_S_AXI_ADDR_WIDTH-1 : 0]     S_AXI_ARADDR,
+	input                                     S_AXI_ARVALID,
+	input                                     S_AXI_RREADY,
+	output                                    S_AXI_ARREADY,
+	output     [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_RDATA,
+	output     [1 : 0]                        S_AXI_RRESP,
+	output                                    S_AXI_RVALID,
+	output                                    S_AXI_WREADY,
+	output     [1 :0]                         S_AXI_BRESP,
+	output                                    S_AXI_BVALID,
+	output                                    S_AXI_AWREADY
 );
 
    function integer log2;
@@ -139,7 +137,11 @@ module muzzle_flash_detector_output_port_lookup
 
    //--------------------- Internal Parameter-------------------------
    localparam LUT_DEPTH_BITS            = 4;
-   localparam DEFAULT_MISS_OUTPUT_PORTS = 8'h55; // exclude the CPU queues
+   localparam DEFAULT_MISS_OUTPUT_PORTS = 8'h57; // the even bits (the lsb is bit number 0) of this number indicate to which external port(s) the packet should be sent.
+						 // the odd bits of this number indicate to which CPU port(s) the packet should be sent.
+                                                 // This is the way the tuser[DST_PORT_POS+7:DST_PORT_POS] is parsed in output_queues.
+                                                 // h57 = 01010111 - it means that if there is a miss, the packet should be sent to all external ports
+                                                 // and to the first internal (CPU/DMA/host etc.) port.
 
    localparam NUM_STATES                = 2;
    localparam WAIT_STATE                = 1;
@@ -169,6 +171,10 @@ module muzzle_flash_detector_output_port_lookup
    reg  [NUM_STATES-1:0]           state, state_next;
 
 	wire parse_done;
+	wire [31:0] dst_ip;
+	wire [31:0] src_ip;
+	wire ip_valid;
+	wire [6:0] offset_to_ip_data_bytes;
 
 
    reg      [`REG_ID_BITS]    id_reg;

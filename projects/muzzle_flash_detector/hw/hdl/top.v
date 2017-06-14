@@ -200,19 +200,19 @@ wire            axis_o_0_tvalid;
   wire            axis_o_3_tready;
 
   // AXIS DMA interfaces
-  wire [255:0]   axis_dma_i_tdata ;
-  wire [31:0]    axis_dma_i_tkeep ;
-  wire           axis_dma_i_tlast ;
-  wire           axis_dma_i_tready;
-  wire [255:0]   axis_dma_i_tuser ;
-  wire           axis_dma_i_tvalid;
+  wire [255:0]   axis_netapp_i_tdata ;
+  wire [31:0]    axis_netapp_i_tkeep ;
+  wire           axis_netapp_i_tlast ;
+  wire           axis_netapp_i_tready;
+  wire [255:0]   axis_netapp_i_tuser ;
+  wire           axis_netapp_i_tvalid;
   
- wire [255:0]  axis_dma_o_tdata;
-  wire [31:0]   axis_dma_o_tkeep;
-  wire          axis_dma_o_tlast;
- wire          axis_dma_o_tready;
-  wire [127:0]  axis_dma_o_tuser;
-  wire          axis_dma_o_tvalid;
+ wire [255:0]  axis_netapp_o_tdata;
+  wire [31:0]   axis_netapp_o_tkeep;
+  wire          axis_netapp_o_tlast;
+ wire          axis_netapp_o_tready;
+  wire [127:0]  axis_netapp_o_tuser;
+  wire          axis_netapp_o_tvalid;
   
  //----------------------------------------------------------------------------------------------------------------//
  // AXI Lite interface                                                                                                 //
@@ -594,12 +594,12 @@ nf_datapath_0
     .s_axis_3_tvalid                (axis_i_3_tvalid), 
     .s_axis_3_tready                (axis_i_3_tready), 
     .s_axis_3_tlast                 (axis_i_3_tlast),  
-    .s_axis_4_tdata                 (axis_dma_i_tdata ), 
-    .s_axis_4_tkeep                 (axis_dma_i_tkeep ), 
-    .s_axis_4_tuser                 (axis_dma_i_tuser[127:0] ), 
-    .s_axis_4_tvalid                (axis_dma_i_tvalid), 
-    .s_axis_4_tready                (axis_dma_i_tready ), 
-    .s_axis_4_tlast                 (axis_dma_i_tlast),  
+    .s_axis_4_tdata                 (axis_netapp_i_tdata ), 
+    .s_axis_4_tkeep                 (axis_netapp_i_tkeep ), 
+    .s_axis_4_tuser                 (axis_netapp_i_tuser ), 
+    .s_axis_4_tvalid                (axis_netapp_i_tvalid), 
+    .s_axis_4_tready                (axis_netapp_i_tready ), 
+    .s_axis_4_tlast                 (axis_netapp_i_tlast),  
 
 
     // Master Stream Ports (interface to TX queues)
@@ -627,12 +627,12 @@ nf_datapath_0
     .m_axis_3_tvalid               (axis_o_3_tvalid),
     .m_axis_3_tready               (axis_o_3_tready),
     .m_axis_3_tlast                (axis_o_3_tlast ), 
-    .m_axis_4_tdata                (axis_dma_o_tdata ),
-    .m_axis_4_tkeep                (axis_dma_o_tkeep ),
-    .m_axis_4_tuser                (axis_dma_o_tuser ),
-    .m_axis_4_tvalid               (axis_dma_o_tvalid),
-    .m_axis_4_tready               (axis_dma_o_tready ),
-    .m_axis_4_tlast                (axis_dma_o_tlast),
+    .m_axis_4_tdata                (axis_netapp_o_tdata ),
+    .m_axis_4_tkeep                (axis_netapp_o_tkeep ),
+    .m_axis_4_tuser                (axis_netapp_o_tuser ),
+    .m_axis_4_tvalid               (axis_netapp_o_tvalid),
+    .m_axis_4_tready               (axis_netapp_o_tready ),
+    .m_axis_4_tlast                (axis_netapp_o_tlast),
    
    //AXI-Lite interface  
  
@@ -902,6 +902,26 @@ control_sub control_sub_i
            .sys_reset       (sys_reset)
         );
         
+    netapp netapp_inst(
+        .axis_aclk (clk_200),
+        .axis_resetn (axis_resetn),
+        
+        // (slave) interface
+        .s_axis_tdata(axis_o_tdata),
+        .s_axis_tkeep(axis_o_tkeep),
+        .s_axis_tuser(axis_o_tuser),
+        .s_axis_tvalid(axis_o_tvalid),
+        .s_axis_tready(axis_o_tready),
+        .s_axis_tlast(axis_o_tlast),
+        
+        // (master) interface
+        .m_axis_tdata(axis_i_tdata),
+        .m_axis_tkeep(axis_i_tkeep),
+        .m_axis_tuser(axis_i_tuser),
+        .m_axis_tvalid(axis_i_tvalid),
+        .m_axis_tready(axis_i_tready),
+        .m_axis_tlast(axis_i_tlast)
+    );
  
 
 //SFP Port 0
