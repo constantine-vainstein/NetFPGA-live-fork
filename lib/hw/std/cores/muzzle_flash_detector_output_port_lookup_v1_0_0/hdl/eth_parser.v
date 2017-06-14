@@ -70,7 +70,7 @@ module eth_parser
 	output reg [31:0] src_ip,
 	output reg [6:0] offset_to_ip_data_bytes, // offset in bytes to the start of IP data in bytes
 	output reg eth_done,
-	output reg ip_done,
+	output reg ip_valid,
 	output reg parse_done,
 	output reg [NUM_QUEUES-1:0] src_port,
   
@@ -81,124 +81,133 @@ module eth_parser
     
  // ------------ Internal Params --------
 
-   localparam NUM_STATES = 3;
-   localparam READ_MAC_ADDRESSES = 1;
-   localparam READ_IP_ADDRESSES = 2;
-   localparam WAIT_EOP = 4;
+	localparam NUM_STATES = 3;
+	localparam READ_MAC_ADDRESSES = 1;
+	localparam READ_IP_ADDRESSES = 2;
+	localparam WAIT_EOP = 4;
 
-   // ------------- Regs/ wires -----------
+	// ------------- Regs/ wires -----------
 
-   reg [47:0] dst_mac_w;
-   reg [47:0] src_mac_w;
-   reg [31:0] dst_ip_w;
-   reg [31:0] src_ip_w;
+	reg [47:0] dst_mac_w;
+	reg [47:0] src_mac_w;
+	reg [31:0] dst_ip_w;
+	reg [31:0] src_ip_w;
 
-   reg eth_done_w;
-   reg parse_done_w;
-   reg ip_done_w;
-   reg [NUM_QUEUES-1:0] src_port_w;
-   
-   reg [NUM_STATES-1:0] state, state_next;
- 
-   reg [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_tdata;
-   
-   reg [3:0] ihl_w;
+	reg eth_done_w;
+	reg parse_done_w;
+	reg ip_valid_w;
+	reg [NUM_QUEUES-1:0] src_port_w;
+	
+	reg [NUM_STATES-1:0] state, state_next;
 
-   // ------------ Logic ----------------
+	reg [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_tdata;
+	
+	reg [3:0] ihl_w;
 
-   always @(*) begin
-	src_mac_w      = 0;
-	dst_mac_w      = 0;
-	dst_ip_w		 = 0;
-	src_ip_w       = 0;
-	eth_done_w     = 0;
-	src_port_w     = 0;
-	ihl_w = 0;
-	ip_done_w = 0;
-	state_next     = state;
+	// ------------ Logic ----------------
+
+	always @(*) begin
+		src_mac_w = 0;
+		dst_mac_w = 0;
+		eth_done_w = 0;
+		src_port_w = 0;
+		state_next = state;
       
-	case(state)
-	/* read the input source header and get the first word */
-	READ_MAC_ADDRESSES: begin
-		if(valid) begin
-			src_port_w   = tuser[SRC_PORT_POS+7:SRC_PORT_POS];
-			dst_mac_w    = tdata[47:0];
-			src_mac_w    = tdata[95:48];			 
-			eth_done_w   = 1;
-			parse_done_w = 0;
-			// ethertype
-			if(tdata[111:96] != 8)
-			begin
-				parse_done_w = 1;
-				state_next = WAIT_EOP;
+		case(state)
+		/* read the input source header and get the first word */
+		READ_MAC_ADDRESSES: begin
+			if(valid) begin
+				src_port_w   = tuser[SRC_PORT_POS+7:SRC_PORT_POS];
+				dst_mac_w    = tdata[47:0];
+				src_mac_w    = tdata[95:48];			 
+				eth_done_w   = 1;
+				parse_done_w = 0;
+				// ethertype
+				if(tdata[111:96] != 8)
+				begin
+					parse_done_w = 1;
+					state_next = WAIT_EOP;
+				end
+				//$display("AccData READ_MC state: %X", accumulated_tdata);
+				//$display("tData READ_MC state:   %X", tdata);
 			end
-			//$display("AccData READ_MC state: %X", accumulated_tdata);
-			//$display("tData READ_MC state:   %X", tdata);
+		end // case: READ_WORD_1
+			
+		READ_IP_ADDRESSES: begin
 		end
-	end // case: READ_WORD_1
-		
-	READ_IP_ADDRESSES: begin
-	end
-		
-	WAIT_EOP: begin
-		if(valid && tlast) begin
-			state_next = READ_MAC_ADDRESSES;
-			accumulated_tdata = 0;
+			
+		WAIT_EOP: begin
+			if(valid && tlast) begin
+				state_next = READ_MAC_ADDRESSES;
+				accumulated_tdata = 0;
+			end
 		end
-	end
-	endcase // case(state)
-   end // always @ (*)
+		endcase // case(state)
+	end // always @ (*)
 
-   always @(posedge clk) begin
-	if(valid) begin
-	  accumulated_tdata   = {tdata[C_S_AXIS_DATA_WIDTH - 1 : 0], accumulated_tdata[C_S_AXIS_DATA_WIDTH * 2 - 1 : C_S_AXIS_DATA_WIDTH]};
-	end 	  
-	if(state == READ_MAC_ADDRESSES && valid) begin
-		ihl_w = tdata[115:112];
-		state_next = READ_IP_ADDRESSES;
-		$display("posedge AccData READ_MC state: %X", accumulated_tdata);
-		$display("posedge tData READ_MC state:   %X", tdata);
-		$display("ETH_PARSER: The ILH of this packet is %d", ihl_w);
-	end
+	always @(posedge clk) begin
+		dst_ip_w = 0;
+		src_ip_w = 0;
+		ihl_w = 0;
+		ip_valid_w = 0;
+	
+		if(valid) begin
+			accumulated_tdata   = {tdata[C_S_AXIS_DATA_WIDTH - 1 : 0], accumulated_tdata[C_S_AXIS_DATA_WIDTH * 2 - 1 : C_S_AXIS_DATA_WIDTH]};
+		end 
+		case(state)	  
+		READ_MAC_ADDRESSES: begin
+			if(valid) begin
+				state_next = READ_IP_ADDRESSES;
+				$display("ETH_PARSER: posedge AccData READ_MC state: %X", accumulated_tdata);
+				$display("ETH_PARSER: posedge tData READ_MC state:   %X", tdata);
+			end
+		end
 		
-	if(state == READ_IP_ADDRESSES && valid) begin
-		src_ip_w = accumulated_tdata[239 : 208];
-		dst_ip_w = accumulated_tdata[271 : 240];
-		offset_to_ip_data_bytes = (14 + (ihl_w * 4));
-		state_next = WAIT_EOP;
-		ip_done_w = 1;
-		parse_done_w = 1;
+		READ_IP_ADDRESSES: begin
+			if(valid) begin
+				src_ip_w = accumulated_tdata[239 : 208];
+				dst_ip_w = accumulated_tdata[271 : 240];
+				ihl_w = accumulated_tdata[115:112];
+				offset_to_ip_data_bytes = (14 + (ihl_w * 4));
+				state_next = WAIT_EOP;
+				ip_valid_w = 1;
+				parse_done_w = 1;
 		
-		$display("SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
-		$display("DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
-		$display("AccData READ_IP state: %X", accumulated_tdata);
-		$display("tData READ_IP state  : %X", tdata);
-	end
-      if(reset) begin
-	     src_port <= {NUM_QUEUES{1'b0}};
-		 dst_mac  <= 48'b0;
-		 src_mac  <= 48'b0;
-		 dst_ip   <= 32'b0;
-		 src_ip   <= 32'b0;
-		 eth_done <= 0;
-		 ip_done <= 0;
-		 parse_done <= 0;
-		 accumulated_tdata <= 0;
-         state  <= READ_MAC_ADDRESSES;
-      end
-      else begin
-	src_port <= src_port_w;
-	dst_mac <= dst_mac_w;
-	src_mac <= src_mac_w;
-	eth_done <= eth_done_w;
-	ip_done <= ip_done_w;
-	parse_done <= parse_done_w;
-	dst_ip <= dst_ip_w;
-	src_ip <= src_ip_w;
+				$display("ETH_PARSER: SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
+				$display("ETH_PARSER: DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
+				$display("ETH_PARSER: The ILH of this packet is %d", ihl_w);
+				$display("ETH_PARSER: AccData READ_IP state: %X", accumulated_tdata);
+				$display("ETH_PARSER: tData READ_IP state  : %X", tdata);
+			end
+		end
+		endcase
+	
+		if(reset) begin
+			src_port <= {NUM_QUEUES{1'b0}};
+			dst_mac  <= 48'b0;
+			src_mac  <= 48'b0;
+			dst_ip   <= 32'b0;
+			src_ip   <= 32'b0;
+			eth_done <= 0;
+			ip_valid <= 0;
+			parse_done <= 0;
+			accumulated_tdata <= 0;
+			ihl_w <= 0;
+			state <= READ_MAC_ADDRESSES;
+		end
+		else begin
+			src_port <= src_port_w;
+			dst_mac <= dst_mac_w;
+			src_mac <= src_mac_w;
+			eth_done <= eth_done_w;
+			ip_valid <= ip_valid_w;
+			parse_done <= parse_done_w;
+			dst_ip <= dst_ip_w;
+			src_ip <= src_ip_w;
 		 
-        state <= state_next;
-      end // else: !if(reset)
-   end // always @ (posedge clk)
+		        state <= state_next;
+		end // else: !if(reset)
+	end // always @ (posedge clk)
 
 endmodule // ethernet_parser
 
