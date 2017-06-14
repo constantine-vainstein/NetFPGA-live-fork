@@ -117,8 +117,6 @@ module muzzle_flash_detector_output_port_lookup
     input                                     S_AXI_RREADY,
 	output     [31:0]                         dst_ip,
 	output     [31:0]                         src_ip,
-	output     [15:0]                         dst_udp_port,
-	output     [15:0]                         src_udp_port,
     output                                    S_AXI_ARREADY,
     output     [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_RDATA,
     output     [1 : 0]                        S_AXI_RRESP,
@@ -234,8 +232,6 @@ module muzzle_flash_detector_output_port_lookup
           .reset        (~axis_resetn),
 		  .dst_ip       (dst_ip),   
 		  .src_ip       (src_ip),   
-		  .dst_udp_port (dst_udp_port),
-		  .src_udp_port (src_udp_port),		  
 		  
           .clk      (axis_aclk));
 

@@ -51,67 +51,58 @@
 `timescale 1ns/1ps
 
 module eth_parser
-    #(parameter C_S_AXIS_DATA_WIDTH  = 256,
+    #(parameter C_S_AXIS_DATA_WIDTH = 256,
       parameter C_S_AXIS_TUSER_WIDTH = 128,
-      parameter SRC_PORT_POS         = 16,
-      parameter NUM_QUEUES           = 8
+      parameter SRC_PORT_POS = 16,
+      parameter NUM_QUEUES = 8
     )
     (
 	// --- Interface to the previous stage
-	input  [C_S_AXIS_DATA_WIDTH-1:0]   tdata,
-	input  [C_S_AXIS_TUSER_WIDTH-1:0]  tuser,
-	input                              valid,
-	input 				             tlast,
+	input [C_S_AXIS_DATA_WIDTH-1:0] tdata,
+	input [C_S_AXIS_TUSER_WIDTH-1:0] tuser,
+	input valid,
+	input tlast,
 
 	// --- Interface to output_port_lookup
-	output reg [47:0]                  dst_mac,
-	output reg [47:0]                  src_mac,
-	output reg [31:0]                  dst_ip,
-	output reg [31:0]                  src_ip,
-	output reg [15:0]                  dst_udp_port,
-	output reg [15:0]                  src_udp_port,
-	output reg                         eth_done,
-	output reg                         ip_done,
-	output reg                         parse_done,
-	output reg [NUM_QUEUES-1:0]        src_port,
+	output reg [47:0] dst_mac,
+	output reg [47:0] src_mac,
+	output reg [31:0] dst_ip,
+	output reg [31:0] src_ip,
+	output reg [6:0] offset_to_ip_data_bytes, // offset in bytes to the start of IP data in bytes
+	output reg eth_done,
+	output reg ip_done,
+	output reg parse_done,
+	output reg [NUM_QUEUES-1:0] src_port,
   
 	// --- Misc
-	input                              reset,
-	input                              clk
+	input reset,
+	input clk
     );
     
  // ------------ Internal Params --------
 
-   localparam NUM_STATES         = 3;
+   localparam NUM_STATES = 3;
    localparam READ_MAC_ADDRESSES = 1;
-   localparam READ_IP_ADDRESSES_UDP  = 2;
-   localparam WAIT_EOP           = 4;
+   localparam READ_IP_ADDRESSES = 2;
+   localparam WAIT_EOP = 4;
 
    // ------------- Regs/ wires -----------
 
-   reg [47:0]                  dst_mac_w;
-   reg [47:0]                  src_mac_w;
-   reg [31:0]                  dst_ip_w;
-   reg [31:0]                  src_ip_w;
-   reg [15:0]                  dst_udp_port_w;
-   reg [15:0]                  src_udp_port_w;
+   reg [47:0] dst_mac_w;
+   reg [47:0] src_mac_w;
+   reg [31:0] dst_ip_w;
+   reg [31:0] src_ip_w;
 
-   reg                         eth_done_w;
-   reg                         parse_done_w;
-   reg                         ip_done_w;
-   reg [NUM_QUEUES-1:0]        src_port_w;
+   reg eth_done_w;
+   reg parse_done_w;
+   reg ip_done_w;
+   reg [NUM_QUEUES-1:0] src_port_w;
    
-   reg [NUM_STATES-1:0]        state, state_next;
+   reg [NUM_STATES-1:0] state, state_next;
  
    reg [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_tdata;
    
-   reg [3:0]  ihl_w;
-
-   reg [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] accumulated_data_shifted_after_ip_header;
-   wire [(C_S_AXIS_DATA_WIDTH * 2) - 1 : 0] tdata_shifted_to_dst_port_in_third_cycle;
-
-   assign tdata_shifted_to_dst_port_in_third_cycle = tdata >> (144 + ihl_w * 32 + 16 - 512);
-   
+   reg [3:0] ihl_w;
 
    // ------------ Logic ----------------
 
@@ -121,9 +112,7 @@ module eth_parser
 	dst_ip_w		 = 0;
 	src_ip_w       = 0;
 	eth_done_w     = 0;
-	dst_udp_port_w = 0;
 	src_port_w     = 0;
-	src_udp_port_w = 0;
 	ihl_w = 0;
 	ip_done_w = 0;
 	state_next     = state;
@@ -148,7 +137,7 @@ module eth_parser
 		end
 	end // case: READ_WORD_1
 		
-	READ_IP_ADDRESSES_UDP: begin
+	READ_IP_ADDRESSES: begin
 	end
 		
 	WAIT_EOP: begin
@@ -166,23 +155,22 @@ module eth_parser
 	end 	  
 	if(state == READ_MAC_ADDRESSES && valid) begin
 		ihl_w = tdata[115:112];
-		state_next = READ_IP_ADDRESSES_UDP;
-		//$display("posedge AccData READ_MC state: %X", accumulated_tdata);
-		//$display("posedge tData READ_MC state:   %X", tdata);
+		state_next = READ_IP_ADDRESSES;
+		$display("posedge AccData READ_MC state: %X", accumulated_tdata);
+		$display("posedge tData READ_MC state:   %X", tdata);
+		$display("ETH_PARSER: The ILH of this packet is %d", ihl_w);
 	end
 		
-	if(state == READ_IP_ADDRESSES_UDP && valid) begin
+	if(state == READ_IP_ADDRESSES && valid) begin
 		src_ip_w = accumulated_tdata[239 : 208];
 		dst_ip_w = accumulated_tdata[271 : 240];
-		accumulated_data_shifted_after_ip_header = accumulated_tdata >> (112 + (ihl_w * 32));
-		src_udp_port_w = accumulated_data_shifted_after_ip_header[15:0]; //[144 + ihl_w * 32 + 16 - 1 : 144 + ihl_w * 32];
-		dst_udp_port_w = accumulated_data_shifted_after_ip_header[31:16];//[144 + ihl_w * 32 + 16 + 16 - 1 : 144 + ihl_w * 32 + 16]; 
+		offset_to_ip_data_bytes = (14 + (ihl_w * 4));
 		state_next = WAIT_EOP;
 		ip_done_w = 1;
 		parse_done_w = 1;
 		
-		$display("SRC IP: %d.%d.%d.%d:%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24], src_udp_port_w);
-		$display("DST IP: %d.%d.%d.%d:%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24], dst_udp_port_w);
+		$display("SRC IP: %d.%d.%d.%d", src_ip_w[7:0], src_ip_w[15:8], src_ip_w[23:16], src_ip_w[31:24]);
+		$display("DST IP: %d.%d.%d.%d", dst_ip_w[7:0], dst_ip_w[15:8], dst_ip_w[23:16], dst_ip_w[31:24]);
 		$display("AccData READ_IP state: %X", accumulated_tdata);
 		$display("tData READ_IP state  : %X", tdata);
 	end
@@ -192,8 +180,6 @@ module eth_parser
 		 src_mac  <= 48'b0;
 		 dst_ip   <= 32'b0;
 		 src_ip   <= 32'b0;
-		 dst_udp_port <= 16'b0;
-		 src_udp_port <= 16'b0;
 		 eth_done <= 0;
 		 ip_done <= 0;
 		 parse_done <= 0;
@@ -209,8 +195,6 @@ module eth_parser
 	parse_done <= parse_done_w;
 	dst_ip <= dst_ip_w;
 	src_ip <= src_ip_w;
-	dst_udp_port <= dst_udp_port_w;
-	src_udp_port <= src_udp_port_w;
 		 
         state <= state_next;
       end // else: !if(reset)
