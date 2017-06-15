@@ -74,7 +74,7 @@ set_property constrset constraints [get_runs impl_1]
 # Project 
 #####################################
 update_ip_catalog
-create_ip -name muzzle_flash_detector_output_port_lookup -vendor NetFPGA -library NetFPGA -module_name output_port_lookup_ip
+create_ip -name switch_lite_output_port_lookup -vendor NetFPGA -library NetFPGA -module_name output_port_lookup_ip
 set_property generate_synth_checkpoint false [get_files output_port_lookup_ip.xci]
 reset_target all [get_ips output_port_lookup_ip]
 generate_target all [get_ips output_port_lookup_ip]
@@ -131,6 +131,7 @@ generate_target all [get_ips identifier_ip]
 read_verilog "./hdl/axi_clocking.v"
 read_verilog "./hdl/nf_datapath.v"
 read_verilog "./hdl/top.v"
+read_verilog "./hdl/netapp.v"
 
 
 #Setting Synthesis options

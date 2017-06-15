@@ -1,0 +1,37 @@
+bpcap on Ubuntu — Install libpcap
+
+I have to say that it’s an awesome tool!!
+
+Since I’m working on the summer project of SCION (Scalability Control and Isolation on Next-generation Network), I have to learn some powerful tools. My primary goal is to set up this new network architecture on several virtual machines and make it run well. After it’s done, we want to  move the whole Linux system into the SCION network environment. Unfortunately the SCION is totally new system, which means every network APIs are not compatible with it.
+
+We google some approaches and tools. Finally we decide to use libpcap to develop our tool. And the alpha plan came out immediately.
+
+But at the very beginning, we have to install the libpcap!
+
+Here are the brief steps of installing libpcap on ubuntu(my version is 14.04), YMMV.
+
+    Download the source code from here
+    1
+    	
+    ./configure
+    If everything goes fine,  then
+    1
+    	
+    sudo make && sudo make install
+
+    , you may need to update flex and install yacc at first
+    1
+    2
+    	
+    sudo apt-get install flex
+    sudo apt-get install bison
+    Now you can find libpcap.so.1 in /usr/local/lib
+    You can compile your c/c++ code with appendix “-lpcap”
+
+Hint: If the console show a message such as “error while loading shared libraries: libpcap.so.1: cannot open shared object file: No such file or directory” follow these steps
+
+    sudo vi /etc/ld.so.conf
+    add two lines at the end.”/usr/lib” and “/usr/local/lib”
+    sudo ldconfig
+    recompile your code and you can run it!
+

@@ -137,10 +137,10 @@ module muzzle_flash_detector_output_port_lookup
 
    //--------------------- Internal Parameter-------------------------
    localparam LUT_DEPTH_BITS            = 4;
-   localparam DEFAULT_MISS_OUTPUT_PORTS = 8'h57; // the even bits (the lsb is bit number 0) of this number indicate to which external port(s) the packet should be sent.
+   localparam DEFAULT_MISS_OUTPUT_PORTS = 8'h55; // the even bits (the lsb is bit number 0) of this number indicate to which external port(s) the packet should be sent.
 						 // the odd bits of this number indicate to which CPU port(s) the packet should be sent.
                                                  // This is the way the tuser[DST_PORT_POS+7:DST_PORT_POS] is parsed in output_queues.
-                                                 // h57 = 01010111 - it means that if there is a miss, the packet should be sent to all external ports
+                                                 // e.g. h57 = 01010111 - it means that if there is a miss, the packet should be sent to all external ports
                                                  // and to the first internal (CPU/DMA/host etc.) port.
 
    localparam NUM_STATES                = 2;

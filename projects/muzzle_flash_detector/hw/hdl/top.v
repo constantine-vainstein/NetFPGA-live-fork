@@ -570,12 +570,12 @@ nf_datapath_0
     .axi_resetn                      (axi_datapath_resetn),
     
     // Slave Stream Ports (interface from Rx queues)
-    .s_axis_0_tdata                 (axis_i_0_tdata),  
-    .s_axis_0_tkeep                 (axis_i_0_tkeep),  
-    .s_axis_0_tuser                 (axis_i_0_tuser),  
-    .s_axis_0_tvalid                (axis_i_0_tvalid), 
-    .s_axis_0_tready                (axis_i_0_tready), 
-    .s_axis_0_tlast                 (axis_i_0_tlast),  
+    .s_axis_0_tdata                 (),  
+    .s_axis_0_tkeep                 (),  
+    .s_axis_0_tuser                 (),  
+    .s_axis_0_tvalid                (), 
+    .s_axis_0_tready                (), 
+    .s_axis_0_tlast                 (),  
     .s_axis_1_tdata                 (axis_i_1_tdata),  
     .s_axis_1_tkeep                 (axis_i_1_tkeep),  
     .s_axis_1_tuser                 (axis_i_1_tuser),  
@@ -603,12 +603,12 @@ nf_datapath_0
 
 
     // Master Stream Ports (interface to TX queues)
-    .m_axis_0_tdata                (axis_o_0_tdata),
-    .m_axis_0_tkeep                (axis_o_0_tkeep),
-    .m_axis_0_tuser                (axis_o_0_tuser),
-    .m_axis_0_tvalid               (axis_o_0_tvalid),
-    .m_axis_0_tready               (axis_o_0_tready),
-    .m_axis_0_tlast                (axis_o_0_tlast),
+    .m_axis_0_tdata                (),
+    .m_axis_0_tkeep                (),
+    .m_axis_0_tuser                (),
+    .m_axis_0_tvalid               (),
+    .m_axis_0_tready               (),
+    .m_axis_0_tlast                (),
     .m_axis_1_tdata                (axis_o_1_tdata), 
     .m_axis_1_tkeep                (axis_o_1_tkeep), 
     .m_axis_1_tuser                (axis_o_1_tuser), 
@@ -907,20 +907,20 @@ control_sub control_sub_i
         .axis_resetn (axis_resetn),
         
         // (slave) interface
-        .s_axis_tdata(axis_o_tdata),
-        .s_axis_tkeep(axis_o_tkeep),
-        .s_axis_tuser(axis_o_tuser),
-        .s_axis_tvalid(axis_o_tvalid),
-        .s_axis_tready(axis_o_tready),
-        .s_axis_tlast(axis_o_tlast),
+        .s_axis_tdata(axis_i_0_tdata),
+        .s_axis_tkeep(axis_i_0_tkeep),
+        .s_axis_tuser(axis_i_0_tuser),
+        .s_axis_tvalid(axis_i_0_tvalid),
+        .s_axis_tready(axis_i_0_tready),
+        .s_axis_tlast(axis_i_0_tlast),
         
         // (master) interface
-        .m_axis_tdata(axis_i_tdata),
-        .m_axis_tkeep(axis_i_tkeep),
-        .m_axis_tuser(axis_i_tuser),
-        .m_axis_tvalid(axis_i_tvalid),
-        .m_axis_tready(axis_i_tready),
-        .m_axis_tlast(axis_i_tlast)
+        .m_axis_tdata(axis_o_0_tdata),
+        .m_axis_tkeep(axis_o_0_tkeep),
+        .m_axis_tuser(axis_o_0_tuser),
+        .m_axis_tvalid(axis_o_0_tvalid),
+        .m_axis_tready(axis_o_0_tready),
+        .m_axis_tlast(axis_o_0_tlast)
     );
  
 

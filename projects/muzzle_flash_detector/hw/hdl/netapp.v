@@ -37,68 +37,65 @@ module netapp #(
     input [C_S_AXIS_DATA_WIDTH / 8 - 1 : 0] s_axis_tkeep,
     input [C_S_AXIS_TUSER_WIDTH - 1 : 0] s_axis_tuser,
     input s_axis_tvalid,
-    output s_axis_tready,
+    output reg s_axis_tready,
     input s_axis_tlast,
     
     // output (master) interface
-    output [C_M_AXIS_DATA_WIDTH - 1 : 0] m_axis_tdata,
-    output [C_M_AXIS_DATA_WIDTH / 8 - 1 : 0] m_axis_tkeep,
-    output [C_M_AXIS_TUSER_WIDTH - 1 : 0] m_axis_tuser,
-    output m_axis_tvalid,
+    output reg [C_M_AXIS_DATA_WIDTH - 1 : 0] m_axis_tdata,
+    output reg [C_M_AXIS_DATA_WIDTH / 8 - 1 : 0] m_axis_tkeep,
+    output reg [C_M_AXIS_TUSER_WIDTH - 1 : 0] m_axis_tuser,
+    output reg m_axis_tvalid,
     input m_axis_tready,
-    output m_axis_tlast
+    output reg m_axis_tlast
     );
     
-    localparam ETHERTYPE_ARP = 16'h0806;
+    localparam STATE_1ST_PORTION = 1;
+    localparam STATE_2ND_PORTION = 2;
+    localparam STATE_NUM_OF_STATES = 2;
     
     wire [47:0] dst_mac;
     wire [47:0] src_mac;   
     wire [15:0] ethertype;
     wire eth_data_valid;
+    
+    reg [STATE_NUM_OF_STATES - 1 : 0] next_state;
+    reg [STATE_NUM_OF_STATES - 1 : 0] state;
+    reg [399 : 0] sample_frame;
    
     
-    eth_parser
-    #(.C_S_AXIS_DATA_WIDTH (C_S_AXIS_DATA_WIDTH),
-    .C_S_AXIS_TUSER_WIDTH (C_S_AXIS_TUSER_WIDTH))
-    eth_parser
-      (.tdata (s_axis_tdata),
-       .tuser (s_axis_tuser),
-       .valid (s_axis_tvalid & s_axis_tready),
-       .tlast (s_axis_tlast),
-       
-       .dst_mac (dst_mac),
-       .src_mac (src_mac),
-       .ethertype (ethertype),
-       .eth_data_valid (eth_data_valid),
-       .reset (~axis_resetn),
-       
-       .clk      (axis_aclk));
-    
-    arp_handler arp_handler_inst(
-        .axis_aclk(axis_aclk),
-        .axis_resetn(axis_resetn),
+    always @(posedge axis_aclk) begin
+        sample_frame = 400'h4941564154534F43_0000_1600_D007_D007_0200A8C0_0100A8C0_be2e_11_0A_0000_c000_1c00_00_45_0008_010000feca00_b62d2cede000;
+        if(~axis_resetn) begin
+            next_state = STATE_1ST_PORTION;            
+            m_axis_tvalid = 0;
+            m_axis_tlast = 0;
+        end 
+        else begin
+
+            m_axis_tvalid = 1;
+            case (state)
+            STATE_1ST_PORTION: begin
+                m_axis_tdata = sample_frame [255 : 0];
+                m_axis_tlast = 0;
+                m_axis_tkeep = 32'hffffffff;
+                if(m_axis_tready) begin
+                    next_state = STATE_2ND_PORTION; 
+                end
+            end
             
-            // input (slave) interface
-        .s_axis_tdata(s_axis_tdata),
-        .s_axis_tkeep(s_axis_tkeep),
-        .s_axis_tuser(s_axis_tuser),
-        .s_axis_tvalid(s_axis_tvalid & eth_data_valid & (ethertype == ETHERTYPE_ARP)),
-        .s_axis_tready(s_axis_tready),
-        .s_axis_tlast(s_axis_tlast),
+            STATE_2ND_PORTION: begin
+                m_axis_tdata = {176'b0, sample_frame [335 : 256]};
+                m_axis_tlast = 1;
+                m_axis_tkeep = 32'h0002ffff;
+                if(m_axis_tready) begin
+                    next_state = STATE_1ST_PORTION; 
+                end
             
-            // output (master) interface
-        .m_axis_tdata(m_axis_tdata),
-        .m_axis_tkeep(m_axis_tkeep),
-        .m_axis_tuser(m_axis_tuser),
-        .m_axis_tvalid(m_axis_tvalid),
-        .m_axis_tready(m_axis_tready),
-        .m_axis_tlast(m_axis_tlast)
-    );
+            end
+            endcase
+        end
+        
+        state = next_state;
+    end
     
-    assign m_axis_tdata = s_axis_tdata;
-    assign m_axis_tkeep = s_axis_tkeep;
-    assign m_axis_tuser = s_axis_tuser;
-    assign m_axis_tvalid = s_axis_tvalid;
-    assign s_axis_tready = 1;
-    assign m_axis_tlast = s_axis_tlast;
 endmodule
