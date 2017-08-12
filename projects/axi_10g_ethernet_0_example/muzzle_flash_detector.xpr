@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="2" Path="Y:/MuzzleFlashDetection/trunk/projects/axi_10g_ethernet_0_example/axi_10g_ethernet_0_example.xpr">
+<Project Version="7" Minor="2" Path="Y:/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="fb14616425274316a5333a58fe8b5331"/>
