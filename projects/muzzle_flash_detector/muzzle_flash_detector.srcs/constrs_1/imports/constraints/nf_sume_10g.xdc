@@ -47,8 +47,8 @@ set_property IOSTANDARD LVCMOS15 [get_ports sfp0_tx_fault]
 set_property PACKAGE_PIN N18 [get_ports sfp0_tx_abs]
 set_property IOSTANDARD LVCMOS15 [get_ports sfp0_tx_abs]
 #currently relevant only for interface 0 set_property. after arranging the names as in NETFPGA, uncomment the following line, and remove the next.
-#uncomment this line and remove the next. LOC GTHE2_CHANNEL_X1Y39 [get_cells -hier -filter name=~*interface_0*gthe2_i]
-#10Gig is a blackbox set_property LOC GTHE2_CHANNEL_X1Y39 [get_cells -hier -regexp .*gthe2_i]
+set_property LOC GTHE2_CHANNEL_X1Y39 [get_cells -hier -filter name=~*gthe2_i]
+
 
 # XGE-SFP1 -- SUME
 
@@ -182,10 +182,10 @@ set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets example_design/fifo_block_i/a
 #userclk1 not in use set_false_path -from [get_clocks userclk1] -to [get_clocks xphy_refclk_p]
 #userclk1 not in use set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks userclk1]
 
-#10Gig is a blackbox set_false_path -from [get_clocks -filter name=~*interface_*gthe2_i/RXOUTCLK] -to [get_clocks xphy_refclk_p]
-#10Gig is a blackbox set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*interface_*gthe2_i/RXOUTCLK]
+set_false_path -from [get_clocks -filter name=~*gthe2_i/RXOUTCLK] -to [get_clocks xphy_refclk_p]
+set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*gthe2_i/RXOUTCLK]
 
-#10Gig is a blackbox set_false_path -from [get_clocks  -filter name=~*interface_*gthe2_i/TXOUTCLK] -to [get_clocks xphy_refclk_p]
-#10Gig is a blackbox set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*interface_*gthe2_i/TXOUTCLK]
+set_false_path -from [get_clocks  -filter name=~*gthe2_i/TXOUTCLK] -to [get_clocks xphy_refclk_p]
+set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*gthe2_i/TXOUTCLK]
 
 
