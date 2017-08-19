@@ -2,7 +2,7 @@ function prepareAndDraw( )
     [x,y] = meshgrid(-10:20/63:10);
     R = zeros(100, 64, 64);
     for t=0:10e-2:(10-2e-2)
-       R(ceil(t/(10e-2)+0.1),:,:) = round(((cos(sqrt((x).^2+(y).^2)-t) + 1)/2)*ln()*255);
+       R(ceil(t/(10e-2)+0.1),:,:) = round(((cos(sqrt((x).^2+(y).^2)-t) + 1)/2)*255);
     end
     h=mesh(x,y,squeeze(R(1,:,:)));
 
@@ -12,5 +12,13 @@ function prepareAndDraw( )
     end
     
     csvwrite('symetricWave.dat',R)
+    % Create array for initializing ROM in FPGA
+    rom = zeroes(100, 16, 64);
+    for i=1:100
+        for col=1:64
+            for row=1:16
+                for Rrow=((row-1)*4)+1:((row-1)*4)+4
+                    
+    
 end
 

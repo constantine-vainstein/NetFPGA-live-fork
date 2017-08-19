@@ -12,5 +12,18 @@ function prepareAndDraw( )
     end
     
     csvwrite('symetricWave.dat',R)
+    % Create array for initializing ROM in FPGA
+    rom = zeros(100, 16, 64, 'uint32');
+    for i=1:100
+        for col=1:64
+            for row=1:16
+                for Rrow=((row-1)*4)+1:((row-1)*4)+4
+                    rom(i,row,col) = bitsll(rom(i,row,col),8)+R(i,Rrow,col);
+                end
+            end
+        end
+    end
+    dlmwrite('symetricWaveForRom.dat',rom,'precision','%d');
+    
 end
 
