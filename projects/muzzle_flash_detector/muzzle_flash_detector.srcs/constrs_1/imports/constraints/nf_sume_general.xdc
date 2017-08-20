@@ -74,8 +74,9 @@ set_property CONFIG_VOLTAGE 1.8 [current_design]
 
 ## -- 200MHz & 100MHz clks
 #200Mhz not in use create_clock -period 5.000 -name clk_200 -add [get_pins -hier -filter name=~*axi_clocking_i*clk_wiz_i/clk_out1]
-#100Mhz not in use create_clock -period 10.000 -name axi_clk -add [get_pins -hier -filter name=~*axi_lite_bufg0/O]
-
+create_clock -period 10.000  [get_ports axi_clk]
+#for reference create_clock -period 6.400 [get_ports xphy_refclk_p]
+# create_clock -period 10.000 -name axi_clk -add [get_pins -hier -filter name=~*axi_lite_bufg0/O]
 # Main I2C Bus - 100KHz - SUME
 #i2c not in use set_property IOSTANDARD LVCMOS18 [get_ports i2c_clk]
 #i2c not in use set_property SLEW SLOW [get_ports i2c_clk]
