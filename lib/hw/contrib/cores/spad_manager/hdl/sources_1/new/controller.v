@@ -28,6 +28,7 @@ module controller(
     output [2:0] RowSelect,
     output [5:0] ColSelect,
     output HighLowRows,
+    output reg [31:0] FrameId,
     input [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] FrameDurationRequestedClks,
     output FrameDurationChangeEnable,
     output [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] FrameDurationCurrentClks,
@@ -47,6 +48,8 @@ module controller(
     // ---------------- wires and regs
     
     reg [STATE_SIZE_BITS - 1 : 0] state; 
+    
+    reg [STATE_SIZE_BITS - 1 : 0] prev_state;
     
     reg [`MAXIMAL_STATE_DURATION_CLKS_BITS : 0] state_counter;
     
@@ -100,6 +103,7 @@ module controller(
         
         if (reset) begin
             state_counter = 0;
+            FrameId = 0;
             state = STATE_LATCH;
             state_durations[STATE_READDATA] =   `MINIMAL_FRAME_DURATION_CLKS - 
                                                 (state_durations[STATE_LATCH] + 
@@ -107,17 +111,28 @@ module controller(
                                                 state_durations[STATE_RESET]);
         end else begin
             commandToSpad(state_time_expired); 
+            // increment frame counter
+            if (state == STATE_LATCH & prev_state != STATE_LATCH) begin
+                FrameId = FrameId + 1;
+            end
             // Handle Frame duration  change
             if (FrameDurationChangeEnable &
                     (FrameDurationRequestedClks >= `MINIMAL_FRAME_DURATION_CLKS)) 
             begin
+                if (FrameDurationRequestedClks != FrameDurationCurrentClks) begin
+                    // Reset FrameId in case the read rate has changed.
+                    FrameId = 0;
+                end
                 state_durations[STATE_READDATA] =   FrameDurationRequestedClks - 
                                                     (state_durations[STATE_LATCH] + 
                                                     state_durations[STATE_PAUSE_LATCH_RESET] + 
-                                                    state_durations[STATE_RESET]);                
+                                                    state_durations[STATE_RESET]); 
+             
             end
             
         end
+        
+        prev_state <= state;
         
     end
     

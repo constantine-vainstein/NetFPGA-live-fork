@@ -1,12 +1,12 @@
 `timescale 1ns / 1ps
-`include "spad_controller_definitions.vh"
+`include "../../sources_1/new/spad_controller_definitions.vh"
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
 // 
-// Create Date: 02.05.2017 21:51:06
+// Create Date: 09/10/2017 01:33:50 AM
 // Design Name: 
-// Module Name: spad_ctrl_tb
+// Module Name: spad_control_subsystem
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -21,15 +21,23 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module spad_manager_tb(
-    
+module spad_control_subsystem(
+       input clk,
+       input reset,
+       output [31:0] FrameId,
+       output [3:0] RowSet,
+       output [5:0] ColSet,
+       output ReadEnable,
+       output [7:0] PixelOut0,
+       output [7:0] PixelOut1,
+       output [7:0] PixelOut2,
+       output [7:0] PixelOut3
+        
     );
-    // variables
-    reg clk, reset;
     wire latch_spad;
     wire reset_spad;
     
-    wire [31:0] FrameId;
+
     wire [2:0] row_select;
     wire [5:0] col_select;
     wire row_group;
@@ -39,18 +47,11 @@ module spad_manager_tb(
     wire [7:0] pixel_in_2;
     wire [7:0] pixel_in_3;
     
-    wire read_enable;
-    wire [7:0] pixel_out_0;
-    wire [7:0] pixel_out_1;
-    wire [7:0] pixel_out_2;
-    wire [7:0] pixel_out_3;
-    
-    reg [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] frame_duration_requested_clks;
     wire FrameDurationChangeEnable;
     wire [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] frame_duration_current_clks;
 
     
-    spad_manager spad_manager(
+    spad_manager_0 spad_manager(
         .clk(clk),
         .reset(reset),
         .LatchSpad(latch_spad),
@@ -64,37 +65,20 @@ module spad_manager_tb(
         .PixelIn2(pixel_in_2),
         .PixelIn3(pixel_in_3),
 
-        .PixelOut0(pixel_out_0),
-        .PixelOut1(pixel_out_1),
-        .PixelOut2(pixel_out_2),
-        .PixelOut3(pixel_out_3),
+        .PixelOut0(PixelOut0),
+        .PixelOut1(PixelOut1),
+        .PixelOut2(PixelOut2),
+        .PixelOut3(PixelOut3),
         
-        .ReadEnable(read_enable),
+        .ReadEnable(ReadEnable),
 
-        .FrameDurationRequestedClks(frame_duration_requested_clks),
+        .FrameDurationRequestedClks(0), // default frame duration
         .FrameDurationChangeEnable(FrameDurationChangeEnable),
         .FrameDurationCurrentClks(frame_duration_current_clks)
         );
     
-    initial begin
-        clk = 1;
-        reset <= 1;
-        reset <= #10 0;
-        
-        frame_duration_requested_clks <= 0;
-        frame_duration_requested_clks <= #60 5000;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10) 5001;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+10) 5002;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+20) 5003;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+30) 5004;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+40) 5005;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+50) 5006;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+60) 5007;
-    end
     
-    always #5 clk = ~clk;
-    
-    spad_sim spad_sim(
+    spad_emulator spad_emulator(
         .clk(clk),
         .reset(reset),
         .Latch(latch_spad),
@@ -107,4 +91,8 @@ module spad_manager_tb(
         .pixel_out_2(pixel_in_2),
         .pixel_out_3(pixel_in_3)
         );
+        
+    assign RowSet = {row_select, row_group};
+    assign ColSet = col_select;
 endmodule
+

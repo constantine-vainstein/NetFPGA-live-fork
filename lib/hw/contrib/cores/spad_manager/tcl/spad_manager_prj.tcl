@@ -12,8 +12,7 @@ set simRoot hdl/sim_1/new
 set xdcRoot xdc
 
 # Create project
-create_project -force spad_manager . -part xc7k70tfbv676-1
-# xc7vx690tffg1761-3 
+create_project -force spad_manager . -part xc7vx690tffg1761-3 
 # 
 
 # Set project properties

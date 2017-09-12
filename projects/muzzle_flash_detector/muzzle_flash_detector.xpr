@@ -3,13 +3,14 @@
 <!--                                                         -->
 <!-- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="2" Path="Y:/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.xpr">
+<Project Version="7" Minor="2" Path="W:/projects/muzzle_flash_detector/muzzle_flash_detector.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="fb14616425274316a5333a58fe8b5331"/>
     <Option Name="Part" Val="xc7vx690tffg1761-3"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="BoardPart" Val=""/>
+    <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="IPRepoPath" Val="$PPRDIR/../../lib/hw/contrib/cores"/>
@@ -71,51 +72,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_address_swap.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_address_swap.v"/>
-          <Attr Name="ImportTime" Val="1497470726"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_axi_mux.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_axi_mux.v"/>
-          <Attr Name="ImportTime" Val="1497470726"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_axi_pat_check.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_axi_pat_check.v"/>
-          <Attr Name="ImportTime" Val="1497470729"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_axi_pat_gen.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_axi_pat_gen.v"/>
-          <Attr Name="ImportTime" Val="1497470731"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_reset_sync_block.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_reset_sync_block.v"/>
-          <Attr Name="ImportTime" Val="1497470732"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_sync_block.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_sync_block.v"/>
@@ -134,10 +90,53 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_fifo_block.v">
+      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_reset_sync_block.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_fifo_block.v"/>
-          <Attr Name="ImportTime" Val="1497470728"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_reset_sync_block.v"/>
+          <Attr Name="ImportTime" Val="1497470732"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_axi_pat_gen.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_axi_pat_gen.v"/>
+          <Attr Name="ImportTime" Val="1497470731"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_axi_pat_check.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_axi_pat_check.v"/>
+          <Attr Name="ImportTime" Val="1497470729"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_axi_mux.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_axi_mux.v"/>
+          <Attr Name="ImportTime" Val="1497470726"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_address_swap.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_address_swap.v"/>
+          <Attr Name="ImportTime" Val="1497470726"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/spad_emulator.v">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -147,6 +146,29 @@
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_gen_check_wrapper.v"/>
           <Attr Name="ImportTime" Val="1497470732"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/example_design/axi_10g_ethernet_0_fifo_block.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../muzzle_flash_detector_from_scratch/muzzle_flash_detector.srcs/sources_1/ip/axi_10g_ethernet_0/example_design/axi_10g_ethernet_0_fifo_block.v"/>
+          <Attr Name="ImportTime" Val="1497470728"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/spad_control_subsystem.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/frame_dpr.v">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -181,13 +203,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/spad_emulator.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../../lib/hw/contrib/cores/spad_manager/matlab_sim/symetricWaveForRomForCoe.coe">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -199,6 +214,13 @@
           <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/new/spad_controller_definitions.vh"/>
           <Attr Name="ImportTime" Val="1503255051"/>
           <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/spad_ss_and_dpr_tb.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -263,7 +285,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="spad_emulator_tb"/>
+        <Option Name="TopModule" Val="spad_ss_and_dpr_tb"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="SrcSet" Val="sources_1"/>
       </Config>
@@ -303,26 +325,37 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0.veo"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="synth/blk_mem_gen_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="sim/blk_mem_gen_0.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="summary.log"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="doc/blk_mem_gen_v8_2_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_v8_2/simulation/blk_mem_gen_v8_2.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0.xml"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0.mif"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="y:/MuzzleFlashDetection/trunk/lib/hw/contrib/cores/spad_manager/matlab_sim/symetricWaveForRomForCoe.coe"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_funcsim.vhdl"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_funcsim.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_stub.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0.dcp"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="blk_mem_gen_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="blk_mem_gen_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/blk_mem_gen_1">
+      <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1.xml"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="synth/blk_mem_gen_1.vhd"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2.vhd"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="doc/blk_mem_gen_v8_2_changelog.txt"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="sim/blk_mem_gen_1.v"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_v8_2/simulation/blk_mem_gen_v8_2.v"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="summary.log"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1.veo"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_stub.vhdl"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_stub.v"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1.dcp"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_funcsim.vhdl"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_funcsim.v"/>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="blk_mem_gen_1"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -359,14 +392,19 @@
     </Run>
     <Run Id="spad_manager_0_synth_1" Type="Ft3:Synth" SrcSet="spad_manager_0" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/spad_manager_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="blk_mem_gen_0_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_0" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/blk_mem_gen_0_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+    </Run>
+    <Run Id="blk_mem_gen_1_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_1" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_1" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/blk_mem_gen_1_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -405,9 +443,7 @@
     </Run>
     <Run Id="spad_manager_0_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Implementation Defaults" SynthRun="spad_manager_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -420,6 +456,20 @@
       </Strategy>
     </Run>
     <Run Id="blk_mem_gen_0_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_0" Description="Vivado Implementation Defaults" SynthRun="blk_mem_gen_0_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+    </Run>
+    <Run Id="blk_mem_gen_1_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_1" Description="Vivado Implementation Defaults" SynthRun="blk_mem_gen_1_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
           <Desc>Vivado Implementation Defaults</Desc>

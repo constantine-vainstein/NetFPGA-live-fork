@@ -40,8 +40,7 @@ source -notrace $thisDir/utils.tcl
 #### Change design settings here #######
 set design spad_manager
 set top spad_manager
-set device xc7k70tfbv676-1
-# xc7vx690t-3-ffg1761
+set device xc7vx690tffg1761-3
 set proj_dir ./ip_proj
 set ip_version 1.00
 set lib_name NetFPGA
