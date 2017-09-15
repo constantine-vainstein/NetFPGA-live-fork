@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="2" Path="W:/projects/muzzle_flash_detector/muzzle_flash_detector.xpr">
+<Project Version="7" Minor="2" Path="C:/Users/costa/Documents/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="fb14616425274316a5333a58fe8b5331"/>
@@ -196,6 +196,10 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
+        <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="hw_handoff/design_1_bd.tcl"/>
+        <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="design_1_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="hw_handoff/design_1.hwh"/>
+        <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="hdl/design_1.v"/>
       </File>
       <File Path="$PSRCDIR/sources_1/symetricWave.coe">
         <FileInfo>
@@ -217,7 +221,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/spad_ss_and_dpr_tb.v">
+      <File Path="$PSRCDIR/sources_1/new/read_control.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -283,11 +287,26 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sim_1/imports/new/spad_ss_and_dpr_tb.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PSRCDIR/sim_1/new/spad_ss_and_dpr_tb.v"/>
+          <Attr Name="ImportTime" Val="1505178877"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/frame_buffer_io.wcfg">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="spad_ss_and_dpr_tb"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="SrcSet" Val="sources_1"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/frame_buffer_io.wcfg"/>
       </Config>
     </FileSet>
     <FileSet Name="axi_10g_ethernet_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/axi_10g_ethernet_0">
@@ -332,27 +351,12 @@
       </Config>
     </FileSet>
     <FileSet Name="blk_mem_gen_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/blk_mem_gen_1">
-      <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci">
+      <File Path="W:/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1.xml"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="synth/blk_mem_gen_1.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="doc/blk_mem_gen_v8_2_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="sim/blk_mem_gen_1.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_v8_2/simulation/blk_mem_gen_v8_2.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="summary.log"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1.veo"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_stub.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1.dcp"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_funcsim.vhdl"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_gen_1.xci" FileRelPathName="blk_mem_gen_1_funcsim.v"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="blk_mem_gen_1"/>
@@ -390,28 +394,23 @@
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
-    <Run Id="spad_manager_0_synth_1" Type="Ft3:Synth" SrcSet="spad_manager_0" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/spad_manager_0_synth_1">
+    <Run Id="spad_manager_0_synth_1" Type="Ft3:Synth" SrcSet="spad_manager_0" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Synthesis Defaults">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
-    <Run Id="blk_mem_gen_0_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_0" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/blk_mem_gen_0_synth_1">
+    <Run Id="blk_mem_gen_0_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_0" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_0" Description="Vivado Synthesis Defaults">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
-    <Run Id="blk_mem_gen_1_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_1" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_1" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/blk_mem_gen_1_synth_1">
+    <Run Id="blk_mem_gen_1_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_1" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_1" Description="Vivado Synthesis Defaults">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="constrs_1" Description="Vivado Implementation Defaults" State="current" SynthRun="synth_1">
       <Strategy Version="1" Minor="2">
@@ -471,9 +470,7 @@
     </Run>
     <Run Id="blk_mem_gen_1_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="blk_mem_gen_1" Description="Vivado Implementation Defaults" SynthRun="blk_mem_gen_1_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

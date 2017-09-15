@@ -82,14 +82,14 @@ module spad_emulator_tb(
         reset <= #10 0;
         
         frame_duration_requested_clks <= 0;
-        frame_duration_requested_clks <= #60 5000;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10) 5001;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+10) 5002;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+20) 5003;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+30) 5004;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+40) 5005;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+50) 5006;
-        frame_duration_requested_clks <= #(`MINIMAL_FRAME_DURATION_CLKS*10+60) 5007;
+        frame_duration_requested_clks <= #60 5000; //6670 for ~15000 fps
+        #(`MINIMAL_FRAME_DURATION_CLKS*10 + 50000 - 50); frame_duration_requested_clks <=  5001;
+        #50010; frame_duration_requested_clks <= 5002;
+        #50020; frame_duration_requested_clks <= 5003;
+        #50030; frame_duration_requested_clks <= 5004;
+        #50040; frame_duration_requested_clks <= 5005;
+        #50050; frame_duration_requested_clks <= 5006;
+        #50060; frame_duration_requested_clks <= 5007;
     end
     
     always #5 clk = ~clk;
