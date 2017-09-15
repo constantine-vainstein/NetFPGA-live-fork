@@ -80,7 +80,6 @@ module frame_dpr(
     
     // *************** Block RAM delays ************
     localparam MEM_WRITE_DELAY_ANY_CLK = 4;
-    localparam MEM_READ_DELAY_ANY_CLK = 4;
     
     reg [31:0] write_data;
     reg [WRITE_STATE_SIZE_BITS_ - 1 : 0] write_state;
@@ -98,8 +97,6 @@ module frame_dpr(
     reg [11 : 0] maximal_read_address; // reg because it will be updated only when starting reading from an area.
     reg read_area_is_a;
     reg prev_is_area_a_written;
-	reg [2 : 0] read_delay_clk;
-	reg [63 : 0] read_data;
 	wire [63 : 0] data_from_dpr;
 	wire at_least_one_readable_area;
 	wire data_from_dpr_valid;
@@ -107,7 +104,6 @@ module frame_dpr(
 	reg [31 : 0] prev_wrFrameId;
     wire active_area_changed;
     
-    reg read_enable; 
     reg [10 : 0] read_address;
     reg [READ_STATE_SIZE_BITS_ - 1 : 0] read_state;
     
@@ -131,7 +127,6 @@ module frame_dpr(
     		area_a_valid <= 0;
     		area_b_valid <= 0;
     		read_address <= 11'b11111111111;
-    		read_delay_clk <= MEM_READ_DELAY_ANY_CLK;
     		dpr_write_enable <= 0;
     		start_read <= 0;
     		last_pixel_in_block <= 0;
@@ -217,37 +212,7 @@ module frame_dpr(
 	end
 	
     always @(posedge rdClk) begin
-    
-    /*
-    	prev_is_area_a_written <= is_area_a_written;
-    	read_enable = (is_area_a_written) ? area_b_valid : area_a_valid;
-		if(read_enable) begin
-			if (prev_is_area_a_written != is_area_a_written) begin 	
-				read_area_is_a = ~is_area_a_written;
-				read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
-				maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
-				read_delay_clk <= MEM_READ_DELAY_ANY_CLK; 
-			end else begin				
-				if (read_delay_clk == 0) begin
-					// capture the data from the dpr
-					read_data <= data_from_dpr;
-					// The data is valid now (statrting from the next cycle)
-					tx_axis_frame_tvalid <= 1;
-					if(tx_axis_frame_tready) begin
-						// prepare to the next read operation
-						read_address <= (read_address == maximal_read_address) ? read_address : (read_address + 1);
-						// There is no need to reset the delay timer if the read address has reached the maximum.
-						read_delay_clk <= (read_address == maximal_read_address) ? 0 : MEM_READ_DELAY_ANY_CLK;  
-					end
-				end else begin
-						read_delay_clk <= read_delay_clk - 1;
-				end
-			end
-					
-		end
-		*/
-		//start_read = 0;
-		
+	
 		if (active_area_changed) begin
 			read_state = READ_STATE_WAIT;
 		end
@@ -350,7 +315,5 @@ module frame_dpr(
 									(read_state == READ_STATE_FINALIZE_READ); // in this case the data is not read from dpr. 
 	
 	
-		//(read_address[2:0] == 0); // if read address is divideable by 8, this is the last message of this column.
-	//assign tx_axis_frame_tvalid = (read_delay_clk == 0 && read_enable);
     
 endmodule
