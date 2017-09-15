@@ -69,7 +69,7 @@ module frame_dpr(
     
     localparam AREA_A_FIRST_ADDRESS_32BIT = 1;
     localparam AREA_A_FIRST_ADDRESS_64BIT = 0;
-    localparam AREA_A_LAST_ADDRESS_32BIT = 1025;
+    localparam AREA_A_LAST_ADDRESS_32BIT = 1025; // PreMble is 4 bytes, FrameId is 4 bytes more.
     // the address 0 (32 bit notation) is not used
     localparam AREA_B_FIRST_ADDRESS_32BIT = 1027;
     localparam AREA_B_LAST_ADDRESS_32BIT = 2051;
@@ -253,12 +253,13 @@ module frame_dpr(
 					if(data_from_dpr_valid) begin
 						last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
 						if (tx_axis_frame_tready) begin
-							read_address <= read_address + 1;
 							pixels_block_in_column_id <= pixels_block_in_column_id + 1;
 							if (pixels_block_in_column_id == 7) begin
 								column_id <= column_id + 1;
 							end
-							if (read_address > maximal_read_address) begin
+							if (read_address < maximal_read_address) begin
+								read_address <= read_address + 1;
+							end else begin
 								read_state <= READ_STATE_FINALIZE_READ;
 							end
 						end
@@ -310,9 +311,9 @@ module frame_dpr(
 								 (read_state == READ_STATE_FINALIZE_READ);
 								 
  	assign tx_axis_frame_tkeep = (tx_axis_frame_tlast && (read_state != READ_STATE_FRAME_ID)) ? 8'b00000001 : 8'b11111111 /* irrelevant in all other states */;
-	assign tx_axis_frame_tvalid = 	data_from_dpr_valid || 
+	assign tx_axis_frame_tvalid = 	(read_state != READ_STATE_WAIT) && (data_from_dpr_valid || 
 									((read_state != READ_STATE_WAIT) && active_area_changed) || // sould never happen
-									(read_state == READ_STATE_FINALIZE_READ); // in this case the data is not read from dpr. 
+									(read_state == READ_STATE_FINALIZE_READ)); // in this case the data is not read from dpr. 
 	
 	
     
