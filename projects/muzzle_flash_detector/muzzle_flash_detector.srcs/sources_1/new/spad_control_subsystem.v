@@ -24,6 +24,7 @@
 module spad_control_subsystem(
        input clk,
        input reset,
+       input isEmulated,
        output [31:0] FrameId,
        output [3:0] RowSet,
        output [5:0] ColSet,
@@ -49,6 +50,8 @@ module spad_control_subsystem(
     
     wire FrameDurationChangeEnable;
     wire [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] frame_duration_current_clks;
+    
+    wire mgr_read_enable;
 
     
     spad_manager_0 spad_manager(
@@ -70,7 +73,7 @@ module spad_control_subsystem(
         .PixelOut2(PixelOut2),
         .PixelOut3(PixelOut3),
         
-        .ReadEnable(ReadEnable),
+        .ReadEnable(mgr_read_enable),
 
         .FrameDurationRequestedClks(0), // default frame duration
         .FrameDurationChangeEnable(FrameDurationChangeEnable),
@@ -94,5 +97,31 @@ module spad_control_subsystem(
         
     assign RowSet = {row_select, row_group};
     assign ColSet = col_select;
+    
+    reg [1:0] emulated_mem_delay_count;
+    reg [10:0] prev_exact_address;
+    wire [10:0] exact_address;
+    
+    assign exact_address = {row_group, row_select, col_select};
+    
+    always @(posedge clk) begin
+    	
+    	if(reset) begin
+    		emulated_mem_delay_count <= 0;
+    		prev_exact_address <= 0;
+		end else begin
+			prev_exact_address <= exact_address;
+			if(prev_exact_address != exact_address) begin
+				emulated_mem_delay_count <= 0;
+			end else begin
+				emulated_mem_delay_count <= (emulated_mem_delay_count < 3) ? (emulated_mem_delay_count + 1) : 3;
+			end
+		end
+    end
+    
+    assign ReadEnable = (isEmulated) ? ((emulated_mem_delay_count >= 1) & mgr_read_enable) : mgr_read_enable;
+    
+    
+    
 endmodule
 

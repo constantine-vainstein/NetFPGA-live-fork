@@ -50,9 +50,9 @@ set_property CONFIG_VOLTAGE 1.8 [current_design]
 
 ## -- PCIe Transceiver clock (100 MHz)
 
-#not in use set_property LOC IBUFDS_GTE2_X1Y11 [get_cells IBUFDS_GTE2_inst]
-#10Gig is a black box create_clock -period 10.000 -name sys_clk -add [get_pins -hier -filter name=~*IBUFDS_GTE2_inst/O]
-#not in use create_clock -period 10.000 -name sys_clkp -waveform {0.000 5.000} [get_ports sys_clkp]
+##set_property LOC IBUFDS_GTE2_X1Y11 [get_cells IBUFDS_GTE2_inst]
+## create_clock -period 10.000 -name sys_clk -add [get_pins -hier -filter name=~*IBUFDS_GTE2_inst/O]
+## create_clock -period 10.000 -name sys_clkp -waveform {0.000 5.000} [get_ports clk_100MHz]
 
 
 ## -- PCIe sys reset
@@ -74,7 +74,7 @@ set_property CONFIG_VOLTAGE 1.8 [current_design]
 
 ## -- 200MHz & 100MHz clks
 #200Mhz not in use create_clock -period 5.000 -name clk_200 -add [get_pins -hier -filter name=~*axi_clocking_i*clk_wiz_i/clk_out1]
-create_clock -period 10.000  [get_ports axi_clk]
+create_clock -period 10.000  [get_ports clk_100MHz]
 #for reference create_clock -period 6.400 [get_ports xphy_refclk_p]
 # create_clock -period 10.000 -name axi_clk -add [get_pins -hier -filter name=~*axi_lite_bufg0/O]
 # Main I2C Bus - 100KHz - SUME

@@ -28,6 +28,7 @@ module port_wraper
    // Clock inputs
    input             xphy_refclk_p,
    input             xphy_refclk_n,
+   input 			 clk_100MHz,
 
    // Example design control inputs
    //unused port input             pcs_loopback,
@@ -66,7 +67,8 @@ module port_wraper
    );
    
    wire resetdone;
-   wire clk_100MHz;
+   
+   wire clk_156MHz;
    
    wire [31:0]  to_dpr_frame_id;
    wire [3:0]   to_dpr_row_set;
@@ -77,9 +79,22 @@ module port_wraper
    wire [7:0]   to_dpr_pixel_out2;
    wire [7:0]   to_dpr_pixel_out3;
    
+   wire [63:0] tx_axis_frame_tdata;
+   wire [7:0]  tx_axis_frame_tkeep;
+   wire tx_axis_frame_tvalid;
+   wire tx_axis_frame_tlast;
+   wire tx_axis_frame_tready;
+   
+   wire [63:0] tx_axis_frame_eth_tdata;
+   wire [7:0]  tx_axis_frame_eth_tkeep;
+   wire tx_axis_frame_eth_tvalid;
+   wire tx_axis_frame_eth_tlast;
+   wire tx_axis_frame_eth_tready;
+   
    axi_10g_ethernet_0_example_design  example_design (
     /* input */            .xphy_refclk_p(xphy_refclk_p),
     /* input */            .xphy_refclk_n(xphy_refclk_n),
+    /* output*/			   .clk156_out(clk_156MHz),
     /* input */            .pcs_loopback(0),
     /* input */            .reset(btn[0]),
     /* input */            .reset_error(btn[1]),
@@ -104,7 +119,13 @@ module port_wraper
     /* output */           .txp(ETH1_RX_P),
     /* output */           .txn(ETH1_RX_N),
     /* input  */           .rxp(ETH1_TX_P),
-    /* input  */           .rxn(ETH1_TX_N)
+    /* input  */           .rxn(ETH1_TX_N),
+       // Axi for input frame
+	/* input [63:0] 	*/ .tx_axis_frame_tdata(tx_axis_frame_eth_tdata),
+    /* input [7:0] 	*/ 	   .tx_axis_frame_tkeep(tx_axis_frame_eth_tkeep),
+    /* input 		*/ 	   .tx_axis_frame_tvalid(tx_axis_frame_eth_tvalid),
+    /* input 		*/ 	   .tx_axis_frame_tlast(tx_axis_frame_eth_tlast),
+    /* output 		*/ 	   .tx_axis_frame_tready(tx_axis_frame_eth_tready)
     );
     
     //assign leds[0] = gen_active_flash;
@@ -119,7 +140,8 @@ module port_wraper
         /* output [7:0] */  .PixelOut0(to_dpr_pixel_out0),
         /* output [7:0] */  .PixelOut1(to_dpr_pixel_out1),
         /* output [7:0] */  .PixelOut2(to_dpr_pixel_out2),
-        /* output [7:0] */  .PixelOut3(to_dpr_pixel_out3)      
+        /* output [7:0] */  .PixelOut3(to_dpr_pixel_out3),
+        					.isEmulated(1)      
     );
     
     frame_dpr frm_buffer (
@@ -137,13 +159,46 @@ module port_wraper
 		/* input [7:0] 	*/ .wrPixel3(to_dpr_pixel_out3),
 		/*              */  
 		/* input 		*/ .rdClk(clk_156MHz),
-		/* output [63:0]*/ .tx_axis_frame_tdata(),
-		/* output [7:0] */ .tx_axis_frame_tkeep(),
-		/* output 		*/ .tx_axis_frame_tvalid(),
-		/* output 		*/ .tx_axis_frame_tlast(),
-		/* input 		*/ .tx_axis_frame_tready()
+		/* output [63:0]*/ .tx_axis_frame_tdata(tx_axis_frame_tdata),
+		/* output [7:0] */ .tx_axis_frame_tkeep(tx_axis_frame_tkeep),
+		/* output 		*/ .tx_axis_frame_tvalid(tx_axis_frame_tvalid),
+		/* output 		*/ .tx_axis_frame_tlast(tx_axis_frame_tlast),
+		/* input 		*/ .tx_axis_frame_tready(tx_axis_frame_tready)
+    );
+    
+    ethernet_wrapper eth_wrap(
+    /* input */	.clk(clk_156MHz),
+    /* input */	.reset(btn[0]),
+	/*       */
+	/* input */	.dest_address(48'hffffffffffff),
+    /* input */	.source_address(48'h28cf013e1800),
+    /* input */	.type_length(16'h0008),
+    /*       */
+    /* input */	.tx_axis_frame_tdata(tx_axis_frame_tdata),
+    /* input */	.tx_axis_frame_tkeep(tx_axis_frame_tkeep),
+    /* input */	.tx_axis_frame_tvalid(tx_axis_frame_tvalid),
+    /* input */	.tx_axis_frame_tlast(tx_axis_frame_tlast),
+    /* output*/ .tx_axis_frame_tready(tx_axis_frame_tready),
+    /*       */
+    /* output*/ .tx_axis_eth_tdata(tx_axis_frame_eth_tdata),
+    /* output*/ .tx_axis_eth_tkeep(tx_axis_frame_eth_tkeep),
+    /* output*/ .tx_axis_eth_tvalid(tx_axis_frame_eth_tvalid),
+    /* output*/ .tx_axis_eth_tlast(tx_axis_frame_eth_tlast),
+    /* input */	.tx_axis_eth_tready(tx_axis_frame_eth_tready)
     );
     
     assign sfp0_tx_led = resetdone;
     assign sfp0_rx_led = resetdone;
+    
+    my_ila your_instance_name (
+    	.clk(clk_156MHz), // input wire clk
+    
+    
+    	.probe0(clk_156MHz), // input wire [0:0]  probe0  
+    	.probe1(tx_axis_frame_eth_tdata), // input wire [63:0]  probe1 
+    	.probe2(tx_axis_frame_eth_tkeep), // input wire [7:0]  probe2 
+    	.probe3(tx_axis_frame_eth_tvalid), // input wire [0:0]  probe3 
+    	.probe4(tx_axis_frame_eth_tlast), // input wire [0:0]  probe4 
+    	.probe5(tx_axis_frame_eth_tready) // input wire [0:0]  probe5
+    );
 endmodule

@@ -219,7 +219,7 @@ module frame_dpr(
 		
 		case (read_state) 
 			READ_STATE_WAIT: begin
-				if (at_least_one_readable_area && active_area_changed && tx_axis_frame_tready) begin
+				if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
 					read_area_is_a = ~is_area_a_written;
 					read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
 					maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;

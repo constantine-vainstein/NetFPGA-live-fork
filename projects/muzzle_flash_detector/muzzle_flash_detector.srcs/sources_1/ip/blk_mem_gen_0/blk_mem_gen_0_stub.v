@@ -1,10 +1,10 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.4 (win64) Build 1071353 Tue Nov 18 18:29:27 MST 2014
-// Date        : Sun Aug 20 02:24:51 2017
+// Date        : Sat Sep 16 21:47:55 2017
 // Host        : DIGLABAPPS running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               y:/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_stub.v
+//               C:/Users/costa/Documents/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_stub.v
 // Design      : blk_mem_gen_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7vx690tffg1761-3

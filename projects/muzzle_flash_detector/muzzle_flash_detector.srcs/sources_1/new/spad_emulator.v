@@ -105,7 +105,7 @@ module spad_emulator(
         
         
     assign address_stable = (time_from_address_change_ns >= 40 & time_from_row_group_change_ns >= 0);
-    assign address_stable_for_rom = (time_from_address_change_ns >= 20 & time_from_row_group_change_ns >= 0);
+    assign address_stable_for_rom = (time_from_address_change_ns >= 00 & time_from_row_group_change_ns >= 0);
     
     assign exact_row = {row_select, second_half_rows};
     

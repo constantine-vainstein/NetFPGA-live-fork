@@ -66,6 +66,8 @@ module axi_10g_ethernet_0_example_design
    // Clock inputs
    input             xphy_refclk_p,
    input             xphy_refclk_n,
+   
+   output			 clk156_out,
 
    // Example design control inputs
    input             pcs_loopback,
@@ -93,7 +95,14 @@ module axi_10g_ethernet_0_example_design
    output            txp,
    output            txn,
    input             rxp,
-   input             rxn
+   input             rxn,
+   
+   // Axi for input frame
+   input [63:0] tx_axis_frame_tdata,
+   input [7:0] tx_axis_frame_tkeep,
+   input tx_axis_frame_tvalid,
+   input tx_axis_frame_tlast,
+   output tx_axis_frame_tready
    );
 /*-------------------------------------------------------------------------*/
 
@@ -202,11 +211,11 @@ module axi_10g_ethernet_0_example_design
       .rx_axis_fifo_tready    (rx_axis_tready),
       .tx_axis_mac_aresetn    (tx_axis_aresetn),
       .tx_axis_fifo_aresetn   (tx_axis_aresetn),
-      .tx_axis_fifo_tdata     (tx_axis_tdata),
-      .tx_axis_fifo_tkeep     (tx_axis_tkeep),
-      .tx_axis_fifo_tvalid    (tx_axis_tvalid),
-      .tx_axis_fifo_tlast     (tx_axis_tlast),
-      .tx_axis_fifo_tready    (tx_axis_tready),
+      .tx_axis_fifo_tdata     (tx_axis_frame_tdata),
+      .tx_axis_fifo_tkeep     (tx_axis_frame_tkeep),
+      .tx_axis_fifo_tvalid    (tx_axis_frame_tvalid),
+      .tx_axis_fifo_tlast     (tx_axis_frame_tlast),
+      .tx_axis_fifo_tready    (tx_axis_frame_tready),
 
       .mac_tx_configuration_vector   (mac_tx_configuration_vector),
       .mac_rx_configuration_vector   (mac_rx_configuration_vector),
@@ -302,6 +311,8 @@ module axi_10g_ethernet_0_example_design
    end
 
    assign rx_statistics_vector         = rx_statistics_shift[31];
+   
+   assign clk156_out = clk156;
 
 
 endmodule
