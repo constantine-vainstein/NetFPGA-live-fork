@@ -156,6 +156,21 @@ module port_wraper
         					.isEmulated(1)      
     );
     
+    ila_0 input_to_frm_buffer (
+    	.clk(clk_100MHz), // input wire clk
+    
+    
+    	.probe0(clk_100MHz), // input wire [0:0]  probe0  
+    	.probe1(to_dpr_frame_id), // input wire [31:0]  probe1 
+    	.probe2(to_dpr_row_set), // input wire [3:0]  probe2 
+    	.probe3(to_dpr_col_set), // input wire [5:0]  probe3 
+    	.probe4(to_dpr_read_enable), // input wire [0:0]  probe4 
+    	.probe5(to_dpr_pixel_out0), // input wire [7:0]  probe5 
+    	.probe6(to_dpr_pixel_out1), // input wire [7:0]  probe6 
+    	.probe7(to_dpr_pixel_out2), // input wire [7:0]  probe7 
+    	.probe8(to_dpr_pixel_out3) // input wire [7:0]  probe8
+    );
+    
     frame_dpr frm_buffer (
 		/* input 		*/ .reset(btn[0]),
 		/*              */ 
@@ -202,15 +217,26 @@ module port_wraper
     assign sfp0_tx_led = resetdone;
     assign sfp0_rx_led = resetdone;
     
-    my_ila your_instance_name (
-    	.clk(clk_156MHz), // input wire clk
+    my_ila input_to_example_design (
+    	.clk(clk_156MHz), // input wire clk 
     
-    
-    	.probe0(clk_100MHz), // input wire [0:0]  probe0  
+    	.probe0(clk_156MHz), // input wire [0:0]  probe0  
     	.probe1(tx_axis_frame_eth_tdata), // input wire [63:0]  probe1 
     	.probe2(tx_axis_frame_eth_tkeep), // input wire [7:0]  probe2 
     	.probe3(tx_axis_frame_eth_tvalid), // input wire [0:0]  probe3 
     	.probe4(tx_axis_frame_eth_tlast), // input wire [0:0]  probe4 
     	.probe5(tx_axis_frame_eth_tready) // input wire [0:0]  probe5
     );
+    
+    my_ila input_to_eth_wrapper (
+     	.clk(clk_156MHz), // input wire clk 
+    
+		.probe0(clk_156MHz), // input wire [0:0]  probe0  
+		.probe1(tx_axis_frame_tdata), // input wire [63:0]  probe1 
+		.probe2(tx_axis_frame_tkeep), // input wire [7:0]  probe2 
+		.probe3(tx_axis_frame_tvalid), // input wire [0:0]  probe3 
+		.probe4(tx_axis_frame_tlast), // input wire [0:0]  probe4 
+		.probe5(tx_axis_frame_tready) // input wire [0:0]  probe5   
+    );
+    
 endmodule
