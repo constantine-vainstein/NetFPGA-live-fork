@@ -297,6 +297,15 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/axi_clocking.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/new/axi_clocking.v"/>
+          <Attr Name="ImportTime" Val="1497152525"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="port_wraper"/>
@@ -498,6 +507,20 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
+    <FileSet Name="clk_wiz_ip" Type="BlockSrcs" RelSrcDir="$PSRCDIR/clk_wiz_ip">
+      <File Path="$PSRCDIR/sources_1/ip/clk_wiz_ip/clk_wiz_ip.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="clk_wiz_ip"/>
+        <Option Name="VerilogDir" Val="$PSRCDIR/sources_1/ip/axis_data_fifo_0/axis_infrastructure_v1_1/hdl/verilog"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
   </FileSets>
   <Simulators>
     <Simulator Name="XSim">
@@ -560,6 +583,15 @@
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="my_ila_synth_1" Type="Ft3:Synth" SrcSet="my_ila" Part="xc7vx690tffg1761-3" ConstrsSet="my_ila" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/my_ila_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+    </Run>
+    <Run Id="clk_wiz_ip_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_ip" Part="xc7vx690tffg1761-3" ConstrsSet="clk_wiz_ip" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/clk_wiz_ip_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -656,6 +688,22 @@
       </Strategy>
     </Run>
     <Run Id="my_ila_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="my_ila" Description="Vivado Implementation Defaults" SynthRun="my_ila_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
+          <Desc>Vivado Implementation Defaults</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+    </Run>
+    <Run Id="clk_wiz_ip_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="clk_wiz_ip" Description="Vivado Implementation Defaults" SynthRun="clk_wiz_ip_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
           <Desc>Vivado Implementation Defaults</Desc>

@@ -72,9 +72,21 @@ set_property CONFIG_VOLTAGE 1.8 [current_design]
 #create_clock -period 5.00 [get_ports {axi_clocking_i/s_axi_aclk}]
 #not in use create_clock -period 5.000 -name fpga_sysclk_p -waveform {0.000 2.500} [get_ports fpga_sysclk_p]
 
+# 200MHz System Clock -- SUME
+set_property PACKAGE_PIN H19 [get_ports fpga_sysclk_p]
+set_property VCCAUX_IO DONTCARE [get_ports fpga_sysclk_p]
+set_property IOSTANDARD LVDS [get_ports fpga_sysclk_p]
+set_property IOSTANDARD LVDS [get_ports fpga_sysclk_n]
+
+#create_clock -period 5.00 [get_ports {axi_clocking_i/s_axi_aclk}]
+create_clock -period 5.000 -name fpga_sysclk_p -waveform {0.000 2.500} [get_ports fpga_sysclk_p]
+
+## 100MHz clk (based on 200MHz system clock)
+create_clock -period 10.000 -name clk_100MHz -add [get_pins -hier -filter name=~*axi_clocking_i*clk_wiz_i/clk_out1]
+
 ## -- 200MHz & 100MHz clks
 #200Mhz not in use create_clock -period 5.000 -name clk_200 -add [get_pins -hier -filter name=~*axi_clocking_i*clk_wiz_i/clk_out1]
-create_clock -period 10.000  [get_ports clk_100MHz]
+#create_clock -period 10.000  [get_ports clk_100MHz]
 #for reference create_clock -period 6.400 [get_ports xphy_refclk_p]
 # create_clock -period 10.000 -name axi_clk -add [get_pins -hier -filter name=~*axi_lite_bufg0/O]
 # Main I2C Bus - 100KHz - SUME

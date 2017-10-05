@@ -28,7 +28,8 @@ module port_wraper
    // Clock inputs
    input             xphy_refclk_p,
    input             xphy_refclk_n,
-   input 			 clk_100MHz,
+   input 			 fpga_sysclk_n,
+   input 			 fpga_sysclk_p,
 
    // Example design control inputs
    //unused port input             pcs_loopback,
@@ -91,6 +92,17 @@ module port_wraper
    wire tx_axis_frame_eth_tlast;
    wire tx_axis_frame_eth_tready;
    
+   wire clk_100MHz;
+   wire clk_100MHz_locked;
+   
+   axi_clocking axi_clocking_i (
+       .clk_in_p               (fpga_sysclk_p),
+       .clk_in_n               (fpga_sysclk_n),
+       .clk_100                (clk_100MHz),       // generates 100MHz clk
+       .locked                 (clk_100MHz_locked),
+       .reset                 (btn[0])
+     );
+     
    axi_10g_ethernet_0_example_design  example_design (
     /* input */            .xphy_refclk_p(xphy_refclk_p),
     /* input */            .xphy_refclk_n(xphy_refclk_n),
@@ -194,7 +206,7 @@ module port_wraper
     	.clk(clk_156MHz), // input wire clk
     
     
-    	.probe0(clk_156MHz), // input wire [0:0]  probe0  
+    	.probe0(clk_100MHz), // input wire [0:0]  probe0  
     	.probe1(tx_axis_frame_eth_tdata), // input wire [63:0]  probe1 
     	.probe2(tx_axis_frame_eth_tkeep), // input wire [7:0]  probe2 
     	.probe3(tx_axis_frame_eth_tvalid), // input wire [0:0]  probe3 
