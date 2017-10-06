@@ -95,6 +95,10 @@ module port_wraper
    wire clk_100MHz;
    wire clk_100MHz_locked;
    
+   wire frame_error;
+   wire gen_active_flash;
+   wire check_active_flash;
+   
    axi_clocking axi_clocking_i (
        .clk_in_p               (fpga_sysclk_p),
        .clk_in_n               (fpga_sysclk_n),
@@ -119,9 +123,9 @@ module port_wraper
     /*        */           .tx_fault(sfp0_tx_fault),
     /* input  */           .tx_abs(sfp0_tx_abs),
     /*        */           
-    /* output */           .frame_error(leds[1]),
-    /* output */           .gen_active_flash(leds[0]),
-    /* output */           .check_active_flash(), //indicates a non-dropped data has been received
+    /* output */           .frame_error(frame_error),
+    /* output */           .gen_active_flash(gen_active_flash),
+    /* output */           .check_active_flash(check_active_flash), //indicates a non-dropped data has been received
     /* output */           .block_lock(),
     /* output */           .qplllock_out(),
     /* output */           .tx_disable(sfp0_tx_disable),
@@ -214,8 +218,8 @@ module port_wraper
     /* input */	.tx_axis_eth_tready(tx_axis_frame_eth_tready)
     );
     
-    assign sfp0_tx_led = resetdone;
-    assign sfp0_rx_led = resetdone;
+    assign sfp0_tx_led = resetdone | gen_active_flash;
+    assign sfp0_rx_led = (~frame_error) & check_active_flash;
     
     my_ila input_to_example_design (
     	.clk(clk_156MHz), // input wire clk 
@@ -238,5 +242,43 @@ module port_wraper
 		.probe4(tx_axis_frame_tlast), // input wire [0:0]  probe4 
 		.probe5(tx_axis_frame_tready) // input wire [0:0]  probe5   
     );
+
+
+	///////////////////////////// DEBUG ONLY ///////////////////////////
+	// system clk heartbeat 
+	reg [27:0]                                 sfp_clk156_count;
+	reg [27:0]                                 clk100_count;  
+	reg [1:0]                                  led;
+
+	//////////////////////// DEBUG ONLY ////////////////////////////////
+	// 100MHz PCIe clk heartbeat ~ every 1.5 seconds
+	always @ (posedge clk_100MHz) begin
+		   clk100_count <= clk100_count + 1'b1;
+		   if (!clk100_count) begin
+				led[1] <= ~led[1];
+		   end  
+	end
+	  
+	// 156MHz sfp clock heartbeat ~ every second
+	
+	
+	always @ (posedge clk_156MHz) begin
+		   sfp_clk156_count <= sfp_clk156_count + 1'b1;
+		   if (!sfp_clk156_count) begin
+				led[0] <= ~led[0];
+		   end  
+	   end
+// Debug LEDs  
+	// 156MHz clk heartbeat ~ every second
+	OBUF led_0_obuf (
+	   .O                       (leds[0]), 
+	   .I                       (led[0])
+	  );
+	
+	// 100MHz clk heartbeat ~ every 1.5 seconds  
+	OBUF led_1_obuf (
+	   .O                       (leds[1]), 
+	   .I                       (led[1])
+	  );
     
 endmodule

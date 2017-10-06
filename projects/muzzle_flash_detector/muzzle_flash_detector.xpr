@@ -462,31 +462,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0.veo"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2.vhd"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_vh_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_clock_synchronizer.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_axis2vector.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_axis_infrastructure.vh"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="synth/axis_data_fifo_0.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0/axis_data_fifo_0.xdc"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_v1_1/doc/axis_data_fifo_v1_1_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="sim/axis_data_fifo_0.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_v1_1/hdl/verilog/axis_data_fifo_v1_1_axis_data_fifo.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_aclken_converter_wrapper.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_aclken_converter.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_mux_enc.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0.xml"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0_funcsim.vhdl"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0_funcsim.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0_stub.v"/>
-        <CompFileExtendedInfo CompFileName="axis_data_fifo_0.xci" FileRelPathName="axis_data_fifo_0.dcp"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="axis_data_fifo_0"/>
@@ -589,36 +564,28 @@
     </Run>
     <Run Id="axis_data_fifo_0_synth_1" Type="Ft3:Synth" SrcSet="axis_data_fifo_0" Part="xc7vx690tffg1761-3" ConstrsSet="axis_data_fifo_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/axis_data_fifo_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="my_ila_synth_1" Type="Ft3:Synth" SrcSet="my_ila" Part="xc7vx690tffg1761-3" ConstrsSet="my_ila" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/my_ila_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="clk_wiz_ip_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_ip" Part="xc7vx690tffg1761-3" ConstrsSet="clk_wiz_ip" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/clk_wiz_ip_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="ila_0_synth_1" Type="Ft3:Synth" SrcSet="ila_0" Part="xc7vx690tffg1761-3" ConstrsSet="ila_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/ila_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -696,9 +663,7 @@
     </Run>
     <Run Id="axis_data_fifo_0_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="axis_data_fifo_0" Description="Vivado Implementation Defaults" SynthRun="axis_data_fifo_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -712,9 +677,7 @@
     </Run>
     <Run Id="my_ila_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="my_ila" Description="Vivado Implementation Defaults" SynthRun="my_ila_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -728,9 +691,7 @@
     </Run>
     <Run Id="clk_wiz_ip_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="clk_wiz_ip" Description="Vivado Implementation Defaults" SynthRun="clk_wiz_ip_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -744,9 +705,7 @@
     </Run>
     <Run Id="ila_0_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="ila_0" Description="Vivado Implementation Defaults" SynthRun="ila_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

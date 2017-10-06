@@ -134,7 +134,7 @@ module frame_dpr(
     	end
 	end
 	
-	always @(wrClk) begin    	
+	always @(*) begin    	
     	case (write_state)
     		WRITE_STATE_WAIT_FOR_START: begin
     			write_enable <= 0;
@@ -295,7 +295,8 @@ module frame_dpr(
 		.reset(reset),
 		.addr(read_address),
 		.en(start_read),
-		.valid(data_from_dpr_valid)
+		.valid(data_from_dpr_valid),
+		.end_of_read_process()
 	);
 		
 	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? swaped_data_from_dpr :
