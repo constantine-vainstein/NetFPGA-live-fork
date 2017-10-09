@@ -311,7 +311,9 @@ module frame_dpr(
 		.probe6 (dpr_write_enable), // input  [0:0]  probe6 
 		.probe7 (area_a_valid), // input  [0:0]  probe7 
 		.probe8 (area_b_valid), // input  [0:0]  probe8 
-		.probe9 (maximal_write_address)/*, // input  [11:0]  probe9 
+		.probe9 (maximal_write_address), // input  [11:0]  probe9
+		.probe10 (prev_wrFrameId), // input  [11:0]  probe9 
+		.probe11 (wrFrameId)/*, // input  [11:0]  probe9  
 		.probe10(maximal_read_address), // input  [11:0]  probe10 
 		.probe11(read_area_is_a), // input  [0:0]  probe11 
 		.probe12(prev_is_area_a_written), // input  [0:0]  probe12 
