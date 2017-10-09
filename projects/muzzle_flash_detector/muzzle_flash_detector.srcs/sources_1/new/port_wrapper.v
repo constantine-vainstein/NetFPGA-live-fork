@@ -99,6 +99,8 @@ module port_wraper
    wire gen_active_flash;
    wire check_active_flash;
    
+   wire reset;
+   
    axi_clocking axi_clocking_i (
        .clk_in_p               (fpga_sysclk_p),
        .clk_in_n               (fpga_sysclk_n),
@@ -244,6 +246,8 @@ module port_wraper
     );
 
 
+	assign reset = btn[0];
+
 	///////////////////////////// DEBUG ONLY ///////////////////////////
 	// system clk heartbeat 
 	reg [27:0]                                 sfp_clk156_count;
@@ -252,22 +256,32 @@ module port_wraper
 
 	//////////////////////// DEBUG ONLY ////////////////////////////////
 	// 100MHz PCIe clk heartbeat ~ every 1.5 seconds
+	
+	
 	always @ (posedge clk_100MHz) begin
-		   clk100_count <= clk100_count + 1'b1;
-		   if (!clk100_count) begin
+		if (reset) begin
+			led[1] <= 0;
+		end else begin
+			clk100_count <= clk100_count + 1'b1;
+			if (!clk100_count) begin
 				led[1] <= ~led[1];
-		   end  
+			end
+		end
 	end
 	  
 	// 156MHz sfp clock heartbeat ~ every second
 	
 	
 	always @ (posedge clk_156MHz) begin
-		   sfp_clk156_count <= sfp_clk156_count + 1'b1;
-		   if (!sfp_clk156_count) begin
+		if(reset) begin
+			led[0] <= 0;
+		end else begin
+			sfp_clk156_count <= sfp_clk156_count + 1'b1;
+			if (!sfp_clk156_count) begin
 				led[0] <= ~led[0];
-		   end  
-	   end
+			end  
+	   	end
+	end
 // Debug LEDs  
 	// 156MHz clk heartbeat ~ every second
 	OBUF led_0_obuf (

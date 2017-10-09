@@ -134,7 +134,7 @@ module frame_dpr(
     	end
 	end
 	
-	always @(*) begin    	
+	always @(posedge rdClk) begin    	
     	case (write_state)
     		WRITE_STATE_WAIT_FOR_START: begin
     			write_enable <= 0;
@@ -178,12 +178,12 @@ module frame_dpr(
 					end
 					if (dpr_write_enable) begin// we are during the write operation
 						if (write_delay_clk > 0) begin
-								write_delay_clk <= write_delay_clk - 1;
-								wrEnable <= 0;
+							write_delay_clk <= write_delay_clk - 1;
+							wrEnable <= 0;
 						end else begin
 							write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
 							// if write_address has reached the maximum and this is the last clock cycle of write delay, deassert dpr_write_enable
-							wrEnable = 1;
+							wrEnable <= 1;
 							dpr_write_enable <= 0;
 						end
 					end
@@ -197,7 +197,7 @@ module frame_dpr(
 					end
 					is_area_a_written <= ~is_area_a_written;
 					write_state <= WRITE_STATE_WAIT_FOR_START;
-					wrEnable = 0;
+					wrEnable <= 0;
 				end
 			end
 		endcase

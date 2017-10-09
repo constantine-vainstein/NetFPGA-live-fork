@@ -71,7 +71,9 @@ module ethernet_wrapper(
 		  .m_axis_tdata(tx_axis_fifo_out_tdata),              // output wire [63 : 0] m_axis_tdata
   		  .m_axis_tkeep(tx_axis_fifo_out_tkeep),              // output wire [7 : 0] m_axis_tkeep
 		  .m_axis_tlast(tx_axis_fifo_out_tlast),              // output wire m_axis_tlast
-		  .axis_data_count(axis_fifo_data_count)        // output wire [31 : 0] axis_data_count
+		  .axis_data_count(axis_fifo_data_count),        // output wire [31 : 0] axis_data_count
+		  .axis_wr_data_count(),
+		  .axis_rd_data_count()
 		);
     
     always @(posedge clk) begin

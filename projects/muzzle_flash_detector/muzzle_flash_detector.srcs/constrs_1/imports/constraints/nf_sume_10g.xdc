@@ -181,11 +181,10 @@ set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets example_design/fifo_block_i/a
 
 #userclk1 not in use set_false_path -from [get_clocks userclk1] -to [get_clocks xphy_refclk_p]
 #userclk1 not in use set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks userclk1]
+#/*8/10/17 (*gthe2_i/RXOUTCLK does not exist in the design)*/ set_false_path -from [get_clocks -filter name=~*gthe2_i/RXOUTCLK] -to [get_clocks xphy_refclk_p]
+#/*8/10/17 (*gthe2_i/RXOUTCLK does not exist in the design)*/ set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*gthe2_i/RXOUTCLK]
 
-set_false_path -from [get_clocks -filter name=~*gthe2_i/RXOUTCLK] -to [get_clocks xphy_refclk_p]
-set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*gthe2_i/RXOUTCLK]
-
-set_false_path -from [get_clocks  -filter name=~*gthe2_i/TXOUTCLK] -to [get_clocks xphy_refclk_p]
-set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*gthe2_i/TXOUTCLK]
+#/*8/10/17 (*gthe2_i/RXOUTCLK does not exist in the design)*/ set_false_path -from [get_clocks  -filter name=~*gthe2_i/TXOUTCLK] -to [get_clocks xphy_refclk_p]
+#/*8/10/17 (*gthe2_i/RXOUTCLK does not exist in the design)*/ set_false_path -from [get_clocks xphy_refclk_p] -to [get_clocks -filter name=~*gthe2_i/TXOUTCLK]
 
 
