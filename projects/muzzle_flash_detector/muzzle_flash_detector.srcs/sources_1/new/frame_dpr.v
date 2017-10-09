@@ -326,7 +326,8 @@ module frame_dpr(
 		.probe21(column_id), // input  [5:0]  probe21 
 		.probe22(pixels_block_in_column_id), // input  [2:0]  probe22 
 		.probe23(last_pixel_in_block), // input  [7:0]  probe23 
-		.probe24(swaped_data_from_dpr) // input  [63:0]  probe24
+		.probe24(swaped_data_from_dpr), // input  [63:0]  probe24
+		.probe25(wrPixel0)
 	);
 		
 	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? swaped_data_from_dpr :

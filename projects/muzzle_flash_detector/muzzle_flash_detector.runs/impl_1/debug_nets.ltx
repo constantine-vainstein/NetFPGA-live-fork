@@ -591,14 +591,15 @@
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq4&apos;hX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq5&apos;hXX"/>
         <Option Id="CORE_LOCATION" value="1:0"/>
         <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
         <Option Id="PROBE_PORT" value="20"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="4"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="5"/>
       </probeOptions>
       <nets>
+        <net name="frm_buffer/read_state[4]"/>
         <net name="frm_buffer/read_state[3]"/>
         <net name="frm_buffer/read_state[2]"/>
         <net name="frm_buffer/read_state[1]"/>
@@ -840,6 +841,26 @@
         <net name="frm_buffer/swaped_data_from_dpr[2]"/>
         <net name="frm_buffer/swaped_data_from_dpr[1]"/>
         <net name="frm_buffer/swaped_data_from_dpr[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="CORE_LOCATION" value="1:0"/>
+        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
+        <Option Id="PROBE_PORT" value="25"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
+      </probeOptions>
+      <nets>
+        <net name="frm_buffer/wrPixel0[7]"/>
+        <net name="frm_buffer/wrPixel0[6]"/>
+        <net name="frm_buffer/wrPixel0[5]"/>
+        <net name="frm_buffer/wrPixel0[4]"/>
+        <net name="frm_buffer/wrPixel0[3]"/>
+        <net name="frm_buffer/wrPixel0[2]"/>
+        <net name="frm_buffer/wrPixel0[1]"/>
+        <net name="frm_buffer/wrPixel0[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
