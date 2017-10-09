@@ -298,6 +298,36 @@ module frame_dpr(
 		.valid(data_from_dpr_valid),
 		.end_of_read_process()
 	);
+	
+	ila_1 dpr_signals (
+		.clk(wrClk), // input  clk
+
+		.probe0 (write_data), // input  [31:0]  probe0  
+		.probe1 (write_state), // input  [2:0]  probe1 
+		.probe2 (write_enable), // input  [0:0]  probe2 
+		.probe3 (write_address), // input  [11:0]  probe3 
+		.probe4 (is_area_a_written), // input  [0:0]  probe4 
+		.probe5 (write_delay_clk), // input  [2:0]  probe5 
+		.probe6 (dpr_write_enable), // input  [0:0]  probe6 
+		.probe7 (area_a_valid), // input  [0:0]  probe7 
+		.probe8 (area_b_valid), // input  [0:0]  probe8 
+		.probe9 (maximal_write_address), // input  [11:0]  probe9 
+		.probe10(maximal_read_address), // input  [11:0]  probe10 
+		.probe11(read_area_is_a), // input  [0:0]  probe11 
+		.probe12(prev_is_area_a_written), // input  [0:0]  probe12 
+		.probe13(data_from_dpr), // input  [63:0]  probe13 
+		.probe14(at_least_one_readable_area), // input  [0:0]  probe14 
+		.probe15(data_from_dpr_valid), // input  [0:0]  probe15 
+		.probe16(start_read), // input  [0:0]  probe16 
+		.probe17(prev_wrFrameId), // input  [31:0]  probe17 
+		.probe18(active_area_changed), // input  [0:0]  probe18 
+		.probe19(read_address), // input  [10:0]  probe19 
+		.probe20(read_state), // input  [3:0]  probe20 
+		.probe21(column_id), // input  [5:0]  probe21 
+		.probe22(pixels_block_in_column_id), // input  [2:0]  probe22 
+		.probe23(last_pixel_in_block), // input  [7:0]  probe23 
+		.probe24(swaped_data_from_dpr) // input  [63:0]  probe24
+	);
 		
 	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? swaped_data_from_dpr :
 								  	(read_state == READ_STATE_COLUMN_DATA) ? 
