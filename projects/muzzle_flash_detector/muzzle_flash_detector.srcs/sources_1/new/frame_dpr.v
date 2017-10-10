@@ -134,7 +134,8 @@ module frame_dpr(
     	end
 	end
 	
-	always @(posedge rdClk) begin    	
+	always @(posedge rdClk) begin  
+		prev_wrFrameId <= wrFrameId;
     	case (write_state)
     		WRITE_STATE_WAIT_FOR_START: begin
     			write_enable <= 0;
