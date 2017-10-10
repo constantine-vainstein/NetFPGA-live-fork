@@ -116,165 +116,164 @@ module frame_dpr(
     
     assign maximal_write_address = is_area_a_written ? (AREA_A_LAST_ADDRESS_32BIT) : (AREA_B_LAST_ADDRESS_32BIT);
     
-    always @(posedge (wrClk | rdClk)) begin
-    	if (reset) begin
+	always @(posedge wrClk) begin  
+		if (reset) begin
     		write_state <= WRITE_STATE_WAIT_FOR_START;
-    		write_state <= READ_STATE_WAIT;
-    		is_area_a_written <= 1;
-    		prev_is_area_a_written <= 0;
-    		prev_wrFrameId <= 32'hFFFFFFFF;
-    		wrEnable <= 0;
-    		area_a_valid <= 0;
-    		area_b_valid <= 0;
-    		read_address <= 11'b11111111111;
-    		dpr_write_enable <= 0;
-    		start_read <= 0;
-    		last_pixel_in_block <= 0;
-    		pixels_block_in_column_id <= 0;
-    	end
-	end
+			is_area_a_written <= 1;
+			prev_wrFrameId <= 32'hFFFFFFFF;
+			wrEnable <= 0;
+			area_a_valid <= 0;
+			area_b_valid <= 0;
+			dpr_write_enable <= 0;
+		end else begin
 	
-	always @(posedge rdClk) begin  
-		prev_wrFrameId <= wrFrameId;
-    	case (write_state)
-    		WRITE_STATE_WAIT_FOR_START: begin
-    			write_enable <= 0;
-				write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;	
-    			if (is_area_a_written) begin
-    				area_a_valid <= 0;
-				end else begin
-					area_b_valid <= 0;
-				end
-    			if (wrFrameId != prev_wrFrameId) begin
-    				write_state <= WRITE_STATE_STORE_FRAME_ID;		
-    			end
-    		end
-    			
-    		WRITE_STATE_STORE_FRAME_ID: begin
-    			write_enable <= 1;
-    			write_address <= is_area_a_written ? AREA_A_FIRST_ADDRESS_32BIT : AREA_B_FIRST_ADDRESS_32BIT;
-    			write_data <= wrFrameId;
-    			dpr_write_enable <= 1;
-    			if (write_delay_clk == 0) begin
-    				// after 2 posedge clocks (or 4 any edge clocks), go to the next write_state and increment the address.
-    				write_state <= WRITE_STATE_STORE_DATA;
-    				write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
-    				wrEnable <= 1;
-    				dpr_write_enable <= 0; // don't write to the dpr unless validate that wrValid.
-    			end else begin
-    				// stay in the same write_state, but decrement the write-delay counter.
-    				write_delay_clk <= write_delay_clk - 1;
-    			end
-    		end
-    		
-    		WRITE_STATE_STORE_DATA: begin
-    			if (write_address <= maximal_write_address) begin
-					if (wrValid & (~dpr_write_enable)) begin
-						// capture the data
-						write_data <= {wrPixel3, wrPixel2, wrPixel1, wrPixel0};
-						// enable the writing to the dpr. But if now write_address == maximal_write_address, then in the next cycle it will exceed the maximum, so don't write.
-						dpr_write_enable <= (write_address < maximal_write_address);
-						// and prepare the address register to the write operation
-						write_address <= write_address + 1;
-					end
-					if (dpr_write_enable) begin// we are during the write operation
-						if (write_delay_clk > 0) begin
-							write_delay_clk <= write_delay_clk - 1;
-							wrEnable <= 0;
-						end else begin
-							write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
-							// if write_address has reached the maximum and this is the last clock cycle of write delay, deassert dpr_write_enable
-							wrEnable <= 1;
-							dpr_write_enable <= 0;
-						end
-					end
-				end else begin
-					// The write address is above the maximum. Don't write! Deassert dpr_write_enable
-					dpr_write_enable <= 0;
+			prev_wrFrameId <= wrFrameId;
+			case (write_state)
+				WRITE_STATE_WAIT_FOR_START: begin
+					write_enable <= 0;
+					write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;	
 					if (is_area_a_written) begin
-						area_a_valid <= 1;
+						area_a_valid <= 0;
 					end else begin
-						area_b_valid <= 1;
+						area_b_valid <= 0;
 					end
-					is_area_a_written <= ~is_area_a_written;
-					write_state <= WRITE_STATE_WAIT_FOR_START;
-					wrEnable <= 0;
+					if (wrFrameId != prev_wrFrameId) begin
+						write_state <= WRITE_STATE_STORE_FRAME_ID;		
+					end
 				end
-			end
-		endcase
+					
+				WRITE_STATE_STORE_FRAME_ID: begin
+					write_enable <= 1;
+					write_address <= is_area_a_written ? AREA_A_FIRST_ADDRESS_32BIT : AREA_B_FIRST_ADDRESS_32BIT;
+					write_data <= wrFrameId;
+					dpr_write_enable <= 1;
+					if (write_delay_clk == 0) begin
+						// after 2 posedge clocks (or 4 any edge clocks), go to the next write_state and increment the address.
+						write_state <= WRITE_STATE_STORE_DATA;
+						write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
+						wrEnable <= 1;
+						dpr_write_enable <= 0; // don't write to the dpr unless validate that wrValid.
+					end else begin
+						// stay in the same write_state, but decrement the write-delay counter.
+						write_delay_clk <= write_delay_clk - 1;
+					end
+				end
+				
+				WRITE_STATE_STORE_DATA: begin
+					if (write_address <= maximal_write_address) begin
+						if (wrValid & (~dpr_write_enable)) begin
+							// capture the data
+							write_data <= {wrPixel3, wrPixel2, wrPixel1, wrPixel0};
+							// enable the writing to the dpr. But if now write_address == maximal_write_address, then in the next cycle it will exceed the maximum, so don't write.
+							dpr_write_enable <= (write_address < maximal_write_address);
+							// and prepare the address register to the write operation
+							write_address <= write_address + 1;
+						end
+						if (dpr_write_enable) begin// we are during the write operation
+							if (write_delay_clk > 0) begin
+								write_delay_clk <= write_delay_clk - 1;
+								wrEnable <= 0;
+							end else begin
+								write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
+								// if write_address has reached the maximum and this is the last clock cycle of write delay, deassert dpr_write_enable
+								wrEnable <= 1;
+								dpr_write_enable <= 0;
+							end
+						end
+					end else begin
+						// The write address is above the maximum. Don't write! Deassert dpr_write_enable
+						dpr_write_enable <= 0;
+						if (is_area_a_written) begin
+							area_a_valid <= 1;
+						end else begin
+							area_b_valid <= 1;
+						end
+						is_area_a_written <= ~is_area_a_written;
+						write_state <= WRITE_STATE_WAIT_FOR_START;
+						wrEnable <= 0;
+					end
+				end
+			endcase
+		end
     end 
 
 
 	// *********************** Read State Machine **********************
 	assign active_area_changed = (prev_is_area_a_written != is_area_a_written); 
 	assign at_least_one_readable_area = (is_area_a_written) ? area_b_valid : area_a_valid;
-	always @(posedge rdClk) begin
-		prev_is_area_a_written <= is_area_a_written;
-	end
 	
     always @(posedge rdClk) begin
-	
-		if (active_area_changed) begin
-			read_state = READ_STATE_WAIT;
-		end
-		
-		case (read_state) 
-			READ_STATE_WAIT: begin
-				if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
-					read_area_is_a = ~is_area_a_written;
-					read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
-					maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
-					start_read <= 1;
-					column_id <= 0;
-					read_state <= READ_STATE_FRAME_ID;
-				end else begin
-					start_read <= 0;
+    	if (reset) begin
+			read_state <= READ_STATE_WAIT;
+			read_address <= 11'b11111111111;
+			start_read <= 0;
+			last_pixel_in_block <= 0;
+			pixels_block_in_column_id <= 0;
+			prev_is_area_a_written <= 0;
+    	end else begin
+			prev_is_area_a_written <= is_area_a_written;
+			if (active_area_changed) begin
+				read_state = READ_STATE_WAIT;
+			end
+			
+			case (read_state) 
+				READ_STATE_WAIT: begin
+					if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
+						read_area_is_a = ~is_area_a_written;
+						read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
+						maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
+						start_read <= 1;
+						column_id <= 0;
+						read_state <= READ_STATE_FRAME_ID;
+					end else begin
+						start_read <= 0;
+					end
 				end
-			end
-			
-			READ_STATE_FRAME_ID: begin
-				if(data_from_dpr_valid && tx_axis_frame_tready) begin
-					read_state <= READ_STATE_COLUMN_DATA;
-					read_address <= read_address + 1;
-					start_read <= 0;
-				end else begin
-					start_read <= 1; // just keep reading the frame id...
+				
+				READ_STATE_FRAME_ID: begin
+					if(data_from_dpr_valid && tx_axis_frame_tready) begin
+						read_state <= READ_STATE_COLUMN_DATA;
+						read_address <= read_address + 1;
+						start_read <= 0;
+					end else begin
+						start_read <= 1; // just keep reading the frame id...
+					end
 				end
-			end
-			
-			READ_STATE_COLUMN_ID: begin
-				// not sure I will use it
-			end
-			
-			READ_STATE_COLUMN_DATA: begin
-				if(start_read == 0) begin
-					pixels_block_in_column_id <= 0;
-					start_read <= 1;
-				end else begin
-					if(data_from_dpr_valid) begin
-						last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
-						if (tx_axis_frame_tready) begin
-							pixels_block_in_column_id <= pixels_block_in_column_id + 1;
-							if (pixels_block_in_column_id == 7) begin
-								column_id <= column_id + 1;
-							end
-							if (read_address < maximal_read_address) begin
-								read_address <= read_address + 1;
-							end else begin
-								read_state <= READ_STATE_FINALIZE_READ;
+				
+				READ_STATE_COLUMN_ID: begin
+					// not sure I will use it
+				end
+				
+				READ_STATE_COLUMN_DATA: begin
+					if(start_read == 0) begin
+						pixels_block_in_column_id <= 0;
+						start_read <= 1;
+					end else begin
+						if(data_from_dpr_valid) begin
+							last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
+							if (tx_axis_frame_tready) begin
+								pixels_block_in_column_id <= pixels_block_in_column_id + 1;
+								if (pixels_block_in_column_id == 7) begin
+									column_id <= column_id + 1;
+								end
+								if (read_address < maximal_read_address) begin
+									read_address <= read_address + 1;
+								end else begin
+									read_state <= READ_STATE_FINALIZE_READ;
+								end
 							end
 						end
 					end
 				end
-			end
-			
-			READ_STATE_FINALIZE_READ: begin
-				if (tx_axis_frame_tready) begin
-					read_state <= READ_STATE_WAIT;
+				
+				READ_STATE_FINALIZE_READ: begin
+					if (tx_axis_frame_tready) begin
+						read_state <= READ_STATE_WAIT;
+					end
 				end
-			end
-			
-		endcase
+				
+			endcase
+		end
     end 
     
 	blk_mem_gen_1 dpr_name (
