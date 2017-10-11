@@ -331,6 +331,27 @@ module frame_dpr(
 		.probe24(swaped_data_from_dpr), // input  [63:0]  probe24
 		.probe25(wrPixel0)*/
 	);
+	
+	ila_dpr_read ila_dpr_read_part (
+		.clk(rdClk), // input wire clk
+	
+	
+		.probe0 (maximal_read_address), // input wire [11:0]  probe0  
+		.probe1 (read_area_is_a), // input wire [0:0]  probe1 
+		.probe2 (prev_is_area_a_written), // input wire [0:0]  probe2 
+		.probe3 (data_from_dpr), // input wire [63:0]  probe3 
+		.probe4 (at_least_one_readable_area), // input wire [0:0]  probe4 
+		.probe5 (data_from_dpr_valid), // input wire [0:0]  probe5 
+		.probe6 (start_read), // input wire [0:0]  probe6 
+		.probe7 (prev_wrFrameId), // input wire [31:0]  probe7 
+		.probe8 (active_area_changed), // input wire [0:0]  probe8 
+		.probe9 (read_address), // input wire [10:0]  probe9 
+		.probe10(read_state), // input wire [4:0]  probe10 
+		.probe11(column_id), // input wire [5:0]  probe11 
+		.probe12(pixels_block_in_column_id), // input wire [2:0]  probe12 
+		.probe13(last_pixel_in_block), // input wire [7:0]  probe13 
+		.probe14(swaped_data_from_dpr) // input wire [63:0]  probe14
+	);
 		
 	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? swaped_data_from_dpr :
 								  	(read_state == READ_STATE_COLUMN_DATA) ? 
