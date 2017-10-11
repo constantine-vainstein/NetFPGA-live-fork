@@ -213,67 +213,63 @@ module frame_dpr(
 			prev_is_area_a_written <= 0;
     	end else begin
 			prev_is_area_a_written <= is_area_a_written;
-			if (active_area_changed) begin
-				read_state <= READ_STATE_WAIT;
-			end else begin
 			
-				case (read_state) 
-					READ_STATE_WAIT: begin
-						if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
-							read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
-							maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
-							start_read <= 1;
-							column_id <= 0;
-							read_state <= READ_STATE_FRAME_ID;
-						end else begin
-							start_read <= 0;
-						end
+			case (read_state) 
+				READ_STATE_WAIT: begin
+					if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
+						read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
+						maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
+						start_read <= 1;
+						column_id <= 0;
+						read_state <= READ_STATE_FRAME_ID;
+					end else begin
+						start_read <= 0;
 					end
-					
-					READ_STATE_FRAME_ID: begin
-						if(data_from_dpr_valid && tx_axis_frame_tready) begin
-							read_state <= READ_STATE_COLUMN_DATA;
-							read_address <= read_address + 1;
-							start_read <= 0;
-						end else begin
-							start_read <= 1; // just keep reading the frame id...
-						end
+				end
+				
+				READ_STATE_FRAME_ID: begin
+					if(data_from_dpr_valid && tx_axis_frame_tready) begin
+						read_state <= READ_STATE_COLUMN_DATA;
+						read_address <= read_address + 1;
+						start_read <= 0;
+					end else begin
+						start_read <= 1; // just keep reading the frame id...
 					end
-					
-					READ_STATE_COLUMN_ID: begin
-						// not sure I will use it
-					end
-					
-					READ_STATE_COLUMN_DATA: begin
-						if(start_read == 0) begin
-							pixels_block_in_column_id <= 0;
-							start_read <= 1;
-						end else begin
-							if(data_from_dpr_valid) begin
-								last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
-								if (tx_axis_frame_tready) begin
-									pixels_block_in_column_id <= pixels_block_in_column_id + 1;
-									if (pixels_block_in_column_id == 7) begin
-										column_id <= column_id + 1;
-									end
-									if (read_address < maximal_read_address) begin
-										read_address <= read_address + 1;
-									end else begin
-										read_state <= READ_STATE_FINALIZE_READ;
-									end
+				end
+				
+				READ_STATE_COLUMN_ID: begin
+					// not sure I will use it
+				end
+				
+				READ_STATE_COLUMN_DATA: begin
+					if(start_read == 0) begin
+						pixels_block_in_column_id <= 0;
+						start_read <= 1;
+					end else begin
+						if(data_from_dpr_valid) begin
+							last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
+							if (tx_axis_frame_tready) begin
+								pixels_block_in_column_id <= pixels_block_in_column_id + 1;
+								if (pixels_block_in_column_id == 7) begin
+									column_id <= column_id + 1;
+								end
+								if (read_address < maximal_read_address) begin
+									read_address <= read_address + 1;
+								end else begin
+									read_state <= READ_STATE_FINALIZE_READ;
 								end
 							end
 						end
 					end
-					
-					READ_STATE_FINALIZE_READ: begin
-						if (tx_axis_frame_tready) begin
-							read_state <= READ_STATE_WAIT;
-						end
+				end
+				
+				READ_STATE_FINALIZE_READ: begin
+					if (tx_axis_frame_tready) begin
+						read_state <= READ_STATE_WAIT;
 					end
-					
-				endcase
-			end
+				end
+				
+			endcase
 		end
     end 
     
