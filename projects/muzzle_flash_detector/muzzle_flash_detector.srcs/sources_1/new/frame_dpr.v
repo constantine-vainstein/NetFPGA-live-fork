@@ -95,7 +95,7 @@ module frame_dpr(
     
     wire [11 : 0] maximal_write_address;
     reg [11 : 0] maximal_read_address; // reg because it will be updated only when starting reading from an area.
-    reg read_area_is_a;
+    wire read_area_is_a;
     reg prev_is_area_a_written;
 	wire [63 : 0] data_from_dpr;
 	wire at_least_one_readable_area;
@@ -201,6 +201,7 @@ module frame_dpr(
 	// *********************** Read State Machine **********************
 	assign active_area_changed = (prev_is_area_a_written != is_area_a_written); 
 	assign at_least_one_readable_area = (is_area_a_written) ? area_b_valid : area_a_valid;
+	assign read_area_is_a = ~is_area_a_written;
 	
     always @(posedge rdClk) begin
     	if (reset) begin
@@ -213,66 +214,66 @@ module frame_dpr(
     	end else begin
 			prev_is_area_a_written <= is_area_a_written;
 			if (active_area_changed) begin
-				read_state = READ_STATE_WAIT;
-			end
+				read_state <= READ_STATE_WAIT;
+			end else begin
 			
-			case (read_state) 
-				READ_STATE_WAIT: begin
-					if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
-						read_area_is_a = ~is_area_a_written;
-						read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
-						maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
-						start_read <= 1;
-						column_id <= 0;
-						read_state <= READ_STATE_FRAME_ID;
-					end else begin
-						start_read <= 0;
+				case (read_state) 
+					READ_STATE_WAIT: begin
+						if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
+							read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
+							maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
+							start_read <= 1;
+							column_id <= 0;
+							read_state <= READ_STATE_FRAME_ID;
+						end else begin
+							start_read <= 0;
+						end
 					end
-				end
-				
-				READ_STATE_FRAME_ID: begin
-					if(data_from_dpr_valid && tx_axis_frame_tready) begin
-						read_state <= READ_STATE_COLUMN_DATA;
-						read_address <= read_address + 1;
-						start_read <= 0;
-					end else begin
-						start_read <= 1; // just keep reading the frame id...
+					
+					READ_STATE_FRAME_ID: begin
+						if(data_from_dpr_valid && tx_axis_frame_tready) begin
+							read_state <= READ_STATE_COLUMN_DATA;
+							read_address <= read_address + 1;
+							start_read <= 0;
+						end else begin
+							start_read <= 1; // just keep reading the frame id...
+						end
 					end
-				end
-				
-				READ_STATE_COLUMN_ID: begin
-					// not sure I will use it
-				end
-				
-				READ_STATE_COLUMN_DATA: begin
-					if(start_read == 0) begin
-						pixels_block_in_column_id <= 0;
-						start_read <= 1;
-					end else begin
-						if(data_from_dpr_valid) begin
-							last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
-							if (tx_axis_frame_tready) begin
-								pixels_block_in_column_id <= pixels_block_in_column_id + 1;
-								if (pixels_block_in_column_id == 7) begin
-									column_id <= column_id + 1;
-								end
-								if (read_address < maximal_read_address) begin
-									read_address <= read_address + 1;
-								end else begin
-									read_state <= READ_STATE_FINALIZE_READ;
+					
+					READ_STATE_COLUMN_ID: begin
+						// not sure I will use it
+					end
+					
+					READ_STATE_COLUMN_DATA: begin
+						if(start_read == 0) begin
+							pixels_block_in_column_id <= 0;
+							start_read <= 1;
+						end else begin
+							if(data_from_dpr_valid) begin
+								last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
+								if (tx_axis_frame_tready) begin
+									pixels_block_in_column_id <= pixels_block_in_column_id + 1;
+									if (pixels_block_in_column_id == 7) begin
+										column_id <= column_id + 1;
+									end
+									if (read_address < maximal_read_address) begin
+										read_address <= read_address + 1;
+									end else begin
+										read_state <= READ_STATE_FINALIZE_READ;
+									end
 								end
 							end
 						end
 					end
-				end
-				
-				READ_STATE_FINALIZE_READ: begin
-					if (tx_axis_frame_tready) begin
-						read_state <= READ_STATE_WAIT;
+					
+					READ_STATE_FINALIZE_READ: begin
+						if (tx_axis_frame_tready) begin
+							read_state <= READ_STATE_WAIT;
+						end
 					end
-				end
-				
-			endcase
+					
+				endcase
+			end
 		end
     end 
     
@@ -313,23 +314,7 @@ module frame_dpr(
 		.probe8 (area_b_valid), // input  [0:0]  probe8 
 		.probe9 (maximal_write_address), // input  [11:0]  probe9
 		.probe10 (prev_wrFrameId), // input  [11:0]  probe9 
-		.probe11 (wrFrameId)/*, // input  [11:0]  probe9  
-		.probe10(maximal_read_address), // input  [11:0]  probe10 
-		.probe11(read_area_is_a), // input  [0:0]  probe11 
-		.probe12(prev_is_area_a_written), // input  [0:0]  probe12 
-		.probe13(data_from_dpr), // input  [63:0]  probe13 
-		.probe14(at_least_one_readable_area), // input  [0:0]  probe14 
-		.probe15(data_from_dpr_valid), // input  [0:0]  probe15 
-		.probe16(start_read), // input  [0:0]  probe16 
-		.probe17(prev_wrFrameId), // input  [31:0]  probe17 
-		.probe18(active_area_changed), // input  [0:0]  probe18 
-		.probe19(read_address), // input  [10:0]  probe19 
-		.probe20(read_state), // input  [3:0]  probe20 
-		.probe21(column_id), // input  [5:0]  probe21 
-		.probe22(pixels_block_in_column_id), // input  [2:0]  probe22 
-		.probe23(last_pixel_in_block), // input  [7:0]  probe23 
-		.probe24(swaped_data_from_dpr), // input  [63:0]  probe24
-		.probe25(wrPixel0)*/
+		.probe11 (wrFrameId) // input  [11:0]  probe9  
 	);
 	
 	ila_dpr_read ila_dpr_read_part (
@@ -350,7 +335,12 @@ module frame_dpr(
 		.probe11(column_id), // input wire [5:0]  probe11 
 		.probe12(pixels_block_in_column_id), // input wire [2:0]  probe12 
 		.probe13(last_pixel_in_block), // input wire [7:0]  probe13 
-		.probe14(swaped_data_from_dpr) // input wire [63:0]  probe14
+		.probe14(swaped_data_from_dpr), // input wire [63:0]  probe14
+		.probe15(tx_axis_frame_tdata),
+		.probe16(tx_axis_frame_tkeep),
+		.probe17(tx_axis_frame_tvalid),
+		.probe18(tx_axis_frame_tlast),
+		.probe19(tx_axis_frame_tready)
 	);
 		
 	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? swaped_data_from_dpr :
