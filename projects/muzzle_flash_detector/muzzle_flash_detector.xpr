@@ -196,8 +196,8 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="hw_handoff/design_1_bd.tcl"/>
         <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="design_1_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="hw_handoff/design_1_bd.tcl"/>
         <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="hw_handoff/design_1.hwh"/>
         <CompFileExtendedInfo CompFileName="design_1.bd" FileRelPathName="hdl/design_1.v"/>
       </File>
@@ -620,18 +620,14 @@
     </Run>
     <Run Id="ila_1_synth_1" Type="Ft3:Synth" SrcSet="ila_1" Part="xc7vx690tffg1761-3" ConstrsSet="ila_1" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/ila_1_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="ila_dpr_read_synth_1" Type="Ft3:Synth" SrcSet="ila_dpr_read" Part="xc7vx690tffg1761-3" ConstrsSet="ila_dpr_read" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/ila_dpr_read_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -765,9 +761,7 @@
     </Run>
     <Run Id="ila_1_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="ila_1" Description="Vivado Implementation Defaults" SynthRun="ila_1_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -781,9 +775,7 @@
     </Run>
     <Run Id="ila_dpr_read_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="ila_dpr_read" Description="Vivado Implementation Defaults" SynthRun="ila_dpr_read_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

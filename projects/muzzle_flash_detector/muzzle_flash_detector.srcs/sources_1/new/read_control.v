@@ -26,8 +26,7 @@ module read_control(
 	input wire en,
 	input wire [10 : 0] addr,
 	/*output wire [63 : 0] dout,*/
-	output wire valid,
-	output wire end_of_read_process // raised for a full clock cycle
+	output wire valid
     );
     
     localparam STATE_WAIT = 1;
@@ -39,23 +38,20 @@ module read_control(
     
     reg [STATE_READ_BITS - 1 : 0] state;
     reg [2:0] read_delay_cnt;
-    reg prev_valid;
     reg [10 : 0] prev_addr;
-    reg prev_en;
     
     wire read_parameters_changed;
     
-    assign read_parameters_changed = (prev_en != en) || (en && (prev_addr != addr));
+    assign read_parameters_changed = en && (prev_addr != addr);
     
     always @(posedge clk) begin
     	if(reset) begin
     		state <= STATE_WAIT;
     		read_delay_cnt <= READ_DELAY;
-    		prev_valid <= 0;
 		end
-		prev_addr <= addr;
-		prev_valid <= valid;
-		prev_en <= en;
+		if(en) begin
+			prev_addr <= addr;
+		end
 		
 		if (read_parameters_changed) begin
 			state = STATE_WAIT;
@@ -84,6 +80,5 @@ module read_control(
     end
     
     assign valid = (read_delay_cnt == 0) && ~read_parameters_changed;
-    assign end_of_read_process = (valid & (~prev_valid));
     
 endmodule

@@ -79,7 +79,7 @@ module frame_dpr(
     localparam AREA_B_LAST_ADDRESS_64BIT = 1025;
     
     // *************** Block RAM delays ************
-    localparam MEM_WRITE_DELAY_ANY_CLK = 4;
+    localparam MEM_WRITE_DELAY_ANY_CLK = 2;
     
     reg [31:0] write_data;
     reg [WRITE_STATE_SIZE_BITS_ - 1 : 0] write_state;
@@ -292,8 +292,7 @@ module frame_dpr(
 		.reset(reset),
 		.addr(read_address),
 		.en(start_read),
-		.valid(data_from_dpr_valid),
-		.end_of_read_process()
+		.valid(data_from_dpr_valid)
 	);
 	
 	ila_1 dpr_signals (
