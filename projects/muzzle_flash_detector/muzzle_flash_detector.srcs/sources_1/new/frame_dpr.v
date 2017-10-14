@@ -229,11 +229,13 @@ module frame_dpr(
 				
 				READ_STATE_FRAME_ID: begin
 					if(data_from_dpr_valid && tx_axis_frame_tready) begin
+						// Go to the next state
 						read_state <= READ_STATE_COLUMN_DATA;
 						read_address <= read_address + 1;
-						start_read <= 0;
+						pixels_block_in_column_id <= 0;
+						start_read <= 1;
 					end else begin
-						start_read <= 1; // just keep reading the frame id...
+						// just keep reading the frame id...
 					end
 				end
 				
@@ -242,22 +244,17 @@ module frame_dpr(
 				end
 				
 				READ_STATE_COLUMN_DATA: begin
-					if(start_read == 0) begin
-						pixels_block_in_column_id <= 0;
-						start_read <= 1;
-					end else begin
-						if(data_from_dpr_valid) begin
-							last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
-							if (tx_axis_frame_tready) begin
-								pixels_block_in_column_id <= pixels_block_in_column_id + 1;
-								if (pixels_block_in_column_id == 7) begin
-									column_id <= column_id + 1;
-								end
-								if (read_address < maximal_read_address) begin
-									read_address <= read_address + 1;
-								end else begin
-									read_state <= READ_STATE_FINALIZE_READ;
-								end
+					if(data_from_dpr_valid) begin
+						last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
+						if (tx_axis_frame_tready) begin
+							pixels_block_in_column_id <= pixels_block_in_column_id + 1; // overflow is exploited here. after 7 pixels_block_in_column_id will go to 0
+							if (pixels_block_in_column_id == 7) begin
+								column_id <= column_id + 1;
+							end
+							if (read_address < maximal_read_address) begin
+								read_address <= read_address + 1;
+							end else begin
+								read_state <= READ_STATE_FINALIZE_READ;
 							end
 						end
 					end
