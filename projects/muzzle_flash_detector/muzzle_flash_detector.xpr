@@ -418,6 +418,17 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="bd_1/bd_1.bd"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_funcsim.vhdl"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_stub.v"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0.dcp"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="sim/axi_10g_ethernet_0.v"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_funcsim.v"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="synth/axi_10g_ethernet_0.v"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0.veo"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0.xml"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_stub.vhdl"/>
+        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="synth/axi_10g_ethernet_0_ooc.xdc"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="axi_10g_ethernet_0"/>
