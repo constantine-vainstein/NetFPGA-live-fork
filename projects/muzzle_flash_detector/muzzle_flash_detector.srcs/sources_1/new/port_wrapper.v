@@ -92,8 +92,6 @@ module port_wraper
    wire tx_axis_frame_eth_tlast;
    wire tx_axis_frame_eth_tready;
    
-   wire eth_fifo_is_ready_to_rx;
-   
    wire clk_100MHz;
    wire clk_100MHz_locked;
    
@@ -102,11 +100,6 @@ module port_wraper
    wire check_active_flash;
    
    wire reset;
-   
-   wire block_lock;
-   
-   // reset 
-   reg reset_cnt;
    
    axi_clocking axi_clocking_i (
        .clk_in_p               (fpga_sysclk_p),
@@ -135,7 +128,7 @@ module port_wraper
     /* output */           .frame_error(frame_error),
     /* output */           .gen_active_flash(gen_active_flash),
     /* output */           .check_active_flash(check_active_flash), //indicates a non-dropped data has been received
-    /* output */           .block_lock(block_lock),
+    /* output */           .block_lock(),
     /* output */           .qplllock_out(),
     /* output */           .tx_disable(sfp0_tx_disable),
     /* output */           .resetdone(resetdone),
@@ -212,7 +205,7 @@ module port_wraper
 	/*       */
 	/* input */	.dest_address(48'hffffffffffff),
     /* input */	.source_address(48'h28cf013e1800),
-    /* input */	.type_length(16'h0888),
+    /* input */	.type_length(16'h0008),
     /*       */
     /* input */	.tx_axis_frame_tdata(tx_axis_frame_tdata),
     /* input */	.tx_axis_frame_tkeep(tx_axis_frame_tkeep),
@@ -224,7 +217,7 @@ module port_wraper
     /* output*/ .tx_axis_eth_tkeep(tx_axis_frame_eth_tkeep),
     /* output*/ .tx_axis_eth_tvalid(tx_axis_frame_eth_tvalid),
     /* output*/ .tx_axis_eth_tlast(tx_axis_frame_eth_tlast),
-    /* input */	.tx_axis_eth_tready(eth_fifo_is_ready_to_rx)
+    /* input */	.tx_axis_eth_tready(tx_axis_frame_eth_tready)
     );
     
     assign sfp0_tx_led = resetdone | gen_active_flash;
@@ -253,9 +246,7 @@ module port_wraper
     );
 
 
-	assign reset = btn[0] | (reset_cnt > 20);
-	
-	assign eth_fifo_is_ready_to_rx = tx_axis_frame_eth_tready & block_lock;
+	assign reset = btn[0];
 
 	///////////////////////////// DEBUG ONLY ///////////////////////////
 	// system clk heartbeat 
@@ -290,16 +281,6 @@ module port_wraper
 				led[0] <= ~led[0];
 			end  
 	   	end
-	end
-	
-	always @ (posedge clk_100MHz) begin
-		if(btn[0]) begin
-			reset_cnt <= 0;
-		end else begin
-			if (reset_cnt < 20) begin
-				reset_cnt <= reset_cnt + 1;
-			end
-		end
 	end
 // Debug LEDs  
 	// 156MHz clk heartbeat ~ every second
