@@ -211,11 +211,11 @@ module axi_10g_ethernet_0_example_design
       .rx_axis_fifo_tready    (rx_axis_tready),
       .tx_axis_mac_aresetn    (tx_axis_aresetn),
       .tx_axis_fifo_aresetn   (tx_axis_aresetn),
-      .tx_axis_fifo_tdata     (tx_axis_frame_tdata),
-      .tx_axis_fifo_tkeep     (tx_axis_frame_tkeep),
-      .tx_axis_fifo_tvalid    (tx_axis_frame_tvalid),
-      .tx_axis_fifo_tlast     (tx_axis_frame_tlast),
-      .tx_axis_fifo_tready    (tx_axis_frame_tready),
+      .tx_axis_fifo_tdata     (tx_axis_tdata ),
+      .tx_axis_fifo_tkeep     (tx_axis_tkeep ),
+      .tx_axis_fifo_tvalid    (tx_axis_tvalid),
+      .tx_axis_fifo_tlast     (tx_axis_tlast ),
+      .tx_axis_fifo_tready    (tx_axis_tready),
 
       .mac_tx_configuration_vector   (mac_tx_configuration_vector),
       .mac_rx_configuration_vector   (mac_rx_configuration_vector),
@@ -269,16 +269,16 @@ module axi_10g_ethernet_0_example_design
       .gen_active_flash      (gen_active_flash),
       .check_active_flash    (check_active_flash),
 
-      .tx_axis_tdata         (tx_axis_tdata),
-      .tx_axis_tkeep         (tx_axis_tkeep),
+      .tx_axis_tdata         (tx_axis_tdata ),
+      .tx_axis_tkeep         (tx_axis_tkeep ),
       .tx_axis_tvalid        (tx_axis_tvalid),
-      .tx_axis_tlast         (tx_axis_tlast),
+      .tx_axis_tlast         (tx_axis_tlast ),
       .tx_axis_tready        (tx_axis_tready),
-      .rx_axis_tdata         (rx_axis_tdata),
-      .rx_axis_tkeep         (rx_axis_tkeep),
-      .rx_axis_tvalid        (rx_axis_tvalid),
-      .rx_axis_tlast         (rx_axis_tlast),
-      .rx_axis_tready        (rx_axis_tready)
+      .rx_axis_tdata         (tx_axis_frame_tdata ),
+      .rx_axis_tkeep         (tx_axis_frame_tkeep ),
+      .rx_axis_tvalid        (tx_axis_frame_tvalid),
+      .rx_axis_tlast         (tx_axis_frame_tlast ),
+      .rx_axis_tready        (tx_axis_frame_tready)
    );
 
 
