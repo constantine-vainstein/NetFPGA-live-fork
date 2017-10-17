@@ -92,8 +92,6 @@ module port_wraper
    wire tx_axis_frame_eth_tlast;
    wire tx_axis_frame_eth_tready;
    
-   wire eth_fifo_is_ready_to_rx;
-   
    wire clk_100MHz;
    wire clk_100MHz_locked;
    
@@ -224,7 +222,7 @@ module port_wraper
     /* output*/ .tx_axis_eth_tkeep(tx_axis_frame_eth_tkeep),
     /* output*/ .tx_axis_eth_tvalid(tx_axis_frame_eth_tvalid),
     /* output*/ .tx_axis_eth_tlast(tx_axis_frame_eth_tlast),
-    /* input */	.tx_axis_eth_tready(eth_fifo_is_ready_to_rx)
+    /* input */	.tx_axis_eth_tready(tx_axis_frame_eth_tready)
     );
     
     assign sfp0_tx_led = resetdone | gen_active_flash;
@@ -255,8 +253,6 @@ module port_wraper
 
 	assign reset = btn[0] | (reset_cnt > 20);
 	
-	assign eth_fifo_is_ready_to_rx = tx_axis_frame_eth_tready & block_lock;
-
 	///////////////////////////// DEBUG ONLY ///////////////////////////
 	// system clk heartbeat 
 	reg [27:0]                                 sfp_clk156_count;

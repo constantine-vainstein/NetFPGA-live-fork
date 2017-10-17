@@ -86,10 +86,15 @@ module ethernet_wrapper(
 		.probe4(tx_axis_fifo_out_tdata), // input wire [63:0]  probe4 
 		.probe5(tx_axis_fifo_out_tkeep), // input wire [7:0]  probe5 
 		.probe6(tx_axis_fifo_out_tlast), // input wire [0:0]  probe6 
-		.probe7(tx_axis_frame_tready) // input wire [0:0]  probe7
+		.probe7(tx_axis_frame_tready), // input wire [0:0]  probe7
+		.probe8(tx_axis_eth_tdata),
+		.probe9(tx_axis_eth_tkeep),
+		.probe10(tx_axis_eth_tvalid),
+		.probe11(tx_axis_eth_tlast),
+		.probe12(tx_axis_eth_tready)
 	);
 	
-    
+	    
     always @(posedge clk) begin
     	if(reset) begin
     		state <= STATE_WAIT_FOR_START;
@@ -104,42 +109,50 @@ module ethernet_wrapper(
 				STATE_WAIT_FOR_START: begin
 					if(tx_axis_fifo_out_tvalid) begin
 						state <= STATE_SEND_ETH_HEADER1;
+						
+						tx_axis_fifo_out_tready <= 0;
+						tx_axis_eth_tdata <= {dest_address[15:0], source_address};
+						tx_axis_eth_tkeep <= 8'b11111111;
+						tx_axis_eth_tlast <= 1'b0;
+						tx_axis_eth_tvalid <= 1'b1;
 					end
-					tx_axis_fifo_out_tready <= 0;
-					tx_axis_eth_tdata <= 64'hcccccccccccccccc;
-					tx_axis_eth_tkeep <= 64'h0;
-					tx_axis_eth_tlast <= 1'b0;
-					tx_axis_eth_tvalid <= 1'b0;
+
 				end
 				STATE_SEND_ETH_HEADER1: begin
 					if(tx_axis_eth_tready) begin
 						state <= STATE_SEND_ETH_HEADER2;
+						
+						tx_axis_fifo_out_tready <= 0;
+						tx_axis_eth_tdata <= {16'h0000 ,type_length, dest_address[47:16]};
+						tx_axis_eth_tkeep <= 8'b11111111;
+						tx_axis_eth_tlast <= 1'b0;
+						tx_axis_eth_tvalid <= 1'b1;
 					end
-					tx_axis_fifo_out_tready <= 0;
-					tx_axis_eth_tdata <= {dest_address[15:0], source_address};
-					tx_axis_eth_tkeep <= 8'b11111111;
-					tx_axis_eth_tlast <= 1'b0;
-					tx_axis_eth_tvalid <= 1'b1;
+
 				end
 				STATE_SEND_ETH_HEADER2: begin
 					if(tx_axis_eth_tready) begin
 						state <= STATE_SEND_DATA;
+						
+						tx_axis_fifo_out_tready <= tx_axis_eth_tready;
+						tx_axis_eth_tdata <= tx_axis_fifo_out_tdata;
+						tx_axis_eth_tkeep <= tx_axis_fifo_out_tkeep;
+						tx_axis_eth_tlast <= tx_axis_fifo_out_tlast;
+						tx_axis_eth_tvalid <= tx_axis_fifo_out_tvalid;
 					end
-					tx_axis_fifo_out_tready <= 0;
-					tx_axis_eth_tdata <= {16'h0000 ,type_length, dest_address[47:16]};
-					tx_axis_eth_tkeep <= 8'b11111111;
-					tx_axis_eth_tlast <= 1'b0;
-					tx_axis_eth_tvalid <= 1'b1;
+
 				end
 				STATE_SEND_DATA: begin
 					if(tx_axis_fifo_out_tlast && tx_axis_eth_tready) begin
 						state <= STATE_WAIT_FOR_START;
+						
+    					tx_axis_fifo_out_tready <= 0;
+						tx_axis_eth_tdata <= 64'hcccccccccccccccc;
+						tx_axis_eth_tkeep <= 64'h0;
+						tx_axis_eth_tlast <= 1'b0;
+						tx_axis_eth_tvalid <= 1'b0;
 					end
-					tx_axis_fifo_out_tready <= tx_axis_eth_tready;
-					tx_axis_eth_tdata <= tx_axis_fifo_out_tdata;
-					tx_axis_eth_tkeep <= tx_axis_fifo_out_tkeep;
-					tx_axis_eth_tlast <= tx_axis_fifo_out_tlast;
-					tx_axis_eth_tvalid <= tx_axis_fifo_out_tvalid;
+
 				end
 			endcase
 		end
