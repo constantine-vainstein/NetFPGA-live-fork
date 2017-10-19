@@ -280,6 +280,30 @@ module axi_10g_ethernet_0_example_design
       .rx_axis_tlast         (tx_axis_frame_tlast ),
       .rx_axis_tready        (tx_axis_frame_tready)
    );
+   
+   ila_3 your_instance_name (
+   	.clk(clk156), // input wire clk
+   
+   
+   	.probe0(tx_axis_aresetn), // input wire [0:0]  probe0  
+   	.probe1(pat_gen_start), // input wire [0:0]  probe1 
+   	.probe2(reset_error_sync), // input wire [0:0]  probe2 
+   	.probe3(insert_error), // input wire [0:0]  probe3 
+   	.probe4(enable_pat_check), // input wire [0:0]  probe4 
+   	.probe5(frame_error), // input wire [0:0]  probe5 
+   	.probe6(gen_active_flash), // input wire [0:0]  probe6 
+   	.probe7(check_active_flash), // input wire [0:0]  probe7 
+   	.probe8(tx_axis_tdata), // input wire [63:0]  probe8 
+   	.probe9(tx_axis_tkeep), // input wire [7:0]  probe9 
+   	.probe10(tx_axis_tvalid), // input wire [0:0]  probe10 
+   	.probe11(tx_axis_tlast), // input wire [0:0]  probe11 
+   	.probe12(tx_axis_tready), // input wire [0:0]  probe12 
+   	.probe13(tx_axis_frame_tdata), // input wire [63:0]  probe13 
+   	.probe14(tx_axis_frame_tkeep), // input wire [7:0]  probe14 
+   	.probe15(tx_axis_frame_tvalid), // input wire [0:0]  probe15 
+   	.probe16(tx_axis_frame_tlast), // input wire [0:0]  probe16 
+   	.probe17(tx_axis_frame_tready) // input wire [0:0]  probe17
+   );
 
 
    //--------------------------------------------------------------------------
