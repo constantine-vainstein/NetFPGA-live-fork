@@ -107,8 +107,8 @@ module ethernet_wrapper(
 
 	assign tx_axis_fifo_out_tready = (state == STATE_SEND_DATA) && tx_axis_eth_tready; // in all other cases don't output the data from the fifo.
 	assign tx_axis_eth_tdata =  (state == STATE_WAIT_FOR_START) ? 64'hcccccccccccccccc : 
-								(state == STATE_SEND_ETH_HEADER1) ? {dest_address[15:0], source_address} : 
-								(state == STATE_SEND_ETH_HEADER2) ? {16'h0000 ,type_length, dest_address[47:16]} :
+								(state == STATE_SEND_ETH_HEADER1) ? {source_address[15:0], dest_address} : 
+								(state == STATE_SEND_ETH_HEADER2) ? {16'h0000 ,type_length, source_address[47:16]} :
 								/*(state == STATE_SEND_DATA)*/		tx_axis_fifo_out_tdata;
 	assign tx_axis_eth_tkeep = 	(state == STATE_WAIT_FOR_START) ? 64'h0 :
 								((state == STATE_SEND_ETH_HEADER1) || 

@@ -210,7 +210,7 @@ module port_wraper
 	/*       */
 	/* input */	.dest_address(48'hffffffffffff),
     /* input */	.source_address(48'h28cf013e1800),
-    /* input */	.type_length(16'h0888), // :: TODO:: replace by the size of the payload
+    /* input */	.type_length(16'h0008), // :: TODO:: replace by the size of the payload
     /*       */
     /* input */	.tx_axis_frame_tdata(tx_axis_frame_tdata),
     /* input */	.tx_axis_frame_tkeep(tx_axis_frame_tkeep),
