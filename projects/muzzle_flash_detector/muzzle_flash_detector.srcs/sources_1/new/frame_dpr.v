@@ -59,10 +59,10 @@ module frame_dpr(
     localparam READ_STATE_FRAME_ID = 2;
     localparam READ_STATE_COLUMN_ID = 4;
     localparam READ_STATE_COLUMN_DATA = 8;
-    localparam READ_STATE_FINALIZE_READ = 16;
+    localparam READ_STATE_FINALIZE_COLUMN = 16;
     localparam READ_STATE_SIZE_BITS_ = 5;
     localparam READ_STATE_FIRST_ = READ_STATE_WAIT;
-    localparam READ_STATE_LAST_ = READ_STATE_FINALIZE_READ;
+    localparam READ_STATE_LAST_ = READ_STATE_FINALIZE_COLUMN;
     
     // *************** Memory Constatnts *********************
     
@@ -101,7 +101,7 @@ module frame_dpr(
 	wire at_least_one_readable_area;
 	wire data_from_dpr_valid;
 	reg start_read;
-	reg [31 : 0] prev_wrFrameId;
+	reg [31 : 0] cur_wrFrameId;
     wire active_area_changed;
     
     reg [10 : 0] read_address;
@@ -120,14 +120,13 @@ module frame_dpr(
 		if (reset) begin
     		write_state <= WRITE_STATE_WAIT_FOR_START;
 			is_area_a_written <= 1;
-			prev_wrFrameId <= 32'hFFFFFFFF;
+			cur_wrFrameId <= 32'hFFFFFFFF;
 			wrEnable <= 0;
 			area_a_valid <= 0;
 			area_b_valid <= 0;
 			dpr_write_enable <= 0;
 		end else begin
 	
-			prev_wrFrameId <= wrFrameId;
 			case (write_state)
 				WRITE_STATE_WAIT_FOR_START: begin
 					write_enable <= 0;
@@ -137,8 +136,9 @@ module frame_dpr(
 					end else begin
 						area_b_valid <= 0;
 					end
-					if (wrFrameId != prev_wrFrameId) begin
-						write_state <= WRITE_STATE_STORE_FRAME_ID;		
+					if (wrFrameId != cur_wrFrameId) begin
+						write_state <= WRITE_STATE_STORE_FRAME_ID;
+						cur_wrFrameId <= wrFrameId;		
 					end
 				end
 					
@@ -249,23 +249,26 @@ module frame_dpr(
 						if (tx_axis_frame_tready) begin
 							pixels_block_in_column_id <= pixels_block_in_column_id + 1; // overflow is exploited here. after 7 pixels_block_in_column_id will go to 0
 							if (pixels_block_in_column_id == 7) begin
-								column_id <= column_id + 1;
+								read_state <= READ_STATE_FINALIZE_COLUMN;
 							end
 							if (read_address < maximal_read_address) begin
 								read_address <= read_address + 1;
-							end else begin
-								read_state <= READ_STATE_FINALIZE_READ;
 							end
 						end
 					end
 				end
 				
-				READ_STATE_FINALIZE_READ: begin
-					if (tx_axis_frame_tready) begin
-						read_state <= READ_STATE_WAIT;
-					end
+				READ_STATE_FINALIZE_COLUMN: begin
+					if (tx_axis_frame_tready) begin						
+						if (column_id < 64 - 1) begin
+							read_state <= READ_STATE_COLUMN_DATA;
+						end else begin
+							read_state <= READ_STATE_WAIT;
+						end
+						column_id <= column_id + 1;
+					end					
 				end
-				
+		
 			endcase
 		end
     end 
@@ -305,7 +308,7 @@ module frame_dpr(
 		.probe7 (area_a_valid), // input  [0:0]  probe7 
 		.probe8 (area_b_valid), // input  [0:0]  probe8 
 		.probe9 (maximal_write_address), // input  [11:0]  probe9
-		.probe10 (prev_wrFrameId), // input  [11:0]  probe9 
+		.probe10 (cur_wrFrameId), // input  [11:0]  probe9 
 		.probe11 (wrFrameId) // input  [11:0]  probe9  
 	);
 	
@@ -320,7 +323,7 @@ module frame_dpr(
 		.probe4 (at_least_one_readable_area), // input wire [0:0]  probe4 
 		.probe5 (data_from_dpr_valid), // input wire [0:0]  probe5 
 		.probe6 (start_read), // input wire [0:0]  probe6 
-		.probe7 (prev_wrFrameId), // input wire [31:0]  probe7 
+		.probe7 (cur_wrFrameId), // input wire [31:0]  probe7 
 		.probe8 (active_area_changed), // input wire [0:0]  probe8 
 		.probe9 (read_address), // input wire [10:0]  probe9 
 		.probe10(read_state), // input wire [4:0]  probe10 
@@ -338,19 +341,18 @@ module frame_dpr(
 	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? swaped_data_from_dpr :
 								  	(read_state == READ_STATE_COLUMN_DATA) ? 
 								  		{swaped_data_from_dpr[55:0], (pixels_block_in_column_id == 0) ? column_id : last_pixel_in_block} :
-									(read_state == READ_STATE_FINALIZE_READ) ? {56'b0, last_pixel_in_block} :
+									(read_state == READ_STATE_FINALIZE_COLUMN) ? {56'b0, last_pixel_in_block} :
 									/*(read_state == READ_STATE_WAIT) */ 0;
 								  											
 	
 	assign tx_axis_frame_tlast = ((read_state != READ_STATE_WAIT) && active_area_changed) || // if active area has changed during read, end the packet, and read from the new area. It should not happen.
 								 (read_state == READ_STATE_FRAME_ID) ||
-								 ((read_state == READ_STATE_COLUMN_DATA) && (pixels_block_in_column_id == 7)) ||
-								 (read_state == READ_STATE_FINALIZE_READ);
+								 (read_state == READ_STATE_FINALIZE_COLUMN);
 								 
- 	assign tx_axis_frame_tkeep = (tx_axis_frame_tlast && (read_state != READ_STATE_FRAME_ID)) ? 8'b00000001 : 8'b11111111 /* irrelevant in all other states */;
+ 	assign tx_axis_frame_tkeep = (read_state == READ_STATE_FINALIZE_COLUMN) ? 8'b00000001 : 8'b11111111 /* irrelevant in all other states */;
 	assign tx_axis_frame_tvalid = 	(read_state != READ_STATE_WAIT) && (data_from_dpr_valid || 
-									((read_state != READ_STATE_WAIT) && active_area_changed) || // sould never happen
-									(read_state == READ_STATE_FINALIZE_READ)); // in this case the data is not read from dpr. 
+									active_area_changed || // sould never happen
+									read_state == READ_STATE_FINALIZE_COLUMN); // in this case the data is not read from dpr. 
 	
 	
     

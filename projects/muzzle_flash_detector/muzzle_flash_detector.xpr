@@ -401,7 +401,6 @@
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="spad_ss_and_dpr_tb"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
-        <Option Name="SimMode" Val="post-synthesis"/>
         <Option Name="SrcSet" Val="sources_1"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/frame_buffer_io.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/spad_ss_and_dpr_eth_tb_behav1.wcfg"/>
@@ -418,17 +417,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="bd_1/bd_1.bd"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_funcsim.vhdl"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_stub.v"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0.dcp"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="sim/axi_10g_ethernet_0.v"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_funcsim.v"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="synth/axi_10g_ethernet_0.v"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0.veo"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0.xml"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="axi_10g_ethernet_0_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="axi_10g_ethernet_0.xci" FileRelPathName="synth/axi_10g_ethernet_0_ooc.xdc"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="axi_10g_ethernet_0"/>
@@ -681,18 +669,14 @@
     </Run>
     <Run Id="ila_2_synth_1" Type="Ft3:Synth" SrcSet="ila_2" Part="xc7vx690tffg1761-3" ConstrsSet="ila_2" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/ila_2_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="ila_3_synth_1" Type="Ft3:Synth" SrcSet="ila_3" Part="xc7vx690tffg1761-3" ConstrsSet="ila_3" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/ila_3_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -854,9 +838,7 @@
     </Run>
     <Run Id="ila_2_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="ila_2" Description="Vivado Implementation Defaults" SynthRun="ila_2_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -870,9 +852,7 @@
     </Run>
     <Run Id="ila_3_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="ila_3" Description="Vivado Implementation Defaults" SynthRun="ila_3_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
