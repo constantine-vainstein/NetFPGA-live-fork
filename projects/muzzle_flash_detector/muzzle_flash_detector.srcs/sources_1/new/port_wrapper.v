@@ -91,6 +91,7 @@ module port_wraper
    wire tx_axis_frame_eth_tvalid;
    wire tx_axis_frame_eth_tlast;
    wire tx_axis_frame_eth_tready;
+   wire [15 : 0] payload_length;
    
    wire clk_100MHz;
    wire clk_100MHz_locked;
@@ -100,6 +101,7 @@ module port_wraper
    wire check_active_flash;
    
    wire reset;
+   wire spad_ss_reset;
    
    wire block_lock;
    
@@ -152,10 +154,11 @@ module port_wraper
     );
     
     //assign leds[0] = gen_active_flash;
+    assign spad_ss_reset = btn[0] | ~block_lock;
     
     spad_control_subsystem spad_control_ss (
         /* input */         .clk(clk_100MHz),
-        /* input */         .reset(btn[0]),
+        /* input */         .reset(spad_ss_reset),
         /* output [31:0] */ .FrameId(to_dpr_frame_id),
         /* output [3:0] */  .RowSet(to_dpr_row_set),
         /* output [5:0] */  .ColSet(to_dpr_col_set),
@@ -201,7 +204,8 @@ module port_wraper
 		/* output [7:0] */ .tx_axis_frame_tkeep(tx_axis_frame_tkeep),
 		/* output 		*/ .tx_axis_frame_tvalid(tx_axis_frame_tvalid),
 		/* output 		*/ .tx_axis_frame_tlast(tx_axis_frame_tlast),
-		/* input 		*/ .tx_axis_frame_tready(tx_axis_frame_tready)
+		/* input 		*/ .tx_axis_frame_tready(tx_axis_frame_tready),
+						   .payload_length(payload_length)
     );
     
     ethernet_wrapper eth_wrap(
@@ -210,7 +214,7 @@ module port_wraper
 	/*       */
 	/* input */	.dest_address(48'hffffffffffff),
     /* input */	.source_address(48'h28cf013e1800),
-    /* input */	.type_length(16'h0008), // :: TODO:: replace by the size of the payload
+    /* input */	.type_length(payload_length), 
     /*       */
     /* input */	.tx_axis_frame_tdata(tx_axis_frame_tdata),
     /* input */	.tx_axis_frame_tkeep(tx_axis_frame_tkeep),

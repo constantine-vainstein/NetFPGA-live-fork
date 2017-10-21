@@ -53,17 +53,19 @@ module ethernet_wrapper(
 	wire [31 : 0] axis_fifo_data_count;
 	wire tx_axis_fifo_out_tvalid;
 	wire tx_axis_fifo_out_tready;
-	wire [63 : 0] tx_axis_fifo_out_tdata;
-	wire [7 : 0] tx_axis_fifo_out_tkeep;
+	wire [79 : 0] tx_axis_fifo_out_tdata;
+	wire [9 : 0] tx_axis_fifo_out_tkeep;
 	wire tx_axis_fifo_out_tlast;
+	
+	wire [15 : 0] payload_length;
 	
 		axis_data_fifo_0 fifo (
 			  .s_axis_aresetn(~reset),          // input wire s_axis_aresetn
 			  .s_axis_aclk(clk),                // input wire s_axis_aclk
 			  .s_axis_tvalid(tx_axis_frame_tvalid),            // input wire s_axis_tvalid
 			  .s_axis_tready(tx_axis_frame_tready),            // output wire s_axis_tready
-			  .s_axis_tdata(tx_axis_frame_tdata),              // input wire [63 : 0] s_axis_tdata
-			  .s_axis_tkeep(tx_axis_frame_tkeep),              // input wire [7 : 0] s_axis_tkeep
+			  .s_axis_tdata({tx_axis_frame_tdata, type_length}),              // input wire [79 : 0] s_axis_tdata
+			  .s_axis_tkeep({tx_axis_frame_tkeep, 2'b11}),              // input wire [7 : 0] s_axis_tkeep
 			  .s_axis_tlast(tx_axis_frame_tlast),              // input wire s_axis_tlast
 			  .m_axis_tvalid(tx_axis_fifo_out_tvalid),            // output wire m_axis_tvalid
 			  .m_axis_tready(tx_axis_fifo_out_tready),            // input wire m_axis_tready
@@ -74,6 +76,8 @@ module ethernet_wrapper(
 			  .axis_wr_data_count(),
 			  .axis_rd_data_count()
 			);
+	
+	assign payload_length = tx_axis_fifo_out_tdata[15 : 0];
 	
 	always @(posedge clk) begin
 		if(reset) begin
@@ -108,12 +112,12 @@ module ethernet_wrapper(
 	assign tx_axis_fifo_out_tready = (state == STATE_SEND_DATA) && tx_axis_eth_tready; // in all other cases don't output the data from the fifo.
 	assign tx_axis_eth_tdata =  (state == STATE_WAIT_FOR_START) ? 64'hcccccccccccccccc : 
 								(state == STATE_SEND_ETH_HEADER1) ? {source_address[15:0], dest_address} : 
-								(state == STATE_SEND_ETH_HEADER2) ? {16'h0000 ,type_length, source_address[47:16]} :
-								/*(state == STATE_SEND_DATA)*/		tx_axis_fifo_out_tdata;
+								(state == STATE_SEND_ETH_HEADER2) ? {16'h0000 ,payload_length, source_address[47:16]} :
+								/*(state == STATE_SEND_DATA)*/		tx_axis_fifo_out_tdata[79 : 16];
 	assign tx_axis_eth_tkeep = 	(state == STATE_WAIT_FOR_START) ? 64'h0 :
 								((state == STATE_SEND_ETH_HEADER1) || 
 								 (state == STATE_SEND_ETH_HEADER2)) ? 8'b11111111 :
-								/*(state == STATE_SEND_DATA)*/		tx_axis_fifo_out_tkeep;
+								/*(state == STATE_SEND_DATA)*/		tx_axis_fifo_out_tkeep[9 : 2];
 	assign tx_axis_eth_tlast = 	(state == STATE_SEND_DATA) && tx_axis_fifo_out_tlast;
 	assign tx_axis_eth_tvalid =	(state == STATE_SEND_ETH_HEADER1) || (state == STATE_SEND_ETH_HEADER2) ||
 								((state == STATE_SEND_DATA) && tx_axis_fifo_out_tvalid);
@@ -126,8 +130,8 @@ module ethernet_wrapper(
 		.probe1(axis_fifo_data_count), // input wire [31:0]  probe1 
 		.probe2(tx_axis_fifo_out_tvalid), // input wire [0:0]  probe2 
 		.probe3(tx_axis_fifo_out_tready), // input wire [0:0]  probe3 
-		.probe4(tx_axis_fifo_out_tdata), // input wire [63:0]  probe4 
-		.probe5(tx_axis_fifo_out_tkeep), // input wire [7:0]  probe5 
+		.probe4(tx_axis_fifo_out_tdata[79:16]), // input wire [63:0]  probe4 
+		.probe5(tx_axis_fifo_out_tkeep[9 : 2]), // input wire [7:0]  probe5 
 		.probe6(tx_axis_fifo_out_tlast), // input wire [0:0]  probe6 
 		.probe7(tx_axis_frame_tready), // input wire [0:0]  probe7
 		.probe8(tx_axis_eth_tdata),

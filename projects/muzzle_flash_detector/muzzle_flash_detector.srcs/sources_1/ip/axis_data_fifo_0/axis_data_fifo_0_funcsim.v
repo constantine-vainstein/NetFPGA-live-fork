@@ -1,10 +1,10 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.4 (win64) Build 1071353 Tue Nov 18 18:29:27 MST 2014
-// Date        : Mon Oct 02 01:32:11 2017
+// Date        : Sat Oct 21 17:07:57 2017
 // Host        : DIGLABAPPS running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               c:/Users/costa/Documents/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/axis_data_fifo_0/axis_data_fifo_0_funcsim.v
+//               C:/Users/costa/Documents/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/axis_data_fifo_0/axis_data_fifo_0_funcsim.v
 // Design      : axis_data_fifo_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -12,7 +12,7 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* X_CORE_INFO = "axis_data_fifo_v1_1_axis_data_fifo,Vivado 2014.4" *) (* CHECK_LICENSE_TYPE = "axis_data_fifo_0,axis_data_fifo_v1_1_axis_data_fifo,{}" *) (* CORE_GENERATION_INFO = "axis_data_fifo_0,axis_data_fifo_v1_1_axis_data_fifo,{x_ipProduct=Vivado 2014.4,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axis_data_fifo,x_ipVersion=1.1,x_ipCoreRevision=5,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=virtex7,C_AXIS_TDATA_WIDTH=64,C_AXIS_TID_WIDTH=1,C_AXIS_TDEST_WIDTH=1,C_AXIS_TUSER_WIDTH=1,C_AXIS_SIGNAL_SET=0b00000000000000000000000000011011,C_FIFO_DEPTH=16,C_FIFO_MODE=1,C_IS_ACLK_ASYNC=0,C_SYNCHRONIZER_STAGE=2,C_ACLKEN_CONV_MODE=0}" *) 
+(* X_CORE_INFO = "axis_data_fifo_v1_1_axis_data_fifo,Vivado 2014.4" *) (* CHECK_LICENSE_TYPE = "axis_data_fifo_0,axis_data_fifo_v1_1_axis_data_fifo,{}" *) (* CORE_GENERATION_INFO = "axis_data_fifo_0,axis_data_fifo_v1_1_axis_data_fifo,{x_ipProduct=Vivado 2014.4,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axis_data_fifo,x_ipVersion=1.1,x_ipCoreRevision=5,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=virtex7,C_AXIS_TDATA_WIDTH=80,C_AXIS_TID_WIDTH=1,C_AXIS_TDEST_WIDTH=1,C_AXIS_TUSER_WIDTH=1,C_AXIS_SIGNAL_SET=0b00000000000000000000000000011011,C_FIFO_DEPTH=16,C_FIFO_MODE=1,C_IS_ACLK_ASYNC=0,C_SYNCHRONIZER_STAGE=2,C_ACLKEN_CONV_MODE=0}" *) 
 (* DowngradeIPIdentifiedWarnings = "yes" *) 
 (* NotValidForBitStream *)
 module axis_data_fifo_0
@@ -35,13 +35,13 @@ module axis_data_fifo_0
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 S_CLKIF CLK" *) input s_axis_aclk;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TVALID" *) input s_axis_tvalid;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *) output s_axis_tready;
-  input [63:0]s_axis_tdata;
-  input [7:0]s_axis_tkeep;
+  input [79:0]s_axis_tdata;
+  input [9:0]s_axis_tkeep;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TLAST" *) input s_axis_tlast;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TVALID" *) output m_axis_tvalid;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TREADY" *) input m_axis_tready;
-  output [63:0]m_axis_tdata;
-  output [7:0]m_axis_tkeep;
+  output [79:0]m_axis_tdata;
+  output [9:0]m_axis_tkeep;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TLAST" *) output m_axis_tlast;
   output [31:0]axis_data_count;
   output [31:0]axis_wr_data_count;
@@ -50,26 +50,26 @@ module axis_data_fifo_0
   wire [31:0]axis_data_count;
   wire [31:0]axis_rd_data_count;
   wire [31:0]axis_wr_data_count;
-  wire [63:0]m_axis_tdata;
-  wire [7:0]m_axis_tkeep;
+  wire [79:0]m_axis_tdata;
+  wire [9:0]m_axis_tkeep;
   wire m_axis_tlast;
   wire m_axis_tready;
   wire m_axis_tvalid;
   wire s_axis_aclk;
   wire s_axis_aresetn;
-  wire [63:0]s_axis_tdata;
-  wire [7:0]s_axis_tkeep;
+  wire [79:0]s_axis_tdata;
+  wire [9:0]s_axis_tkeep;
   wire s_axis_tlast;
   wire s_axis_tready;
   wire s_axis_tvalid;
   wire [0:0]NLW_inst_m_axis_tdest_UNCONNECTED;
   wire [0:0]NLW_inst_m_axis_tid_UNCONNECTED;
-  wire [7:0]NLW_inst_m_axis_tstrb_UNCONNECTED;
+  wire [9:0]NLW_inst_m_axis_tstrb_UNCONNECTED;
   wire [0:0]NLW_inst_m_axis_tuser_UNCONNECTED;
 
 (* C_ACLKEN_CONV_MODE = "0" *) 
    (* C_AXIS_SIGNAL_SET = "32'b00000000000000000000000000011011" *) 
-   (* C_AXIS_TDATA_WIDTH = "64" *) 
+   (* C_AXIS_TDATA_WIDTH = "80" *) 
    (* C_AXIS_TDEST_WIDTH = "1" *) 
    (* C_AXIS_TID_WIDTH = "1" *) 
    (* C_AXIS_TUSER_WIDTH = "1" *) 
@@ -126,7 +126,7 @@ module axis_data_fifo_0
    (* LP_M_ACLKEN_CAN_TOGGLE = "0" *) 
    (* LP_S_ACLKEN_CAN_TOGGLE = "0" *) 
    (* P_APPLICATION_TYPE_AXIS = "0" *) 
-   (* P_AXIS_PAYLOAD_WIDTH = "73" *) 
+   (* P_AXIS_PAYLOAD_WIDTH = "91" *) 
    (* P_COMMON_CLOCK = "1" *) 
    (* P_FIFO_COUNT_WIDTH = "5" *) 
    (* P_FIFO_TYPE = "2" *) 
@@ -155,7 +155,7 @@ module axis_data_fifo_0
         .m_axis_tkeep(m_axis_tkeep),
         .m_axis_tlast(m_axis_tlast),
         .m_axis_tready(m_axis_tready),
-        .m_axis_tstrb(NLW_inst_m_axis_tstrb_UNCONNECTED[7:0]),
+        .m_axis_tstrb(NLW_inst_m_axis_tstrb_UNCONNECTED[9:0]),
         .m_axis_tuser(NLW_inst_m_axis_tuser_UNCONNECTED[0]),
         .m_axis_tvalid(m_axis_tvalid),
         .s_axis_aclk(s_axis_aclk),
@@ -167,12 +167,12 @@ module axis_data_fifo_0
         .s_axis_tkeep(s_axis_tkeep),
         .s_axis_tlast(s_axis_tlast),
         .s_axis_tready(s_axis_tready),
-        .s_axis_tstrb({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .s_axis_tstrb({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .s_axis_tuser(1'b0),
         .s_axis_tvalid(s_axis_tvalid));
 endmodule
 
-(* C_FAMILY = "virtex7" *) (* C_AXIS_TDATA_WIDTH = "64" *) (* C_AXIS_TID_WIDTH = "1" *) 
+(* C_FAMILY = "virtex7" *) (* C_AXIS_TDATA_WIDTH = "80" *) (* C_AXIS_TID_WIDTH = "1" *) 
 (* C_AXIS_TDEST_WIDTH = "1" *) (* C_AXIS_TUSER_WIDTH = "1" *) (* C_AXIS_SIGNAL_SET = "32'b00000000000000000000000000011011" *) 
 (* C_FIFO_DEPTH = "16" *) (* C_FIFO_MODE = "1" *) (* C_IS_ACLK_ASYNC = "0" *) 
 (* C_SYNCHRONIZER_STAGE = "2" *) (* C_ACLKEN_CONV_MODE = "0" *) (* G_INDX_SS_TREADY = "0" *) 
@@ -184,7 +184,7 @@ endmodule
 (* G_TASK_SEVERITY_ERR = "2" *) (* G_TASK_SEVERITY_WARNING = "1" *) (* G_TASK_SEVERITY_INFO = "0" *) 
 (* P_TREADY_EXISTS = "1" *) (* P_TDATA_EXISTS = "1" *) (* P_TSTRB_EXISTS = "0" *) 
 (* P_TKEEP_EXISTS = "1" *) (* P_TLAST_EXISTS = "1" *) (* P_TID_EXISTS = "0" *) 
-(* P_TDEST_EXISTS = "0" *) (* P_TUSER_EXISTS = "0" *) (* P_AXIS_PAYLOAD_WIDTH = "73" *) 
+(* P_TDEST_EXISTS = "0" *) (* P_TUSER_EXISTS = "0" *) (* P_AXIS_PAYLOAD_WIDTH = "91" *) 
 (* P_WR_PNTR_WIDTH = "4" *) (* P_FIFO_COUNT_WIDTH = "5" *) (* P_FIFO_TYPE = "2" *) 
 (* P_IMPLEMENTATION_TYPE_AXIS = "2" *) (* P_COMMON_CLOCK = "1" *) (* P_MSGON_VAL = "1" *) 
 (* P_APPLICATION_TYPE_AXIS = "0" *) (* LP_S_ACLKEN_CAN_TOGGLE = "0" *) (* LP_M_ACLKEN_CAN_TOGGLE = "0" *) 
@@ -231,9 +231,9 @@ module axis_data_fifo_0_axis_data_fifo_v1_1_axis_data_fifo
   input s_axis_aclken;
   input s_axis_tvalid;
   output s_axis_tready;
-  input [63:0]s_axis_tdata;
-  input [7:0]s_axis_tstrb;
-  input [7:0]s_axis_tkeep;
+  input [79:0]s_axis_tdata;
+  input [9:0]s_axis_tstrb;
+  input [9:0]s_axis_tkeep;
   input s_axis_tlast;
   input [0:0]s_axis_tid;
   input [0:0]s_axis_tdest;
@@ -242,9 +242,9 @@ module axis_data_fifo_0_axis_data_fifo_v1_1_axis_data_fifo
   input m_axis_aclken;
   output m_axis_tvalid;
   input m_axis_tready;
-  output [63:0]m_axis_tdata;
-  output [7:0]m_axis_tstrb;
-  output [7:0]m_axis_tkeep;
+  output [79:0]m_axis_tdata;
+  output [9:0]m_axis_tstrb;
+  output [9:0]m_axis_tkeep;
   output m_axis_tlast;
   output [0:0]m_axis_tid;
   output [0:0]m_axis_tdest;
@@ -256,25 +256,25 @@ module axis_data_fifo_0_axis_data_fifo_v1_1_axis_data_fifo
   wire \<const0> ;
   wire [4:0]\^axis_rd_data_count ;
   wire m_axis_aclken;
-  wire [63:0]m_axis_tdata;
+  wire [79:0]m_axis_tdata;
   wire [0:0]m_axis_tdest;
   wire [0:0]m_axis_tid;
-  wire [7:0]m_axis_tkeep;
+  wire [9:0]m_axis_tkeep;
   wire m_axis_tlast;
   wire m_axis_tready;
-  wire [7:0]m_axis_tstrb;
+  wire [9:0]m_axis_tstrb;
   wire [0:0]m_axis_tuser;
   wire m_axis_tvalid;
 (* RTL_KEEP = "true" *)   wire s_and_m_aresetn_i;
   wire s_axis_aclk;
   wire s_axis_aclken;
-  wire [63:0]s_axis_tdata;
+  wire [79:0]s_axis_tdata;
   wire [0:0]s_axis_tdest;
   wire [0:0]s_axis_tid;
-  wire [7:0]s_axis_tkeep;
+  wire [9:0]s_axis_tkeep;
   wire s_axis_tlast;
   wire s_axis_tready;
-  wire [7:0]s_axis_tstrb;
+  wire [9:0]s_axis_tstrb;
   wire [0:0]s_axis_tuser;
   wire s_axis_tvalid;
   wire \NLW_gen_fifo_generator.fifo_generator_inst_almost_empty_UNCONNECTED ;
@@ -488,11 +488,11 @@ GND GND
    (* C_APPLICATION_TYPE_WACH = "0" *) 
    (* C_APPLICATION_TYPE_WDCH = "0" *) 
    (* C_APPLICATION_TYPE_WRCH = "0" *) 
-   (* C_AXIS_TDATA_WIDTH = "64" *) 
+   (* C_AXIS_TDATA_WIDTH = "80" *) 
    (* C_AXIS_TDEST_WIDTH = "1" *) 
    (* C_AXIS_TID_WIDTH = "1" *) 
-   (* C_AXIS_TKEEP_WIDTH = "8" *) 
-   (* C_AXIS_TSTRB_WIDTH = "8" *) 
+   (* C_AXIS_TKEEP_WIDTH = "10" *) 
+   (* C_AXIS_TSTRB_WIDTH = "10" *) 
    (* C_AXIS_TUSER_WIDTH = "1" *) 
    (* C_AXIS_TYPE = "0" *) 
    (* C_AXI_ADDR_WIDTH = "32" *) 
@@ -511,7 +511,7 @@ GND GND
    (* C_DATA_COUNT_WIDTH = "10" *) 
    (* C_DEFAULT_VALUE = "BlankString" *) 
    (* C_DIN_WIDTH = "18" *) 
-   (* C_DIN_WIDTH_AXIS = "73" *) 
+   (* C_DIN_WIDTH_AXIS = "91" *) 
    (* C_DIN_WIDTH_RACH = "32" *) 
    (* C_DIN_WIDTH_RDCH = "64" *) 
    (* C_DIN_WIDTH_WACH = "32" *) 
@@ -956,21 +956,21 @@ module axis_data_fifo_0_dmem
     DI,
     O4,
     O3);
-  output [72:0]D;
+  output [90:0]D;
   input I1;
   input s_aclk;
   input [0:0]E;
-  input [72:0]DI;
+  input [90:0]DI;
   input [3:0]O4;
   input [3:0]O3;
 
-  wire [72:0]D;
-  wire [72:0]DI;
+  wire [90:0]D;
+  wire [90:0]DI;
   wire [0:0]E;
   wire I1;
   wire [3:0]O3;
   wire [3:0]O4;
-  wire [72:0]p_0_out;
+  wire [90:0]p_0_out;
   wire s_aclk;
   wire [1:0]NLW_RAM_reg_0_15_0_5_DOD_UNCONNECTED;
   wire [1:0]NLW_RAM_reg_0_15_12_17_DOD_UNCONNECTED;
@@ -984,10 +984,13 @@ module axis_data_fifo_0_dmem
   wire [1:0]NLW_RAM_reg_0_15_60_65_DOD_UNCONNECTED;
   wire [1:0]NLW_RAM_reg_0_15_66_71_DOD_UNCONNECTED;
   wire [1:0]NLW_RAM_reg_0_15_6_11_DOD_UNCONNECTED;
-  wire [1:1]NLW_RAM_reg_0_15_72_72_DOA_UNCONNECTED;
-  wire [1:0]NLW_RAM_reg_0_15_72_72_DOB_UNCONNECTED;
-  wire [1:0]NLW_RAM_reg_0_15_72_72_DOC_UNCONNECTED;
-  wire [1:0]NLW_RAM_reg_0_15_72_72_DOD_UNCONNECTED;
+  wire [1:0]NLW_RAM_reg_0_15_72_77_DOD_UNCONNECTED;
+  wire [1:0]NLW_RAM_reg_0_15_78_83_DOD_UNCONNECTED;
+  wire [1:0]NLW_RAM_reg_0_15_84_89_DOD_UNCONNECTED;
+  wire [1:1]NLW_RAM_reg_0_15_90_90_DOA_UNCONNECTED;
+  wire [1:0]NLW_RAM_reg_0_15_90_90_DOB_UNCONNECTED;
+  wire [1:0]NLW_RAM_reg_0_15_90_90_DOC_UNCONNECTED;
+  wire [1:0]NLW_RAM_reg_0_15_90_90_DOD_UNCONNECTED;
 
 RAM32M RAM_reg_0_15_0_5
        (.ADDRA({1'b0,O4}),
@@ -1169,19 +1172,64 @@ RAM32M RAM_reg_0_15_6_11
         .DOD(NLW_RAM_reg_0_15_6_11_DOD_UNCONNECTED[1:0]),
         .WCLK(s_aclk),
         .WE(E));
-RAM32M RAM_reg_0_15_72_72
+RAM32M RAM_reg_0_15_72_77
        (.ADDRA({1'b0,O4}),
         .ADDRB({1'b0,O4}),
         .ADDRC({1'b0,O4}),
         .ADDRD({1'b0,O3}),
-        .DIA({1'b0,DI[72]}),
+        .DIA(DI[73:72]),
+        .DIB(DI[75:74]),
+        .DIC(DI[77:76]),
+        .DID({1'b0,1'b0}),
+        .DOA(p_0_out[73:72]),
+        .DOB(p_0_out[75:74]),
+        .DOC(p_0_out[77:76]),
+        .DOD(NLW_RAM_reg_0_15_72_77_DOD_UNCONNECTED[1:0]),
+        .WCLK(s_aclk),
+        .WE(E));
+RAM32M RAM_reg_0_15_78_83
+       (.ADDRA({1'b0,O4}),
+        .ADDRB({1'b0,O4}),
+        .ADDRC({1'b0,O4}),
+        .ADDRD({1'b0,O3}),
+        .DIA(DI[79:78]),
+        .DIB(DI[81:80]),
+        .DIC(DI[83:82]),
+        .DID({1'b0,1'b0}),
+        .DOA(p_0_out[79:78]),
+        .DOB(p_0_out[81:80]),
+        .DOC(p_0_out[83:82]),
+        .DOD(NLW_RAM_reg_0_15_78_83_DOD_UNCONNECTED[1:0]),
+        .WCLK(s_aclk),
+        .WE(E));
+RAM32M RAM_reg_0_15_84_89
+       (.ADDRA({1'b0,O4}),
+        .ADDRB({1'b0,O4}),
+        .ADDRC({1'b0,O4}),
+        .ADDRD({1'b0,O3}),
+        .DIA(DI[85:84]),
+        .DIB(DI[87:86]),
+        .DIC(DI[89:88]),
+        .DID({1'b0,1'b0}),
+        .DOA(p_0_out[85:84]),
+        .DOB(p_0_out[87:86]),
+        .DOC(p_0_out[89:88]),
+        .DOD(NLW_RAM_reg_0_15_84_89_DOD_UNCONNECTED[1:0]),
+        .WCLK(s_aclk),
+        .WE(E));
+RAM32M RAM_reg_0_15_90_90
+       (.ADDRA({1'b0,O4}),
+        .ADDRB({1'b0,O4}),
+        .ADDRC({1'b0,O4}),
+        .ADDRD({1'b0,O3}),
+        .DIA({1'b0,DI[90]}),
         .DIB({1'b0,1'b0}),
         .DIC({1'b0,1'b0}),
         .DID({1'b0,1'b0}),
-        .DOA({NLW_RAM_reg_0_15_72_72_DOA_UNCONNECTED[1],p_0_out[72]}),
-        .DOB(NLW_RAM_reg_0_15_72_72_DOB_UNCONNECTED[1:0]),
-        .DOC(NLW_RAM_reg_0_15_72_72_DOC_UNCONNECTED[1:0]),
-        .DOD(NLW_RAM_reg_0_15_72_72_DOD_UNCONNECTED[1:0]),
+        .DOA({NLW_RAM_reg_0_15_90_90_DOA_UNCONNECTED[1],p_0_out[90]}),
+        .DOB(NLW_RAM_reg_0_15_90_90_DOB_UNCONNECTED[1:0]),
+        .DOC(NLW_RAM_reg_0_15_90_90_DOC_UNCONNECTED[1:0]),
+        .DOD(NLW_RAM_reg_0_15_90_90_DOD_UNCONNECTED[1:0]),
         .WCLK(s_aclk),
         .WE(E));
 FDRE #(
@@ -1746,6 +1794,62 @@ FDRE #(
         .R(1'b0));
 FDRE #(
     .INIT(1'b0)) 
+     \gpr1.dout_i_reg[73] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[73]),
+        .Q(D[73]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[74] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[74]),
+        .Q(D[74]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[75] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[75]),
+        .Q(D[75]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[76] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[76]),
+        .Q(D[76]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[77] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[77]),
+        .Q(D[77]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[78] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[78]),
+        .Q(D[78]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[79] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[79]),
+        .Q(D[79]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
      \gpr1.dout_i_reg[7] 
        (.C(s_aclk),
         .CE(I1),
@@ -1754,11 +1858,99 @@ FDRE #(
         .R(1'b0));
 FDRE #(
     .INIT(1'b0)) 
+     \gpr1.dout_i_reg[80] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[80]),
+        .Q(D[80]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[81] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[81]),
+        .Q(D[81]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[82] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[82]),
+        .Q(D[82]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[83] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[83]),
+        .Q(D[83]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[84] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[84]),
+        .Q(D[84]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[85] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[85]),
+        .Q(D[85]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[86] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[86]),
+        .Q(D[86]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[87] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[87]),
+        .Q(D[87]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[88] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[88]),
+        .Q(D[88]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[89] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[89]),
+        .Q(D[89]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
      \gpr1.dout_i_reg[8] 
        (.C(s_aclk),
         .CE(I1),
         .D(p_0_out[8]),
         .Q(D[8]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \gpr1.dout_i_reg[90] 
+       (.C(s_aclk),
+        .CE(I1),
+        .D(p_0_out[90]),
+        .Q(D[90]),
         .R(1'b0));
 FDRE #(
     .INIT(1'b0)) 
@@ -1782,17 +1974,17 @@ module axis_data_fifo_0_fifo_generator_ramfifo
     s_axis_tvalid,
     s_aresetn);
   output [4:0]axis_data_count;
-  output [72:0]Q;
+  output [90:0]Q;
   output s_axis_tready;
   output m_axis_tvalid;
   input m_axis_tready;
   input s_aclk;
-  input [72:0]DI;
+  input [90:0]DI;
   input s_axis_tvalid;
   input s_aresetn;
 
-  wire [72:0]DI;
-  wire [72:0]Q;
+  wire [90:0]DI;
+  wire [90:0]Q;
   wire RST;
   wire [4:0]axis_data_count;
   wire clear;
@@ -1887,17 +2079,17 @@ module axis_data_fifo_0_fifo_generator_top
     s_axis_tvalid,
     s_aresetn);
   output [4:0]axis_data_count;
-  output [72:0]Q;
+  output [90:0]Q;
   output s_axis_tready;
   output m_axis_tvalid;
   input m_axis_tready;
   input s_aclk;
-  input [72:0]DI;
+  input [90:0]DI;
   input s_axis_tvalid;
   input s_aresetn;
 
-  wire [72:0]DI;
-  wire [72:0]Q;
+  wire [90:0]DI;
+  wire [90:0]Q;
   wire [4:0]axis_data_count;
   wire m_axis_tready;
   wire m_axis_tvalid;
@@ -1950,9 +2142,9 @@ endmodule
 (* C_AXI_WUSER_WIDTH = "1" *) (* C_AXI_BUSER_WIDTH = "1" *) (* C_AXI_RUSER_WIDTH = "1" *) 
 (* C_HAS_AXIS_TDATA = "1" *) (* C_HAS_AXIS_TID = "0" *) (* C_HAS_AXIS_TDEST = "0" *) 
 (* C_HAS_AXIS_TUSER = "0" *) (* C_HAS_AXIS_TREADY = "1" *) (* C_HAS_AXIS_TLAST = "1" *) 
-(* C_HAS_AXIS_TSTRB = "0" *) (* C_HAS_AXIS_TKEEP = "1" *) (* C_AXIS_TDATA_WIDTH = "64" *) 
+(* C_HAS_AXIS_TSTRB = "0" *) (* C_HAS_AXIS_TKEEP = "1" *) (* C_AXIS_TDATA_WIDTH = "80" *) 
 (* C_AXIS_TID_WIDTH = "1" *) (* C_AXIS_TDEST_WIDTH = "1" *) (* C_AXIS_TUSER_WIDTH = "1" *) 
-(* C_AXIS_TSTRB_WIDTH = "8" *) (* C_AXIS_TKEEP_WIDTH = "8" *) (* C_WACH_TYPE = "0" *) 
+(* C_AXIS_TSTRB_WIDTH = "10" *) (* C_AXIS_TKEEP_WIDTH = "10" *) (* C_WACH_TYPE = "0" *) 
 (* C_WDCH_TYPE = "0" *) (* C_WRCH_TYPE = "0" *) (* C_RACH_TYPE = "0" *) 
 (* C_RDCH_TYPE = "0" *) (* C_AXIS_TYPE = "0" *) (* C_IMPLEMENTATION_TYPE_WACH = "2" *) 
 (* C_IMPLEMENTATION_TYPE_WDCH = "1" *) (* C_IMPLEMENTATION_TYPE_WRCH = "2" *) (* C_IMPLEMENTATION_TYPE_RACH = "2" *) 
@@ -1966,7 +2158,7 @@ endmodule
 (* C_ERROR_INJECTION_TYPE_WDCH = "0" *) (* C_ERROR_INJECTION_TYPE_WRCH = "0" *) (* C_ERROR_INJECTION_TYPE_RACH = "0" *) 
 (* C_ERROR_INJECTION_TYPE_RDCH = "0" *) (* C_ERROR_INJECTION_TYPE_AXIS = "0" *) (* C_DIN_WIDTH_WACH = "32" *) 
 (* C_DIN_WIDTH_WDCH = "64" *) (* C_DIN_WIDTH_WRCH = "2" *) (* C_DIN_WIDTH_RACH = "32" *) 
-(* C_DIN_WIDTH_RDCH = "64" *) (* C_DIN_WIDTH_AXIS = "73" *) (* C_WR_DEPTH_WACH = "16" *) 
+(* C_DIN_WIDTH_RDCH = "64" *) (* C_DIN_WIDTH_AXIS = "91" *) (* C_WR_DEPTH_WACH = "16" *) 
 (* C_WR_DEPTH_WDCH = "1024" *) (* C_WR_DEPTH_WRCH = "16" *) (* C_WR_DEPTH_RACH = "16" *) 
 (* C_WR_DEPTH_RDCH = "1024" *) (* C_WR_DEPTH_AXIS = "16" *) (* C_WR_PNTR_WIDTH_WACH = "4" *) 
 (* C_WR_PNTR_WIDTH_WDCH = "10" *) (* C_WR_PNTR_WIDTH_WRCH = "4" *) (* C_WR_PNTR_WIDTH_RACH = "4" *) 
@@ -2354,18 +2546,18 @@ module axis_data_fifo_0_fifo_generator_v12_0
   output m_axi_rready;
   input s_axis_tvalid;
   output s_axis_tready;
-  input [63:0]s_axis_tdata;
-  input [7:0]s_axis_tstrb;
-  input [7:0]s_axis_tkeep;
+  input [79:0]s_axis_tdata;
+  input [9:0]s_axis_tstrb;
+  input [9:0]s_axis_tkeep;
   input s_axis_tlast;
   input [0:0]s_axis_tid;
   input [0:0]s_axis_tdest;
   input [0:0]s_axis_tuser;
   output m_axis_tvalid;
   input m_axis_tready;
-  output [63:0]m_axis_tdata;
-  output [7:0]m_axis_tstrb;
-  output [7:0]m_axis_tkeep;
+  output [79:0]m_axis_tdata;
+  output [9:0]m_axis_tstrb;
+  output [9:0]m_axis_tkeep;
   output m_axis_tlast;
   output [0:0]m_axis_tid;
   output [0:0]m_axis_tdest;
@@ -2498,8 +2690,8 @@ module axis_data_fifo_0_fifo_generator_v12_0
   wire [0:0]m_axi_ruser;
   wire m_axi_rvalid;
   wire m_axi_wready;
-  wire [63:0]m_axis_tdata;
-  wire [7:0]m_axis_tkeep;
+  wire [79:0]m_axis_tdata;
+  wire [9:0]m_axis_tkeep;
   wire m_axis_tlast;
   wire m_axis_tready;
   wire m_axis_tvalid;
@@ -2548,13 +2740,13 @@ module axis_data_fifo_0_fifo_generator_v12_0
   wire [7:0]s_axi_wstrb;
   wire [0:0]s_axi_wuser;
   wire s_axi_wvalid;
-  wire [63:0]s_axis_tdata;
+  wire [79:0]s_axis_tdata;
   wire [0:0]s_axis_tdest;
   wire [0:0]s_axis_tid;
-  wire [7:0]s_axis_tkeep;
+  wire [9:0]s_axis_tkeep;
   wire s_axis_tlast;
   wire s_axis_tready;
-  wire [7:0]s_axis_tstrb;
+  wire [9:0]s_axis_tstrb;
   wire [0:0]s_axis_tuser;
   wire s_axis_tvalid;
   wire srst;
@@ -2971,6 +3163,8 @@ module axis_data_fifo_0_fifo_generator_v12_0
   assign m_axi_wvalid = \<const0> ;
   assign m_axis_tdest[0] = \<const0> ;
   assign m_axis_tid[0] = \<const0> ;
+  assign m_axis_tstrb[9] = \<const0> ;
+  assign m_axis_tstrb[8] = \<const0> ;
   assign m_axis_tstrb[7] = \<const0> ;
   assign m_axis_tstrb[6] = \<const0> ;
   assign m_axis_tstrb[5] = \<const0> ;
@@ -3121,17 +3315,17 @@ module axis_data_fifo_0_fifo_generator_v12_0_synth
     s_axis_tvalid,
     s_aresetn);
   output [4:0]axis_data_count;
-  output [72:0]Q;
+  output [90:0]Q;
   output s_axis_tready;
   output m_axis_tvalid;
   input m_axis_tready;
   input s_aclk;
-  input [72:0]DI;
+  input [90:0]DI;
   input s_axis_tvalid;
   input s_aresetn;
 
-  wire [72:0]DI;
-  wire [72:0]Q;
+  wire [90:0]DI;
+  wire [90:0]Q;
   wire [4:0]axis_data_count;
   wire m_axis_tready;
   wire m_axis_tvalid;
@@ -3162,23 +3356,23 @@ module axis_data_fifo_0_memory
     O4,
     O3,
     I2);
-  output [72:0]Q;
+  output [90:0]Q;
   input I1;
   input s_aclk;
   input [0:0]E;
-  input [72:0]DI;
+  input [90:0]DI;
   input [3:0]O4;
   input [3:0]O3;
   input [0:0]I2;
 
-  wire [72:0]DI;
+  wire [90:0]DI;
   wire [0:0]E;
   wire I1;
   wire [0:0]I2;
   wire [3:0]O3;
   wire [3:0]O4;
-  wire [72:0]Q;
-  wire [72:0]p_0_out;
+  wire [90:0]Q;
+  wire [90:0]p_0_out;
   wire s_aclk;
 
 axis_data_fifo_0_dmem \gdm.dm 
@@ -3751,6 +3945,62 @@ FDRE #(
         .R(1'b0));
 FDRE #(
     .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[73] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[73]),
+        .Q(Q[73]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[74] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[74]),
+        .Q(Q[74]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[75] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[75]),
+        .Q(Q[75]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[76] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[76]),
+        .Q(Q[76]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[77] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[77]),
+        .Q(Q[77]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[78] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[78]),
+        .Q(Q[78]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[79] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[79]),
+        .Q(Q[79]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
      \goreg_dm.dout_i_reg[7] 
        (.C(s_aclk),
         .CE(I2),
@@ -3759,11 +4009,99 @@ FDRE #(
         .R(1'b0));
 FDRE #(
     .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[80] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[80]),
+        .Q(Q[80]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[81] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[81]),
+        .Q(Q[81]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[82] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[82]),
+        .Q(Q[82]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[83] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[83]),
+        .Q(Q[83]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[84] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[84]),
+        .Q(Q[84]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[85] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[85]),
+        .Q(Q[85]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[86] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[86]),
+        .Q(Q[86]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[87] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[87]),
+        .Q(Q[87]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[88] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[88]),
+        .Q(Q[88]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[89] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[89]),
+        .Q(Q[89]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
      \goreg_dm.dout_i_reg[8] 
        (.C(s_aclk),
         .CE(I2),
         .D(p_0_out[8]),
         .Q(Q[8]),
+        .R(1'b0));
+FDRE #(
+    .INIT(1'b0)) 
+     \goreg_dm.dout_i_reg[90] 
+       (.C(s_aclk),
+        .CE(I2),
+        .D(p_0_out[90]),
+        .Q(Q[90]),
         .R(1'b0));
 FDRE #(
     .INIT(1'b0)) 
@@ -4060,7 +4398,7 @@ module axis_data_fifo_0_rd_fwft
 (* SOFT_HLUTNM = "soft_lutpair4" *) 
    LUT4 #(
     .INIT(16'h4044)) 
-     \goreg_dm.dout_i[72]_i_1 
+     \goreg_dm.dout_i[90]_i_1 
        (.I0(Q[0]),
         .I1(\n_0_gpregsm1.curr_fwft_state_reg[1] ),
         .I2(m_axis_tready),
@@ -4069,7 +4407,7 @@ module axis_data_fifo_0_rd_fwft
 (* SOFT_HLUTNM = "soft_lutpair2" *) 
    LUT4 #(
     .INIT(16'h5515)) 
-     \gpr1.dout_i[72]_i_1 
+     \gpr1.dout_i[90]_i_1 
        (.I0(p_18_out),
         .I1(\n_0_gpregsm1.curr_fwft_state_reg[1] ),
         .I2(curr_fwft_state),

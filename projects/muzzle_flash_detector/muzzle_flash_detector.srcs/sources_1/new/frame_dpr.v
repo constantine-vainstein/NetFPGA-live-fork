@@ -39,9 +39,11 @@ module frame_dpr(
     output [7:0] tx_axis_frame_tkeep,
     output tx_axis_frame_tvalid,
     output tx_axis_frame_tlast,
-    input tx_axis_frame_tready
+    input tx_axis_frame_tready,
     // the data will be output sequentialy, without needing an inoput of row/column number.
     // it can be copied as is to the ethernet frame.
+    
+    output [15 : 0] payload_length
       
     );
     
@@ -358,6 +360,9 @@ module frame_dpr(
 	assign tx_axis_frame_tvalid = 	(read_state != READ_STATE_WAIT) && (data_from_dpr_valid || 
 									active_area_changed || // sould never happen
 									read_state == READ_STATE_FINALIZE_COLUMN); // in this case the data is not read from dpr. 
+									
+	assign payload_length = (read_state == READ_STATE_FRAME_ID) ? 16'h0a00 : // this includes the 2 bytes padding that will be added by eth_wrapper.
+							((read_state == READ_STATE_COLUMN_DATA || read_state == READ_STATE_FINALIZE_COLUMN) ? 16'h4300 : 16'h0); // 16'd67 : 64 pixels + 1 column ID + 2 bytes padding that will be added by eth_wrapper
 	
 	
     
