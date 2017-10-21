@@ -105,7 +105,7 @@ module frame_dpr(
     wire active_area_changed;
     
     reg [10 : 0] read_address;
-    reg [READ_STATE_SIZE_BITS_ - 1 : 0] read_state;
+    reg [READ_STATE_SIZE_BITS_ - 1 : 0] read_state = 5'b00001;
     
     reg [5 : 0] column_id;
     
@@ -217,8 +217,13 @@ module frame_dpr(
 			case (read_state) 
 				READ_STATE_WAIT: begin
 					if (at_least_one_readable_area && active_area_changed /*&& tx_axis_frame_tready*/) begin
-						read_address <= (read_area_is_a) ? AREA_A_FIRST_ADDRESS_64BIT : AREA_B_FIRST_ADDRESS_64BIT;
-						maximal_read_address <= (read_area_is_a) ? AREA_A_LAST_ADDRESS_64BIT : AREA_B_LAST_ADDRESS_64BIT;
+						if(read_area_is_a) begin
+							read_address <= AREA_A_FIRST_ADDRESS_64BIT;
+							maximal_read_address <= AREA_A_LAST_ADDRESS_64BIT;
+						end else begin
+							read_address <= AREA_B_FIRST_ADDRESS_64BIT;
+							maximal_read_address <= AREA_B_LAST_ADDRESS_64BIT;
+						end
 						start_read <= 1;
 						column_id <= 0;
 						read_state <= READ_STATE_FRAME_ID;
