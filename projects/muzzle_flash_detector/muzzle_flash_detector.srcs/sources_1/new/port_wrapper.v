@@ -106,7 +106,7 @@ module port_wraper
    wire block_lock;
    
    // reset 
-   reg reset_cnt;
+   reg [4:0] reset_cnt;
    
    axi_clocking axi_clocking_i (
        .clk_in_p               (fpga_sysclk_p),
@@ -255,7 +255,7 @@ module port_wraper
     );
 
 
-	assign reset = btn[0] | (reset_cnt > 20);
+	assign reset = btn[0] | (reset_cnt < 20);
 	
 	///////////////////////////// DEBUG ONLY ///////////////////////////
 	// system clk heartbeat 
@@ -272,7 +272,7 @@ module port_wraper
 			led[1] <= 0;
 		end else begin
 			clk100_count <= clk100_count + 1'b1;
-			if (!clk100_count) begin
+			if (clk100_count == 0) begin
 				led[1] <= ~led[1];
 			end
 		end
@@ -286,7 +286,7 @@ module port_wraper
 			led[0] <= 0;
 		end else begin
 			sfp_clk156_count <= sfp_clk156_count + 1'b1;
-			if (!sfp_clk156_count) begin
+			if (sfp_clk156_count == 0) begin
 				led[0] <= ~led[0];
 			end  
 	   	end
