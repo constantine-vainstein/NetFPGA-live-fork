@@ -59,10 +59,9 @@ module frame_dpr(
     // *************** States of Read State Machine *************
     localparam READ_STATE_WAIT = 1;
     localparam READ_STATE_FRAME_ID = 2;
-    localparam READ_STATE_COLUMN_ID = 4;
-    localparam READ_STATE_COLUMN_DATA = 8;
-    localparam READ_STATE_FINALIZE_COLUMN = 16;
-    localparam READ_STATE_SIZE_BITS_ = 5;
+    localparam READ_STATE_COLUMN_DATA = 4;
+    localparam READ_STATE_FINALIZE_COLUMN = 8;
+    localparam READ_STATE_SIZE_BITS_ = 4;
     localparam READ_STATE_FIRST_ = READ_STATE_WAIT;
     localparam READ_STATE_LAST_ = READ_STATE_FINALIZE_COLUMN;
     
@@ -242,12 +241,9 @@ module frame_dpr(
 						pixels_block_in_column_id <= 0;
 						start_read <= 1;
 					end else begin
+						start_read <= 1;
 						// just keep reading the frame id...
 					end
-				end
-				
-				READ_STATE_COLUMN_ID: begin
-					// not sure I will use it
 				end
 				
 				READ_STATE_COLUMN_DATA: begin
@@ -333,7 +329,7 @@ module frame_dpr(
 		.probe7 (cur_wrFrameId), // input wire [31:0]  probe7 
 		.probe8 (active_area_changed), // input wire [0:0]  probe8 
 		.probe9 (read_address), // input wire [10:0]  probe9 
-		.probe10(read_state), // input wire [4:0]  probe10 
+		.probe10(read_state), // input wire [3:0]  probe10 
 		.probe11(column_id), // input wire [5:0]  probe11 
 		.probe12(pixels_block_in_column_id), // input wire [2:0]  probe12 
 		.probe13(last_pixel_in_block), // input wire [7:0]  probe13 
