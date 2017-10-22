@@ -106,7 +106,7 @@ module frame_dpr(
     wire active_area_changed;
     
     reg [10 : 0] read_address;
-    reg [READ_STATE_SIZE_BITS_ - 1 : 0] read_state = 5'b00001;
+    reg [READ_STATE_SIZE_BITS_ - 1 : 0] read_state = READ_STATE_WAIT;
     
     reg [5 : 0] column_id;
     
@@ -205,7 +205,7 @@ module frame_dpr(
 	assign read_area_is_a = ~is_area_a_written;
 	
     always @(posedge rdClk) begin
-    	if (reset) begin
+    	if (reset | ((read_state != READ_STATE_WAIT) && (read_state != READ_STATE_FRAME_ID) && (read_state != READ_STATE_COLUMN_DATA) && (read_state != READ_STATE_FINALIZE_COLUMN))) begin
 			read_state <= READ_STATE_WAIT;
 			read_address <= 11'b11111111111;
 			start_read <= 0;
