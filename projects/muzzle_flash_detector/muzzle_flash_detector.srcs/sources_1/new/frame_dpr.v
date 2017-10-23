@@ -21,7 +21,8 @@
 
 
 module frame_dpr(
-    input reset,
+    input spad_reset,
+    input eth_reset,
     
     input wrClk,
     input [31:0] wrFrameId,
@@ -118,7 +119,7 @@ module frame_dpr(
     assign maximal_write_address = is_area_a_written ? (AREA_A_LAST_ADDRESS_32BIT) : (AREA_B_LAST_ADDRESS_32BIT);
     
 	always @(posedge wrClk) begin  
-		if (reset) begin
+		if (spad_reset) begin
     		write_state <= WRITE_STATE_WAIT_FOR_START;
 			is_area_a_written <= 1;
 			cur_wrFrameId <= 32'hFFFFFFFF;
@@ -200,12 +201,22 @@ module frame_dpr(
 
 
 	// *********************** Read State Machine **********************
-	assign active_area_changed = (prev_is_area_a_written != is_area_a_written); 
-	assign at_least_one_readable_area = (is_area_a_written) ? area_b_valid : area_a_valid;
-	assign read_area_is_a = ~is_area_a_written;
+	reg area_a_valid_read_clk_domain;
+	reg area_b_valid_read_clk_domain;
+	reg is_area_a_written_read_clk_domain;
 	
+	always @(posedge rdClk) begin
+		area_a_valid_read_clk_domain <= area_a_valid;
+		area_b_valid_read_clk_domain <= area_b_valid;
+		is_area_a_written_read_clk_domain <= is_area_a_written; 
+	end
+	
+	assign active_area_changed = (prev_is_area_a_written != is_area_a_written_read_clk_domain); 
+	assign at_least_one_readable_area = (is_area_a_written_read_clk_domain) ? area_b_valid_read_clk_domain : area_a_valid_read_clk_domain;
+	assign read_area_is_a = ~is_area_a_written_read_clk_domain;
+		
     always @(posedge rdClk) begin
-    	if (reset | ((read_state != READ_STATE_WAIT) && (read_state != READ_STATE_FRAME_ID) && (read_state != READ_STATE_COLUMN_DATA) && (read_state != READ_STATE_FINALIZE_COLUMN))) begin
+    	if (eth_reset | ((read_state != READ_STATE_WAIT) && (read_state != READ_STATE_FRAME_ID) && (read_state != READ_STATE_COLUMN_DATA) && (read_state != READ_STATE_FINALIZE_COLUMN))) begin
 			read_state <= READ_STATE_WAIT;
 			read_address <= 11'b11111111111;
 			start_read <= 0;
@@ -213,7 +224,7 @@ module frame_dpr(
 			pixels_block_in_column_id <= 0;
 			prev_is_area_a_written <= 0;
     	end else begin
-			prev_is_area_a_written <= is_area_a_written;
+			prev_is_area_a_written <= is_area_a_written_read_clk_domain;
 			
 			case (read_state) 
 				READ_STATE_WAIT: begin
@@ -292,7 +303,7 @@ module frame_dpr(
 		
 	read_control read_ctl(
 		.clk(rdClk),
-		.reset(reset),
+		.reset(eth_reset),
 		.addr(read_address),
 		.en(start_read),
 		.valid(data_from_dpr_valid)
@@ -305,7 +316,7 @@ module frame_dpr(
 		.probe1 (write_state), // input  [2:0]  probe1 
 		.probe2 (write_enable), // input  [0:0]  probe2 
 		.probe3 (write_address), // input  [11:0]  probe3 
-		.probe4 (is_area_a_written), // input  [0:0]  probe4 
+		.probe4 (is_area_a_written_read_clk_domain), // input  [0:0]  probe4 
 		.probe5 (write_delay_clk), // input  [2:0]  probe5 
 		.probe6 (dpr_write_enable), // input  [0:0]  probe6 
 		.probe7 (area_a_valid), // input  [0:0]  probe7 

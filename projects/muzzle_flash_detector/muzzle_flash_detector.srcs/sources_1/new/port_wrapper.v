@@ -102,12 +102,11 @@ module port_wraper
    
    wire reset;
    wire spad_ss_reset;
+   wire eth_ss_reset; // ethernet subsystem reset
    
    wire block_lock;
    
-   // reset 
-   reg [4:0] reset_cnt;
-   
+  
    axi_clocking axi_clocking_i (
        .clk_in_p               (fpga_sysclk_p),
        .clk_in_n               (fpga_sysclk_n),
@@ -116,12 +115,21 @@ module port_wraper
        .reset                 (btn[0])
      );
      
+   all_reset sys_rst_i (
+	   /* input  */ .clk_spad(clk_100MHz),
+	   /* input  */ .clk_eth(clk_156MHz),
+	   /* input  */ .reset(btn[0]),
+	   /* input  */ .block_lock(block_lock),
+	   /* output */ .reset_spad(spad_ss_reset),
+	   /* output */ .reset_eth(eth_ss_reset)
+   );
+     
    axi_10g_ethernet_0_example_design  example_design (
     /* input */            .xphy_refclk_p(xphy_refclk_p),
     /* input */            .xphy_refclk_n(xphy_refclk_n),
     /* output*/			   .clk156_out(clk_156MHz),
     /* input */            .pcs_loopback(0),
-    /* input */            .reset(btn[0]),
+    /* input */            .reset(eth_ss_reset),
     /* input */            .reset_error(btn[1]),
     /* input */            .insert_error(0),
     /* input  */           .enable_pat_gen(0),
@@ -154,7 +162,8 @@ module port_wraper
     );
     
     //assign leds[0] = gen_active_flash;
-    assign spad_ss_reset = btn[0] | ~block_lock;
+    
+
     
     spad_control_subsystem spad_control_ss (
         /* input */         .clk(clk_100MHz),
@@ -174,7 +183,7 @@ module port_wraper
     	.clk(clk_100MHz), // input wire clk
     
     
-    	.probe0(clk_100MHz), // input wire [0:0]  probe0  
+    	.probe0(0), // input wire [0:0]  probe0  
     	.probe1(to_dpr_frame_id), // input wire [31:0]  probe1 
     	.probe2(to_dpr_row_set), // input wire [3:0]  probe2 
     	.probe3(to_dpr_col_set), // input wire [5:0]  probe3 
@@ -186,7 +195,8 @@ module port_wraper
     );
     
     frame_dpr frm_buffer (
-		/* input 		*/ .reset(btn[0]),
+		/* input 		*/ .spad_reset(spad_ss_reset),//!!!!!!!!!!!
+		/* input        */ .eth_reset(eth_ss_reset),
 		/*              */ 
 		/* input 		*/ .wrClk(clk_100MHz),
 		/* input [31:0] */ .wrFrameId(to_dpr_frame_id),
@@ -210,7 +220,7 @@ module port_wraper
     
     ethernet_wrapper eth_wrap(
     /* input */	.clk(clk_156MHz),
-    /* input */	.reset(btn[0]),
+    /* input */	.reset(eth_ss_reset),
 	/*       */
 	/* input */	.dest_address(48'hffffffffffff),
     /* input */	.source_address(48'h28cf013e1800),
@@ -255,7 +265,7 @@ module port_wraper
     );
 
 
-	assign reset = btn[0] | (reset_cnt < 20);
+
 	
 	///////////////////////////// DEBUG ONLY ///////////////////////////
 	// system clk heartbeat 
@@ -268,7 +278,7 @@ module port_wraper
 	
 	
 	always @ (posedge clk_100MHz) begin
-		if (reset) begin
+		if (spad_ss_reset) begin
 			led[1] <= 0;
 		end else begin
 			clk100_count <= clk100_count + 1'b1;
@@ -282,7 +292,7 @@ module port_wraper
 	
 	
 	always @ (posedge clk_156MHz) begin
-		if(reset) begin
+		if(eth_ss_reset) begin
 			led[0] <= 0;
 		end else begin
 			sfp_clk156_count <= sfp_clk156_count + 1'b1;
@@ -292,15 +302,7 @@ module port_wraper
 	   	end
 	end
 	
-	always @ (posedge clk_100MHz) begin
-		if(btn[0]) begin
-			reset_cnt <= 0;
-		end else begin
-			if (reset_cnt < 20) begin
-				reset_cnt <= reset_cnt + 1;
-			end
-		end
-	end
+
 // Debug LEDs  
 	// 156MHz clk heartbeat ~ every second
 	OBUF led_0_obuf (

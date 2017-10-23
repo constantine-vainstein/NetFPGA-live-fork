@@ -1,7 +1,7 @@
 -- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2014.4 (win64) Build 1071353 Tue Nov 18 18:29:27 MST 2014
--- Date        : Sat Sep 16 21:48:58 2017
+-- Date        : Mon Oct 23 22:14:39 2017
 -- Host        : DIGLABAPPS running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               C:/Users/costa/Documents/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/spad_manager_0/spad_manager_0_funcsim.vhdl
@@ -29,6 +29,7 @@ entity spad_manager_0_read_process_manager is
 end spad_manager_0_read_process_manager;
 
 architecture STRUCTURE of spad_manager_0_read_process_manager is
+  signal get_next_state_return : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal inc_address : STD_LOGIC;
   signal \n_0_ColSelect[2]_INST_0_i_2\ : STD_LOGIC;
   signal \n_0_ColSelect[2]_INST_0_i_4\ : STD_LOGIC;
@@ -142,11 +143,10 @@ architecture STRUCTURE of spad_manager_0_read_process_manager is
   signal \n_7_prev_state_counter_reg[8]_i_1\ : STD_LOGIC;
   signal prev_read_data : STD_LOGIC;
   signal prev_requested_address : STD_LOGIC_VECTOR ( 8 downto 0 );
-  signal prev_state : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal prev_state_counter : STD_LOGIC_VECTOR ( 13 downto 0 );
   signal state_counter : STD_LOGIC_VECTOR ( 13 to 13 );
   signal state_time_expired : STD_LOGIC;
-  signal state_time_expired00_in : STD_LOGIC_VECTOR ( 14 downto 1 );
+  signal state_time_expired0 : STD_LOGIC_VECTOR ( 14 downto 1 );
   signal zeroize : STD_LOGIC;
   signal \NLW_ColSelect[2]_INST_0_i_3_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_ColSelect[2]_INST_0_i_3_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 1 );
@@ -297,15 +297,15 @@ begin
     );
 ReadEnable_INST_0: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0E0F0E0F0E0F0E00"
+      INIT => X"00000000FFF0EEEE"
     )
     port map (
-      I0 => prev_state(2),
-      I1 => prev_state(0),
-      I2 => zeroize,
-      I3 => state_time_expired,
-      I4 => prev_state(3),
-      I5 => prev_state(1),
+      I0 => get_next_state_return(0),
+      I1 => get_next_state_return(2),
+      I2 => get_next_state_return(3),
+      I3 => get_next_state_return(1),
+      I4 => state_time_expired,
+      I5 => zeroize,
       O => ReadEnable
     );
 RowGroup_INST_0: unisim.vcomponents.LUT5
@@ -313,9 +313,9 @@ RowGroup_INST_0: unisim.vcomponents.LUT5
       INIT => X"0000FCEE"
     )
     port map (
-      I0 => prev_state(3),
-      I1 => prev_state(2),
-      I2 => prev_state(1),
+      I0 => get_next_state_return(0),
+      I1 => get_next_state_return(3),
+      I2 => get_next_state_return(2),
       I3 => state_time_expired,
       I4 => zeroize,
       O => RowGroup
@@ -328,7 +328,7 @@ RowGroup_INST_0_i_1: unisim.vcomponents.CARRY4
       CO(1) => n_2_RowGroup_INST_0_i_1,
       CO(0) => n_3_RowGroup_INST_0_i_1,
       CYINIT => '0',
-      DI(3) => state_time_expired00_in(14),
+      DI(3) => state_time_expired0(14),
       DI(2) => n_0_RowGroup_INST_0_i_4,
       DI(1) => n_0_RowGroup_INST_0_i_5,
       DI(0) => n_0_RowGroup_INST_0_i_6,
@@ -343,8 +343,8 @@ RowGroup_INST_0_i_10: unisim.vcomponents.LUT2
       INIT => X"1"
     )
     port map (
-      I0 => state_time_expired00_in(9),
-      I1 => state_time_expired00_in(8),
+      I0 => state_time_expired0(9),
+      I1 => state_time_expired0(8),
       O => n_0_RowGroup_INST_0_i_10
     );
 RowGroup_INST_0_i_11: unisim.vcomponents.LUT2
@@ -352,8 +352,8 @@ RowGroup_INST_0_i_11: unisim.vcomponents.LUT2
       INIT => X"E"
     )
     port map (
-      I0 => state_time_expired00_in(6),
-      I1 => state_time_expired00_in(7),
+      I0 => state_time_expired0(6),
+      I1 => state_time_expired0(7),
       O => n_0_RowGroup_INST_0_i_11
     );
 RowGroup_INST_0_i_12: unisim.vcomponents.LUT2
@@ -361,30 +361,33 @@ RowGroup_INST_0_i_12: unisim.vcomponents.LUT2
       INIT => X"E"
     )
     port map (
-      I0 => state_time_expired00_in(4),
-      I1 => state_time_expired00_in(5),
+      I0 => state_time_expired0(4),
+      I1 => state_time_expired0(5),
       O => n_0_RowGroup_INST_0_i_12
     );
-RowGroup_INST_0_i_13: unisim.vcomponents.LUT4
+RowGroup_INST_0_i_13: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FFE0"
+      INIT => X"FFFFAAA8"
     )
     port map (
-      I0 => prev_state(2),
-      I1 => prev_state(1),
-      I2 => state_time_expired00_in(2),
-      I3 => state_time_expired00_in(3),
+      I0 => state_time_expired0(2),
+      I1 => get_next_state_return(0),
+      I2 => get_next_state_return(2),
+      I3 => get_next_state_return(3),
+      I4 => state_time_expired0(3),
       O => n_0_RowGroup_INST_0_i_13
     );
-RowGroup_INST_0_i_14: unisim.vcomponents.LUT4
+RowGroup_INST_0_i_14: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"222B"
+      INIT => X"22202222BBBABBAB"
     )
     port map (
-      I0 => state_time_expired00_in(1),
-      I1 => prev_state(1),
-      I2 => prev_state(2),
-      I3 => prev_state_counter(0),
+      I0 => state_time_expired0(1),
+      I1 => get_next_state_return(0),
+      I2 => get_next_state_return(3),
+      I3 => get_next_state_return(1),
+      I4 => get_next_state_return(2),
+      I5 => prev_state_counter(0),
       O => n_0_RowGroup_INST_0_i_14
     );
 RowGroup_INST_0_i_15: unisim.vcomponents.LUT2
@@ -392,8 +395,8 @@ RowGroup_INST_0_i_15: unisim.vcomponents.LUT2
       INIT => X"1"
     )
     port map (
-      I0 => state_time_expired00_in(7),
-      I1 => state_time_expired00_in(6),
+      I0 => state_time_expired0(7),
+      I1 => state_time_expired0(6),
       O => n_0_RowGroup_INST_0_i_15
     );
 RowGroup_INST_0_i_16: unisim.vcomponents.LUT2
@@ -401,30 +404,33 @@ RowGroup_INST_0_i_16: unisim.vcomponents.LUT2
       INIT => X"1"
     )
     port map (
-      I0 => state_time_expired00_in(5),
-      I1 => state_time_expired00_in(4),
+      I0 => state_time_expired0(5),
+      I1 => state_time_expired0(4),
       O => n_0_RowGroup_INST_0_i_16
     );
-RowGroup_INST_0_i_17: unisim.vcomponents.LUT4
+RowGroup_INST_0_i_17: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"001E"
+      INIT => X"000001FE"
     )
     port map (
-      I0 => prev_state(2),
-      I1 => prev_state(1),
-      I2 => state_time_expired00_in(2),
-      I3 => state_time_expired00_in(3),
+      I0 => get_next_state_return(0),
+      I1 => get_next_state_return(2),
+      I2 => get_next_state_return(3),
+      I3 => state_time_expired0(2),
+      I4 => state_time_expired0(3),
       O => n_0_RowGroup_INST_0_i_17
     );
-RowGroup_INST_0_i_18: unisim.vcomponents.LUT4
+RowGroup_INST_0_i_18: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"6006"
+      INIT => X"ABAA545100000004"
     )
     port map (
-      I0 => prev_state_counter(0),
-      I1 => prev_state(2),
-      I2 => state_time_expired00_in(1),
-      I3 => prev_state(1),
+      I0 => get_next_state_return(0),
+      I1 => get_next_state_return(3),
+      I2 => get_next_state_return(1),
+      I3 => get_next_state_return(2),
+      I4 => state_time_expired0(1),
+      I5 => prev_state_counter(0),
       O => n_0_RowGroup_INST_0_i_18
     );
 RowGroup_INST_0_i_19: unisim.vcomponents.CARRY4
@@ -439,7 +445,7 @@ RowGroup_INST_0_i_19: unisim.vcomponents.CARRY4
       DI(2) => '0',
       DI(1) => '0',
       DI(0) => '0',
-      O(3 downto 0) => state_time_expired00_in(12 downto 9),
+      O(3 downto 0) => state_time_expired0(12 downto 9),
       S(3) => n_0_RowGroup_INST_0_i_23,
       S(2) => n_0_RowGroup_INST_0_i_24,
       S(1) => n_0_RowGroup_INST_0_i_25,
@@ -483,7 +489,7 @@ RowGroup_INST_0_i_21: unisim.vcomponents.CARRY4
       DI(2) => '0',
       DI(1) => '0',
       DI(0) => '0',
-      O(3 downto 0) => state_time_expired00_in(8 downto 5),
+      O(3 downto 0) => state_time_expired0(8 downto 5),
       S(3) => n_0_RowGroup_INST_0_i_27,
       S(2) => n_0_RowGroup_INST_0_i_28,
       S(1) => n_0_RowGroup_INST_0_i_29,
@@ -501,7 +507,7 @@ RowGroup_INST_0_i_22: unisim.vcomponents.CARRY4
       DI(2) => '0',
       DI(1) => '0',
       DI(0) => '0',
-      O(3 downto 0) => state_time_expired00_in(4 downto 1),
+      O(3 downto 0) => state_time_expired0(4 downto 1),
       S(3) => n_0_RowGroup_INST_0_i_31,
       S(2) => n_0_RowGroup_INST_0_i_32,
       S(1) => n_0_RowGroup_INST_0_i_33,
@@ -567,7 +573,7 @@ RowGroup_INST_0_i_3: unisim.vcomponents.CARRY4
     port map (
       CI => n_0_RowGroup_INST_0_i_19,
       CO(3 downto 2) => NLW_RowGroup_INST_0_i_3_CO_UNCONNECTED(3 downto 2),
-      CO(1) => state_time_expired00_in(14),
+      CO(1) => state_time_expired0(14),
       CO(0) => NLW_RowGroup_INST_0_i_3_CO_UNCONNECTED(0),
       CYINIT => '0',
       DI(3) => '0',
@@ -575,7 +581,7 @@ RowGroup_INST_0_i_3: unisim.vcomponents.CARRY4
       DI(1) => '0',
       DI(0) => '0',
       O(3 downto 1) => NLW_RowGroup_INST_0_i_3_O_UNCONNECTED(3 downto 1),
-      O(0) => state_time_expired00_in(13),
+      O(0) => state_time_expired0(13),
       S(3) => '0',
       S(2) => '0',
       S(1) => '1',
@@ -626,8 +632,8 @@ RowGroup_INST_0_i_4: unisim.vcomponents.LUT2
       INIT => X"E"
     )
     port map (
-      I0 => state_time_expired00_in(12),
-      I1 => state_time_expired00_in(13),
+      I0 => state_time_expired0(12),
+      I1 => state_time_expired0(13),
       O => n_0_RowGroup_INST_0_i_4
     );
 RowGroup_INST_0_i_5: unisim.vcomponents.LUT2
@@ -635,8 +641,8 @@ RowGroup_INST_0_i_5: unisim.vcomponents.LUT2
       INIT => X"E"
     )
     port map (
-      I0 => state_time_expired00_in(10),
-      I1 => state_time_expired00_in(11),
+      I0 => state_time_expired0(10),
+      I1 => state_time_expired0(11),
       O => n_0_RowGroup_INST_0_i_5
     );
 RowGroup_INST_0_i_6: unisim.vcomponents.LUT2
@@ -644,8 +650,8 @@ RowGroup_INST_0_i_6: unisim.vcomponents.LUT2
       INIT => X"E"
     )
     port map (
-      I0 => state_time_expired00_in(8),
-      I1 => state_time_expired00_in(9),
+      I0 => state_time_expired0(8),
+      I1 => state_time_expired0(9),
       O => n_0_RowGroup_INST_0_i_6
     );
 RowGroup_INST_0_i_7: unisim.vcomponents.LUT1
@@ -653,7 +659,7 @@ RowGroup_INST_0_i_7: unisim.vcomponents.LUT1
       INIT => X"1"
     )
     port map (
-      I0 => state_time_expired00_in(14),
+      I0 => state_time_expired0(14),
       O => n_0_RowGroup_INST_0_i_7
     );
 RowGroup_INST_0_i_8: unisim.vcomponents.LUT2
@@ -661,8 +667,8 @@ RowGroup_INST_0_i_8: unisim.vcomponents.LUT2
       INIT => X"1"
     )
     port map (
-      I0 => state_time_expired00_in(13),
-      I1 => state_time_expired00_in(12),
+      I0 => state_time_expired0(13),
+      I1 => state_time_expired0(12),
       O => n_0_RowGroup_INST_0_i_8
     );
 RowGroup_INST_0_i_9: unisim.vcomponents.LUT2
@@ -670,8 +676,8 @@ RowGroup_INST_0_i_9: unisim.vcomponents.LUT2
       INIT => X"1"
     )
     port map (
-      I0 => state_time_expired00_in(11),
-      I1 => state_time_expired00_in(10),
+      I0 => state_time_expired0(11),
+      I1 => state_time_expired0(10),
       O => n_0_RowGroup_INST_0_i_9
     );
 \RowSelect[0]_INST_0\: unisim.vcomponents.LUT6
@@ -772,10 +778,10 @@ RowGroup_INST_0_i_9: unisim.vcomponents.LUT2
     )
     port map (
       I0 => zeroize,
-      I1 => prev_state(1),
-      I2 => prev_state(2),
-      I3 => prev_state(0),
-      I4 => prev_state(3),
+      I1 => get_next_state_return(2),
+      I2 => get_next_state_return(3),
+      I3 => get_next_state_return(1),
+      I4 => get_next_state_return(0),
       I5 => state_time_expired,
       O => \n_0_RowSelect[2]_INST_0_i_5\
     );
@@ -1013,9 +1019,9 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       I0 => prev_read_data,
       I1 => Q(0),
       I2 => reset,
-      I3 => prev_state(0),
+      I3 => get_next_state_return(1),
       I4 => state_time_expired,
-      I5 => prev_state(3),
+      I5 => get_next_state_return(0),
       O => \n_0_prev_state[0]_i_1\
     );
 \prev_state[1]_i_1\: unisim.vcomponents.LUT6
@@ -1023,8 +1029,8 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       INIT => X"00AC000000000000"
     )
     port map (
-      I0 => prev_state(0),
-      I1 => prev_state(1),
+      I0 => get_next_state_return(1),
+      I1 => get_next_state_return(2),
       I2 => state_time_expired,
       I3 => reset,
       I4 => Q(0),
@@ -1036,8 +1042,8 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       INIT => X"00AC000000000000"
     )
     port map (
-      I0 => prev_state(1),
-      I1 => prev_state(2),
+      I0 => get_next_state_return(2),
+      I1 => get_next_state_return(3),
       I2 => state_time_expired,
       I3 => reset,
       I4 => Q(0),
@@ -1049,8 +1055,8 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       INIT => X"00AC000000000000"
     )
     port map (
-      I0 => prev_state(2),
-      I1 => prev_state(3),
+      I0 => get_next_state_return(3),
+      I1 => get_next_state_return(0),
       I2 => state_time_expired,
       I3 => reset,
       I4 => Q(0),
@@ -1364,7 +1370,7 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       C => clk,
       CE => '1',
       D => \n_0_prev_state[0]_i_1\,
-      Q => prev_state(0),
+      Q => get_next_state_return(1),
       R => '0'
     );
 \prev_state_reg[1]\: unisim.vcomponents.FDRE
@@ -1372,7 +1378,7 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       C => clk,
       CE => '1',
       D => \n_0_prev_state[1]_i_1\,
-      Q => prev_state(1),
+      Q => get_next_state_return(2),
       R => '0'
     );
 \prev_state_reg[2]\: unisim.vcomponents.FDRE
@@ -1380,7 +1386,7 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       C => clk,
       CE => '1',
       D => \n_0_prev_state[2]_i_1\,
-      Q => prev_state(2),
+      Q => get_next_state_return(3),
       R => '0'
     );
 \prev_state_reg[3]\: unisim.vcomponents.FDRE
@@ -1388,7 +1394,7 @@ prev_read_data_reg: unisim.vcomponents.FDRE
       C => clk,
       CE => '1',
       D => \n_0_prev_state[3]_i_1\,
-      Q => prev_state(3),
+      Q => get_next_state_return(0),
       R => '0'
     );
 end STRUCTURE;
@@ -1408,8 +1414,8 @@ entity spad_manager_0_controller is
     ReadEnable : out STD_LOGIC;
     FrameDurationChangeEnable : out STD_LOGIC;
     FrameDurationRequestedClks : in STD_LOGIC_VECTOR ( 21 downto 0 );
-    clk : in STD_LOGIC;
-    reset : in STD_LOGIC
+    reset : in STD_LOGIC;
+    clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of spad_manager_0_controller : entity is "controller";
@@ -4894,8 +4900,8 @@ entity spad_manager_0_spad_manager is
     ReadEnable : out STD_LOGIC;
     FrameDurationChangeEnable : out STD_LOGIC;
     FrameDurationRequestedClks : in STD_LOGIC_VECTOR ( 21 downto 0 );
-    clk : in STD_LOGIC;
-    reset : in STD_LOGIC
+    reset : in STD_LOGIC;
+    clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of spad_manager_0_spad_manager : entity is "spad_manager";

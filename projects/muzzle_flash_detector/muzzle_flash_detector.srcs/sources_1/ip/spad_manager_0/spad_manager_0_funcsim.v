@@ -1,7 +1,7 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.4 (win64) Build 1071353 Tue Nov 18 18:29:27 MST 2014
-// Date        : Sat Sep 16 21:48:58 2017
+// Date        : Mon Oct 23 22:14:39 2017
 // Host        : DIGLABAPPS running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               C:/Users/costa/Documents/MuzzleFlashDetection/trunk/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/spad_manager_0/spad_manager_0_funcsim.v
@@ -103,8 +103,8 @@ module spad_manager_0_controller
     ReadEnable,
     FrameDurationChangeEnable,
     FrameDurationRequestedClks,
-    clk,
-    reset);
+    reset,
+    clk);
   output [21:0]FrameDurationCurrentClks;
   output [31:0]FrameId;
   output ResetSpad;
@@ -115,8 +115,8 @@ module spad_manager_0_controller
   output ReadEnable;
   output FrameDurationChangeEnable;
   input [21:0]FrameDurationRequestedClks;
-  input clk;
   input reset;
+  input clk;
 
   wire [5:0]ColSelect;
   wire FrameDurationChangeEnable;
@@ -2451,6 +2451,7 @@ module spad_manager_0_read_process_manager
   wire RowGroup;
   wire [2:0]RowSelect;
   wire clk;
+  wire [3:0]get_next_state_return;
   wire inc_address;
   wire \n_0_ColSelect[2]_INST_0_i_2 ;
   wire \n_0_ColSelect[2]_INST_0_i_4 ;
@@ -2564,12 +2565,11 @@ module spad_manager_0_read_process_manager
   wire \n_7_prev_state_counter_reg[8]_i_1 ;
   wire prev_read_data;
   wire [8:0]prev_requested_address;
-  wire [3:0]prev_state;
   wire [13:0]prev_state_counter;
   wire reset;
   wire [13:13]state_counter;
   wire state_time_expired;
-  wire [14:1]state_time_expired00_in;
+  wire [14:1]state_time_expired0;
   wire zeroize;
   wire [3:0]\NLW_ColSelect[2]_INST_0_i_3_CO_UNCONNECTED ;
   wire [3:1]\NLW_ColSelect[2]_INST_0_i_3_O_UNCONNECTED ;
@@ -2670,21 +2670,21 @@ LUT6 #(
         .I4(zeroize),
         .O(ColSelect[5]));
 LUT6 #(
-    .INIT(64'h0E0F0E0F0E0F0E00)) 
+    .INIT(64'h00000000FFF0EEEE)) 
      ReadEnable_INST_0
-       (.I0(prev_state[2]),
-        .I1(prev_state[0]),
-        .I2(zeroize),
-        .I3(state_time_expired),
-        .I4(prev_state[3]),
-        .I5(prev_state[1]),
+       (.I0(get_next_state_return[0]),
+        .I1(get_next_state_return[2]),
+        .I2(get_next_state_return[3]),
+        .I3(get_next_state_return[1]),
+        .I4(state_time_expired),
+        .I5(zeroize),
         .O(ReadEnable));
 LUT5 #(
     .INIT(32'h0000FCEE)) 
      RowGroup_INST_0
-       (.I0(prev_state[3]),
-        .I1(prev_state[2]),
-        .I2(prev_state[1]),
+       (.I0(get_next_state_return[0]),
+        .I1(get_next_state_return[3]),
+        .I2(get_next_state_return[2]),
         .I3(state_time_expired),
         .I4(zeroize),
         .O(RowGroup));
@@ -2692,77 +2692,83 @@ CARRY4 RowGroup_INST_0_i_1
        (.CI(n_0_RowGroup_INST_0_i_2),
         .CO({state_time_expired,n_1_RowGroup_INST_0_i_1,n_2_RowGroup_INST_0_i_1,n_3_RowGroup_INST_0_i_1}),
         .CYINIT(1'b0),
-        .DI({state_time_expired00_in[14],n_0_RowGroup_INST_0_i_4,n_0_RowGroup_INST_0_i_5,n_0_RowGroup_INST_0_i_6}),
+        .DI({state_time_expired0[14],n_0_RowGroup_INST_0_i_4,n_0_RowGroup_INST_0_i_5,n_0_RowGroup_INST_0_i_6}),
         .O(NLW_RowGroup_INST_0_i_1_O_UNCONNECTED[3:0]),
         .S({n_0_RowGroup_INST_0_i_7,n_0_RowGroup_INST_0_i_8,n_0_RowGroup_INST_0_i_9,n_0_RowGroup_INST_0_i_10}));
 LUT2 #(
     .INIT(4'h1)) 
      RowGroup_INST_0_i_10
-       (.I0(state_time_expired00_in[9]),
-        .I1(state_time_expired00_in[8]),
+       (.I0(state_time_expired0[9]),
+        .I1(state_time_expired0[8]),
         .O(n_0_RowGroup_INST_0_i_10));
 LUT2 #(
     .INIT(4'hE)) 
      RowGroup_INST_0_i_11
-       (.I0(state_time_expired00_in[6]),
-        .I1(state_time_expired00_in[7]),
+       (.I0(state_time_expired0[6]),
+        .I1(state_time_expired0[7]),
         .O(n_0_RowGroup_INST_0_i_11));
 LUT2 #(
     .INIT(4'hE)) 
      RowGroup_INST_0_i_12
-       (.I0(state_time_expired00_in[4]),
-        .I1(state_time_expired00_in[5]),
+       (.I0(state_time_expired0[4]),
+        .I1(state_time_expired0[5]),
         .O(n_0_RowGroup_INST_0_i_12));
-LUT4 #(
-    .INIT(16'hFFE0)) 
+LUT5 #(
+    .INIT(32'hFFFFAAA8)) 
      RowGroup_INST_0_i_13
-       (.I0(prev_state[2]),
-        .I1(prev_state[1]),
-        .I2(state_time_expired00_in[2]),
-        .I3(state_time_expired00_in[3]),
+       (.I0(state_time_expired0[2]),
+        .I1(get_next_state_return[0]),
+        .I2(get_next_state_return[2]),
+        .I3(get_next_state_return[3]),
+        .I4(state_time_expired0[3]),
         .O(n_0_RowGroup_INST_0_i_13));
-LUT4 #(
-    .INIT(16'h222B)) 
+LUT6 #(
+    .INIT(64'h22202222BBBABBAB)) 
      RowGroup_INST_0_i_14
-       (.I0(state_time_expired00_in[1]),
-        .I1(prev_state[1]),
-        .I2(prev_state[2]),
-        .I3(prev_state_counter[0]),
+       (.I0(state_time_expired0[1]),
+        .I1(get_next_state_return[0]),
+        .I2(get_next_state_return[3]),
+        .I3(get_next_state_return[1]),
+        .I4(get_next_state_return[2]),
+        .I5(prev_state_counter[0]),
         .O(n_0_RowGroup_INST_0_i_14));
 LUT2 #(
     .INIT(4'h1)) 
      RowGroup_INST_0_i_15
-       (.I0(state_time_expired00_in[7]),
-        .I1(state_time_expired00_in[6]),
+       (.I0(state_time_expired0[7]),
+        .I1(state_time_expired0[6]),
         .O(n_0_RowGroup_INST_0_i_15));
 LUT2 #(
     .INIT(4'h1)) 
      RowGroup_INST_0_i_16
-       (.I0(state_time_expired00_in[5]),
-        .I1(state_time_expired00_in[4]),
+       (.I0(state_time_expired0[5]),
+        .I1(state_time_expired0[4]),
         .O(n_0_RowGroup_INST_0_i_16));
-LUT4 #(
-    .INIT(16'h001E)) 
+LUT5 #(
+    .INIT(32'h000001FE)) 
      RowGroup_INST_0_i_17
-       (.I0(prev_state[2]),
-        .I1(prev_state[1]),
-        .I2(state_time_expired00_in[2]),
-        .I3(state_time_expired00_in[3]),
+       (.I0(get_next_state_return[0]),
+        .I1(get_next_state_return[2]),
+        .I2(get_next_state_return[3]),
+        .I3(state_time_expired0[2]),
+        .I4(state_time_expired0[3]),
         .O(n_0_RowGroup_INST_0_i_17));
-LUT4 #(
-    .INIT(16'h6006)) 
+LUT6 #(
+    .INIT(64'hABAA545100000004)) 
      RowGroup_INST_0_i_18
-       (.I0(prev_state_counter[0]),
-        .I1(prev_state[2]),
-        .I2(state_time_expired00_in[1]),
-        .I3(prev_state[1]),
+       (.I0(get_next_state_return[0]),
+        .I1(get_next_state_return[3]),
+        .I2(get_next_state_return[1]),
+        .I3(get_next_state_return[2]),
+        .I4(state_time_expired0[1]),
+        .I5(prev_state_counter[0]),
         .O(n_0_RowGroup_INST_0_i_18));
 CARRY4 RowGroup_INST_0_i_19
        (.CI(n_0_RowGroup_INST_0_i_21),
         .CO({n_0_RowGroup_INST_0_i_19,n_1_RowGroup_INST_0_i_19,n_2_RowGroup_INST_0_i_19,n_3_RowGroup_INST_0_i_19}),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(state_time_expired00_in[12:9]),
+        .O(state_time_expired0[12:9]),
         .S({n_0_RowGroup_INST_0_i_23,n_0_RowGroup_INST_0_i_24,n_0_RowGroup_INST_0_i_25,n_0_RowGroup_INST_0_i_26}));
 CARRY4 RowGroup_INST_0_i_2
        (.CI(1'b0),
@@ -2781,14 +2787,14 @@ CARRY4 RowGroup_INST_0_i_21
         .CO({n_0_RowGroup_INST_0_i_21,n_1_RowGroup_INST_0_i_21,n_2_RowGroup_INST_0_i_21,n_3_RowGroup_INST_0_i_21}),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(state_time_expired00_in[8:5]),
+        .O(state_time_expired0[8:5]),
         .S({n_0_RowGroup_INST_0_i_27,n_0_RowGroup_INST_0_i_28,n_0_RowGroup_INST_0_i_29,n_0_RowGroup_INST_0_i_30}));
 CARRY4 RowGroup_INST_0_i_22
        (.CI(1'b0),
         .CO({n_0_RowGroup_INST_0_i_22,n_1_RowGroup_INST_0_i_22,n_2_RowGroup_INST_0_i_22,n_3_RowGroup_INST_0_i_22}),
         .CYINIT(prev_state_counter[0]),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(state_time_expired00_in[4:1]),
+        .O(state_time_expired0[4:1]),
         .S({n_0_RowGroup_INST_0_i_31,n_0_RowGroup_INST_0_i_32,n_0_RowGroup_INST_0_i_33,n_0_RowGroup_INST_0_i_34}));
 LUT1 #(
     .INIT(2'h2)) 
@@ -2827,10 +2833,10 @@ LUT1 #(
         .O(n_0_RowGroup_INST_0_i_29));
 CARRY4 RowGroup_INST_0_i_3
        (.CI(n_0_RowGroup_INST_0_i_19),
-        .CO({NLW_RowGroup_INST_0_i_3_CO_UNCONNECTED[3:2],state_time_expired00_in[14],NLW_RowGroup_INST_0_i_3_CO_UNCONNECTED[0]}),
+        .CO({NLW_RowGroup_INST_0_i_3_CO_UNCONNECTED[3:2],state_time_expired0[14],NLW_RowGroup_INST_0_i_3_CO_UNCONNECTED[0]}),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({NLW_RowGroup_INST_0_i_3_O_UNCONNECTED[3:1],state_time_expired00_in[13]}),
+        .O({NLW_RowGroup_INST_0_i_3_O_UNCONNECTED[3:1],state_time_expired0[13]}),
         .S({1'b0,1'b0,1'b1,n_0_RowGroup_INST_0_i_20}));
 LUT1 #(
     .INIT(2'h2)) 
@@ -2860,37 +2866,37 @@ LUT1 #(
 LUT2 #(
     .INIT(4'hE)) 
      RowGroup_INST_0_i_4
-       (.I0(state_time_expired00_in[12]),
-        .I1(state_time_expired00_in[13]),
+       (.I0(state_time_expired0[12]),
+        .I1(state_time_expired0[13]),
         .O(n_0_RowGroup_INST_0_i_4));
 LUT2 #(
     .INIT(4'hE)) 
      RowGroup_INST_0_i_5
-       (.I0(state_time_expired00_in[10]),
-        .I1(state_time_expired00_in[11]),
+       (.I0(state_time_expired0[10]),
+        .I1(state_time_expired0[11]),
         .O(n_0_RowGroup_INST_0_i_5));
 LUT2 #(
     .INIT(4'hE)) 
      RowGroup_INST_0_i_6
-       (.I0(state_time_expired00_in[8]),
-        .I1(state_time_expired00_in[9]),
+       (.I0(state_time_expired0[8]),
+        .I1(state_time_expired0[9]),
         .O(n_0_RowGroup_INST_0_i_6));
 LUT1 #(
     .INIT(2'h1)) 
      RowGroup_INST_0_i_7
-       (.I0(state_time_expired00_in[14]),
+       (.I0(state_time_expired0[14]),
         .O(n_0_RowGroup_INST_0_i_7));
 LUT2 #(
     .INIT(4'h1)) 
      RowGroup_INST_0_i_8
-       (.I0(state_time_expired00_in[13]),
-        .I1(state_time_expired00_in[12]),
+       (.I0(state_time_expired0[13]),
+        .I1(state_time_expired0[12]),
         .O(n_0_RowGroup_INST_0_i_8));
 LUT2 #(
     .INIT(4'h1)) 
      RowGroup_INST_0_i_9
-       (.I0(state_time_expired00_in[11]),
-        .I1(state_time_expired00_in[10]),
+       (.I0(state_time_expired0[11]),
+        .I1(state_time_expired0[10]),
         .O(n_0_RowGroup_INST_0_i_9));
 LUT6 #(
     .INIT(64'h000000006AAAAAAA)) 
@@ -2968,10 +2974,10 @@ LUT6 #(
     .INIT(64'h0001000000000100)) 
      \RowSelect[2]_INST_0_i_5 
        (.I0(zeroize),
-        .I1(prev_state[1]),
-        .I2(prev_state[2]),
-        .I3(prev_state[0]),
-        .I4(prev_state[3]),
+        .I1(get_next_state_return[2]),
+        .I2(get_next_state_return[3]),
+        .I3(get_next_state_return[1]),
+        .I4(get_next_state_return[0]),
         .I5(state_time_expired),
         .O(\n_0_RowSelect[2]_INST_0_i_5 ));
 LUT6 #(
@@ -3154,15 +3160,15 @@ LUT6 #(
        (.I0(prev_read_data),
         .I1(Q),
         .I2(reset),
-        .I3(prev_state[0]),
+        .I3(get_next_state_return[1]),
         .I4(state_time_expired),
-        .I5(prev_state[3]),
+        .I5(get_next_state_return[0]),
         .O(\n_0_prev_state[0]_i_1 ));
 LUT6 #(
     .INIT(64'h00AC000000000000)) 
      \prev_state[1]_i_1 
-       (.I0(prev_state[0]),
-        .I1(prev_state[1]),
+       (.I0(get_next_state_return[1]),
+        .I1(get_next_state_return[2]),
         .I2(state_time_expired),
         .I3(reset),
         .I4(Q),
@@ -3171,8 +3177,8 @@ LUT6 #(
 LUT6 #(
     .INIT(64'h00AC000000000000)) 
      \prev_state[2]_i_1 
-       (.I0(prev_state[1]),
-        .I1(prev_state[2]),
+       (.I0(get_next_state_return[2]),
+        .I1(get_next_state_return[3]),
         .I2(state_time_expired),
         .I3(reset),
         .I4(Q),
@@ -3181,8 +3187,8 @@ LUT6 #(
 LUT6 #(
     .INIT(64'h00AC000000000000)) 
      \prev_state[3]_i_1 
-       (.I0(prev_state[2]),
-        .I1(prev_state[3]),
+       (.I0(get_next_state_return[3]),
+        .I1(get_next_state_return[0]),
         .I2(state_time_expired),
         .I3(reset),
         .I4(Q),
@@ -3380,25 +3386,25 @@ FDRE \prev_state_reg[0]
        (.C(clk),
         .CE(1'b1),
         .D(\n_0_prev_state[0]_i_1 ),
-        .Q(prev_state[0]),
+        .Q(get_next_state_return[1]),
         .R(1'b0));
 FDRE \prev_state_reg[1] 
        (.C(clk),
         .CE(1'b1),
         .D(\n_0_prev_state[1]_i_1 ),
-        .Q(prev_state[1]),
+        .Q(get_next_state_return[2]),
         .R(1'b0));
 FDRE \prev_state_reg[2] 
        (.C(clk),
         .CE(1'b1),
         .D(\n_0_prev_state[2]_i_1 ),
-        .Q(prev_state[2]),
+        .Q(get_next_state_return[3]),
         .R(1'b0));
 FDRE \prev_state_reg[3] 
        (.C(clk),
         .CE(1'b1),
         .D(\n_0_prev_state[3]_i_1 ),
-        .Q(prev_state[3]),
+        .Q(get_next_state_return[0]),
         .R(1'b0));
 endmodule
 
@@ -3413,8 +3419,8 @@ module spad_manager_0_spad_manager
     ReadEnable,
     FrameDurationChangeEnable,
     FrameDurationRequestedClks,
-    clk,
-    reset);
+    reset,
+    clk);
   output [21:0]FrameDurationCurrentClks;
   output [31:0]FrameId;
   output [1:0]Q;
@@ -3424,8 +3430,8 @@ module spad_manager_0_spad_manager
   output ReadEnable;
   output FrameDurationChangeEnable;
   input [21:0]FrameDurationRequestedClks;
-  input clk;
   input reset;
+  input clk;
 
   wire [5:0]ColSelect;
   wire FrameDurationChangeEnable;

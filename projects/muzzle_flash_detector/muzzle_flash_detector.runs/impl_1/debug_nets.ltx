@@ -824,7 +824,7 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="frm_buffer/is_area_a_written"/>
+        <net name="frm_buffer/is_area_a_written_read_clk_domain"/>
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
@@ -883,26 +883,38 @@
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq12&apos;hXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq11&apos;hXXX"/>
         <Option Id="CORE_LOCATION" value="1:2"/>
         <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
         <Option Id="PROBE_PORT" value="9"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="12"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="11"/>
       </probeOptions>
       <nets>
-        <net name="frm_buffer/maximal_write_address[11]"/>
-        <net name="frm_buffer/maximal_write_address[10]"/>
-        <net name="frm_buffer/maximal_write_address[9]"/>
-        <net name="frm_buffer/maximal_write_address[8]"/>
-        <net name="frm_buffer/maximal_write_address[7]"/>
-        <net name="frm_buffer/maximal_write_address[6]"/>
-        <net name="frm_buffer/maximal_write_address[5]"/>
-        <net name="frm_buffer/maximal_write_address[4]"/>
-        <net name="frm_buffer/maximal_write_address[3]"/>
-        <net name="frm_buffer/maximal_write_address[2]"/>
+        <net name="frm_buffer/maximal_write_address_1[10]"/>
+        <net name="frm_buffer/maximal_write_address_1[9]"/>
+        <net name="frm_buffer/maximal_write_address_1[8]"/>
+        <net name="frm_buffer/maximal_write_address_1[7]"/>
+        <net name="frm_buffer/maximal_write_address_1[6]"/>
+        <net name="frm_buffer/maximal_write_address_1[5]"/>
+        <net name="frm_buffer/maximal_write_address_1[4]"/>
+        <net name="frm_buffer/maximal_write_address_1[3]"/>
+        <net name="frm_buffer/maximal_write_address_1[2]"/>
+        <net name="frm_buffer/maximal_write_address_1[1]"/>
+        <net name="frm_buffer/maximal_write_address_1[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
+        <Option Id="PROBE_PORT" value="9"/>
+        <Option Id="PROBE_PORT_BITS" value="11"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
         <net name="frm_buffer/maximal_write_address[1]"/>
-        <net name="frm_buffer/maximal_write_address[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
@@ -1908,7 +1920,7 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="clk_100MHz"/>
+        <net name="&lt;const0>"/>
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
