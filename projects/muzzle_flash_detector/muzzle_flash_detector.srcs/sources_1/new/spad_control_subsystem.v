@@ -25,6 +25,21 @@ module spad_control_subsystem(
        input clk,
        input reset,
        input isEmulated,
+	   
+	   // interface to SPAD
+       output latch_spad,
+       output reset_spad,
+       output [5:0] col_select,
+       output [2:0] row_select,
+       output row_group,
+       
+       input [7:0] PixelSpad0,
+       input [7:0] PixelSpad1,
+       input [7:0] PixelSpad2,
+       input [7:0] PixelSpad3,
+       
+       
+       // interface to Core
        output [31:0] FrameId,
        output [3:0] RowSet,
        output [5:0] ColSet,
@@ -35,24 +50,26 @@ module spad_control_subsystem(
        output [7:0] PixelOut3
         
     );
-    wire latch_spad;
-    wire reset_spad;
-    
-
-    wire [2:0] row_select;
-    wire [5:0] col_select;
-    wire row_group;
    
     wire [7:0] pixel_in_0;
     wire [7:0] pixel_in_1;
     wire [7:0] pixel_in_2;
     wire [7:0] pixel_in_3;
     
+    wire [7:0] emulated_pixel_in_0;
+    wire [7:0] emulated_pixel_in_1;
+    wire [7:0] emulated_pixel_in_2;
+    wire [7:0] emulated_pixel_in_3;
+    
     wire FrameDurationChangeEnable;
     wire [`MAXIMAL_STATE_DURATION_CLKS_BITS - 1 : 0] frame_duration_current_clks;
     
     wire mgr_read_enable;
 
+    assign pixel_in_0 = (isEmulated) ? emulated_pixel_in_0 : pixel_in_0;
+    assign pixel_in_1 = (isEmulated) ? emulated_pixel_in_1 : pixel_in_1;
+    assign pixel_in_2 = (isEmulated) ? emulated_pixel_in_2 : pixel_in_2;
+    assign pixel_in_3 = (isEmulated) ? emulated_pixel_in_3 : pixel_in_3;
     
     spad_manager_0 spad_manager(
         .clk(clk),
@@ -89,10 +106,10 @@ module spad_control_subsystem(
         .row_select(row_select),
         .col_select(col_select),
         .second_half_rows(row_group),
-        .pixel_out_0(pixel_in_0),
-        .pixel_out_1(pixel_in_1),
-        .pixel_out_2(pixel_in_2),
-        .pixel_out_3(pixel_in_3)
+        .pixel_out_0(emulated_pixel_in_0),
+        .pixel_out_1(emulated_pixel_in_1),
+        .pixel_out_2(emulated_pixel_in_2),
+        .pixel_out_3(emulated_pixel_in_3)
         );
         
     assign RowSet = {row_select, row_group};

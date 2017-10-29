@@ -64,7 +64,19 @@ module port_wraper
    output sfp0_rx_led,
    
    // debug
-   output [1:0] leds
+   output [1:0] leds,
+   
+   // interface to SPAD
+   output latch_spad,
+   output reset_spad,
+   output [5:0] col_select,
+   output [2:0] row_select,
+   output row_group,
+   
+   input [7:0] PixelSpad0,
+   input [7:0] PixelSpad1,
+   input [7:0] PixelSpad2,
+   input [7:0] PixelSpad3
    );
    
    wire resetdone;
@@ -105,6 +117,16 @@ module port_wraper
    wire eth_ss_reset; // ethernet subsystem reset
    
    wire block_lock;
+   
+   wire is_emulated;
+   
+   btn_release_count emulation_button_i (
+   	.clk(clk_100MHz),
+   	.reset(spad_ss_reset),
+   	.button_pressed(btn[1]),
+   	.count(is_emulated)
+	);
+   	
    
   
    axi_clocking axi_clocking_i (
@@ -176,7 +198,18 @@ module port_wraper
         /* output [7:0] */  .PixelOut1(to_dpr_pixel_out1),
         /* output [7:0] */  .PixelOut2(to_dpr_pixel_out2),
         /* output [7:0] */  .PixelOut3(to_dpr_pixel_out3),
-        					.isEmulated(1)      
+        					.isEmulated(is_emulated),
+	   // interface to SPAD
+       /* output */			.latch_spad(latch_spad),
+       /* output */ 		.reset_spad(reset_spad),
+       /* output [5:0] */ 	.col_select(col_select),
+       /* output [2:0] */ 	.row_select(row_select),
+       /* output */ 		.row_group(row_group),
+       
+       /* input [7:0] */ 	.PixelSpad0(PixelSpad0),
+       /* input [7:0] */ 	.PixelSpad1(PixelSpad1),
+       /* input [7:0] */ 	.PixelSpad2(PixelSpad2),
+       /* input [7:0] */ 	.PixelSpad3(PixelSpad3)    
     );
     
     ila_0 input_to_frm_buffer (
