@@ -74,8 +74,8 @@ set_property -dict { PACKAGE_PIN AV36  IOSTANDARD LVCMOS18     } [get_ports { co
 #set_property -dict { PACKAGE_PIN AT36  IOSTANDARD LVDS     } [get_ports { FMC_LA_P[33] }]; #IO_L8P_T1_13 Sch=fmc_la__p[33]
 
 
-set_property PULLDOWN true [get_ports PixelSpad0[0]];
-set_property PULLDOWN true [get_ports PixelSpad0[1]];
+# costa should be mapped set_property PULLDOWN true [get_ports PixelSpad0[0]];
+# costa should be mapped set_property PULLDOWN true [get_ports PixelSpad0[1]];
 
 ##FMC Transceiver pins
 #set_property -dict { PACKAGE_PIN AW6 } [get_ports { FMC_DP0_M2C_P }];

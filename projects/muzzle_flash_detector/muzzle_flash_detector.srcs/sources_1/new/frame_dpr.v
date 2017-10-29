@@ -114,7 +114,6 @@ module frame_dpr(
     reg [2 : 0] pixels_block_in_column_id;
     reg [7 : 0] last_pixel_in_block;
     
-    wire [63 : 0] swaped_data_from_dpr;
     
     assign maximal_write_address = is_area_a_written ? (AREA_A_LAST_ADDRESS_32BIT) : (AREA_B_LAST_ADDRESS_32BIT);
     
@@ -259,7 +258,7 @@ module frame_dpr(
 				
 				READ_STATE_COLUMN_DATA: begin
 					if(data_from_dpr_valid) begin
-						last_pixel_in_block <= swaped_data_from_dpr[63 : 56];
+						last_pixel_in_block <= data_from_dpr[63 : 56];
 						if (tx_axis_frame_tready) begin
 							pixels_block_in_column_id <= pixels_block_in_column_id + 1; // overflow is exploited here. after 7 pixels_block_in_column_id will go to 0
 							if (pixels_block_in_column_id == 7) begin
@@ -299,7 +298,6 @@ module frame_dpr(
 		  .doutb(data_from_dpr)  // output wire [63 : 0] doutb
 		);
 	
-	assign swaped_data_from_dpr = {data_from_dpr[31 : 0], data_from_dpr[63 : 32]};
 		
 	read_control read_ctl(
 		.clk(rdClk),
@@ -344,7 +342,7 @@ module frame_dpr(
 		.probe11(column_id), // input wire [5:0]  probe11 
 		.probe12(pixels_block_in_column_id), // input wire [2:0]  probe12 
 		.probe13(last_pixel_in_block), // input wire [7:0]  probe13 
-		.probe14(swaped_data_from_dpr), // input wire [63:0]  probe14
+		.probe14(data_from_dpr), // input wire [63:0]  probe14
 		.probe15(tx_axis_frame_tdata),
 		.probe16(tx_axis_frame_tkeep),
 		.probe17(tx_axis_frame_tvalid),
@@ -352,9 +350,9 @@ module frame_dpr(
 		.probe19(tx_axis_frame_tready)
 	);
 		
-	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? swaped_data_from_dpr :
+	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? data_from_dpr :
 								  	(read_state == READ_STATE_COLUMN_DATA) ? 
-								  		{swaped_data_from_dpr[55:0], (pixels_block_in_column_id == 0) ? column_id : last_pixel_in_block} :
+								  		{data_from_dpr[55:0], (pixels_block_in_column_id == 0) ? column_id : last_pixel_in_block} :
 									(read_state == READ_STATE_FINALIZE_COLUMN) ? {56'b0, last_pixel_in_block} :
 									/*(read_state == READ_STATE_WAIT) */ 0;
 								  											
