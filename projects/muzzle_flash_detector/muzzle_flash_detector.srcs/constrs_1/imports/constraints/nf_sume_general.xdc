@@ -18,10 +18,10 @@
 #        - UART (115200-8N1)
 #        - Btn0 is used as system sys_reset_n (active high)
 #
-# This software was developed by Stanford University and the University of Cambridge Computer Laboratory 
+# This software was developed by Stanford University and the University of Cambridge Computer Laboratory
 # under National Science Foundation under Grant No. CNS-0855268,
 # the University of Cambridge Computer Laboratory under EPSRC INTERNET Project EP/H040536/1 and
-# by the University of Cambridge Computer Laboratory under DARPA/AFRL contract FA8750-11-C-0249 ("MRC2"), 
+# by the University of Cambridge Computer Laboratory under DARPA/AFRL contract FA8750-11-C-0249 ("MRC2"),
 # as part of the DARPA MRC research programme.
 #
 # @NETFPGA_LICENSE_HEADER_START@
@@ -112,8 +112,10 @@ create_clock -period 10.000 -name clk_100MHz -add [get_pins -hier -filter name=~
 #i2c not in use set_property IOSTANDARD LVCMOS18 [get_ports {i2c_reset[1]}]
 
 #BTN
-set_property -dict { PACKAGE_PIN AR13  IOSTANDARD LVCMOS15 } [get_ports { btn[0] }]; #IO_L12N_T1_MRCC_31 Sch=btn[0]
-set_property -dict { PACKAGE_PIN BB12  IOSTANDARD LVCMOS15 } [get_ports { btn[1] }]; #IO_L24N_T3_31 Sch=btn[1]
+set_property PACKAGE_PIN AR13 [get_ports {btn[0]}]
+set_property IOSTANDARD LVCMOS15 [get_ports {btn[0]}]
+set_property PACKAGE_PIN BB12 [get_ports {btn[1]}]
+set_property IOSTANDARD LVCMOS15 [get_ports {btn[1]}]
 
 
 ## -- USER LEDS
@@ -156,3 +158,28 @@ set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
 
 
+
+set_property OFFCHIP_TERM NONE [get_ports col_select[0]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[1]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[2]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[3]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[4]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[5]]
+set_property OFFCHIP_TERM NONE [get_ports row_group]
+set_property OFFCHIP_TERM NONE [get_ports row_select[0]]
+set_property OFFCHIP_TERM NONE [get_ports row_select[1]]
+set_property OFFCHIP_TERM NONE [get_ports row_select[2]]
+set_property SLEW FAST [get_ports {col_select[5]}]
+set_property SLEW FAST [get_ports {col_select[4]}]
+set_property SLEW FAST [get_ports {col_select[3]}]
+set_property SLEW FAST [get_ports {col_select[2]}]
+set_property SLEW FAST [get_ports {col_select[1]}]
+set_property SLEW FAST [get_ports {col_select[0]}]
+set_property SLEW FAST [get_ports {row_select[2]}]
+set_property SLEW FAST [get_ports {row_select[1]}]
+set_property SLEW FAST [get_ports {row_select[0]}]
+set_property SLEW FAST [get_ports row_group]
+set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
+set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
+set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
+connect_debug_port dbg_hub/clk [get_nets clk_100MHz]

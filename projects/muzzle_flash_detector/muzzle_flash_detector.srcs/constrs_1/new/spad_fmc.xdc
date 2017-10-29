@@ -77,6 +77,29 @@ set_property -dict { PACKAGE_PIN AV36  IOSTANDARD LVCMOS18     } [get_ports { co
 # costa should be mapped set_property PULLDOWN true [get_ports PixelSpad0[0]];
 # costa should be mapped set_property PULLDOWN true [get_ports PixelSpad0[1]];
 
+
+
+set_property OFFCHIP_TERM NONE [get_ports col_select[0]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[1]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[2]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[3]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[4]]
+set_property OFFCHIP_TERM NONE [get_ports col_select[5]]
+set_property OFFCHIP_TERM NONE [get_ports row_group]
+set_property OFFCHIP_TERM NONE [get_ports row_select[0]]
+set_property OFFCHIP_TERM NONE [get_ports row_select[1]]
+set_property OFFCHIP_TERM NONE [get_ports row_select[2]]
+set_property SLEW FAST [get_ports {col_select[5]}]
+set_property SLEW FAST [get_ports {col_select[4]}]
+set_property SLEW FAST [get_ports {col_select[3]}]
+set_property SLEW FAST [get_ports {col_select[2]}]
+set_property SLEW FAST [get_ports {col_select[1]}]
+set_property SLEW FAST [get_ports {col_select[0]}]
+set_property SLEW FAST [get_ports {row_select[2]}]
+set_property SLEW FAST [get_ports {row_select[1]}]
+set_property SLEW FAST [get_ports {row_select[0]}]
+set_property SLEW FAST [get_ports row_group]
+
 ##FMC Transceiver pins
 #set_property -dict { PACKAGE_PIN AW6 } [get_ports { FMC_DP0_M2C_P }];
 #set_property -dict { PACKAGE_PIN AW5 } [get_ports { FMC_DP0_M2C_N }];
