@@ -589,6 +589,19 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.xml"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="synth/spad_manager_0.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="sim/spad_manager_0.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/manager.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/controller.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/read_process_manager.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/spad_controller_definitions.vh"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.veo"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.vhdl"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.dcp"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.vhdl"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="spad_manager_0"/>
@@ -699,7 +712,9 @@
     </Run>
     <Run Id="spad_manager_0_synth_1" Type="Ft3:Synth" SrcSet="spad_manager_0" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/spad_manager_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -875,7 +890,9 @@
     </Run>
     <Run Id="spad_manager_0_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Implementation Defaults" SynthRun="spad_manager_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
+          <Desc>Vivado Implementation Defaults</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

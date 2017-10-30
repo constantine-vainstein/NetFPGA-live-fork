@@ -49,8 +49,6 @@ module controller(
     
     reg [STATE_SIZE_BITS - 1 : 0] state; 
     
-    reg [STATE_SIZE_BITS - 1 : 0] prev_state;
-    
     reg [`MAXIMAL_STATE_DURATION_CLKS_BITS : 0] state_counter;
     
     reg [`MAXIMAL_STATE_DURATION_CLKS_BITS : 0] state_durations [STATE_FIRST_STATE : STATE_LAST_STATE];
@@ -59,11 +57,13 @@ module controller(
     
     wire read_data;
     
+    wire [STATE_SIZE_BITS - 1 : 0] next_state; 
+    
 
     
     task set_next_state;
         begin
-            state = {state[STATE_SIZE_BITS - 2 : 0], state[STATE_SIZE_BITS - 1]};
+            state <= next_state;
         end
     endtask
     
@@ -71,21 +71,16 @@ module controller(
     task commandToSpad;
         input is_next_state_needed;
         begin
-            state_counter = state_counter + 1;
-            // next state
-            if (is_next_state_needed) begin
-                set_next_state;
-                state_counter = 0;
+        	if (is_next_state_needed) begin
+            	// next state
+				set_next_state;
+        		state_counter <= 0;  
+			end else begin
+            	state_counter <= state_counter + 1;
             end
         end
     endtask
     
-    initial begin
-        state_durations[STATE_LATCH] = 2;
-        state_durations[STATE_PAUSE_LATCH_RESET] = 1;
-        state_durations[STATE_RESET] = 2;
-        state_durations[STATE_READDATA] = 4608;   
-    end
     
     assign LatchSpad = state[0];
     assign ResetSpad = state[2];
@@ -98,22 +93,25 @@ module controller(
                                     state_durations[STATE_PAUSE_LATCH_RESET] +
                                     state_durations[STATE_RESET] +
                                     state_durations[STATE_READDATA];  
+                                    
+	assign next_state = {state[STATE_SIZE_BITS - 2 : 0], state[STATE_SIZE_BITS - 1]};
   
     always @(posedge clk) begin
         
         if (reset) begin
-            state_counter = 0;
-            FrameId = 0;
-            state = STATE_LATCH;
-            state_durations[STATE_READDATA] =   `MINIMAL_FRAME_DURATION_CLKS - 
-                                                (state_durations[STATE_LATCH] + 
-                                                state_durations[STATE_PAUSE_LATCH_RESET] + 
-                                                state_durations[STATE_RESET]);
+            state_counter <= 0;
+            FrameId <= 0;
+            state <= STATE_LATCH;
+            state_durations[STATE_READDATA] <= 4608; // `MINIMAL_FRAME_DURATION_CLKS - (state_durations[STATE_LATCH] + state_durations[STATE_PAUSE_LATCH_RESET] + state_durations[STATE_RESET]);
+        	state_durations[STATE_LATCH] <= 2;
+			state_durations[STATE_PAUSE_LATCH_RESET] <= 1;
+			state_durations[STATE_RESET] <= 2;
+                                                
         end else begin
             commandToSpad(state_time_expired); 
             // increment frame counter
-            if (state == STATE_LATCH & prev_state != STATE_LATCH) begin
-                FrameId = FrameId + 1;
+            if (state_time_expired & (next_state == STATE_LATCH) & state != STATE_LATCH) begin
+                FrameId <= FrameId + 1;
             end
             // Handle Frame duration  change
             if (FrameDurationChangeEnable &
@@ -121,9 +119,9 @@ module controller(
             begin
                 if (FrameDurationRequestedClks != FrameDurationCurrentClks) begin
                     // Reset FrameId in case the read rate has changed.
-                    FrameId = 0;
+                    FrameId <= 0;
                 end
-                state_durations[STATE_READDATA] =   FrameDurationRequestedClks - 
+                state_durations[STATE_READDATA] <=  FrameDurationRequestedClks - 
                                                     (state_durations[STATE_LATCH] + 
                                                     state_durations[STATE_PAUSE_LATCH_RESET] + 
                                                     state_durations[STATE_RESET]); 
@@ -131,8 +129,6 @@ module controller(
             end
             
         end
-        
-        prev_state <= state;
         
     end
     
