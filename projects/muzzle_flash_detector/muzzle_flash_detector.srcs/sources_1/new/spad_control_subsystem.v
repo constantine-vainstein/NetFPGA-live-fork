@@ -66,10 +66,10 @@ module spad_control_subsystem(
     
     wire mgr_read_enable;
 
-    assign pixel_in_0 = (isEmulated) ? emulated_pixel_in_0 : pixel_in_0;
-    assign pixel_in_1 = (isEmulated) ? emulated_pixel_in_1 : pixel_in_1;
-    assign pixel_in_2 = (isEmulated) ? emulated_pixel_in_2 : pixel_in_2;
-    assign pixel_in_3 = (isEmulated) ? emulated_pixel_in_3 : pixel_in_3;
+    assign pixel_in_0 = (isEmulated) ? emulated_pixel_in_0 : PixelSpad0;
+    assign pixel_in_1 = (isEmulated) ? emulated_pixel_in_1 : PixelSpad1;
+    assign pixel_in_2 = (isEmulated) ? emulated_pixel_in_2 : PixelSpad2;
+    assign pixel_in_3 = (isEmulated) ? emulated_pixel_in_3 : PixelSpad3;
     
     spad_manager_0 spad_manager(
         .clk(clk),
