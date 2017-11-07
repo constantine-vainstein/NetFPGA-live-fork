@@ -31,7 +31,7 @@ module spad_control_subsystem(
        output reset_spad,
        output [5:0] col_select,
        output [2:0] row_select,
-       output row_group,
+       output row_group_select,
        
        input [7:0] PixelSpad0,
        input [7:0] PixelSpad1,
@@ -55,6 +55,7 @@ module spad_control_subsystem(
     wire [7:0] pixel_in_1;
     wire [7:0] pixel_in_2;
     wire [7:0] pixel_in_3;
+    wire row_group;
     
     wire [7:0] emulated_pixel_in_0;
     wire [7:0] emulated_pixel_in_1;
@@ -70,6 +71,8 @@ module spad_control_subsystem(
     assign pixel_in_1 = (isEmulated) ? emulated_pixel_in_1 : PixelSpad1;
     assign pixel_in_2 = (isEmulated) ? emulated_pixel_in_2 : PixelSpad2;
     assign pixel_in_3 = (isEmulated) ? emulated_pixel_in_3 : PixelSpad3;
+    
+    assign row_group_select = ~row_group;
     
     spad_manager_0 spad_manager(
         .clk(clk),

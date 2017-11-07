@@ -205,7 +205,7 @@ module port_wraper
        /* output */ 		.reset_spad(reset_spad),
        /* output [5:0] */ 	.col_select(col_select),
        /* output [2:0] */ 	.row_select(row_select),
-       /* output */ 		.row_group(row_group),
+       /* output */ 		.row_group_select(row_group),
        
        /* input [7:0] */ 	.PixelSpad0(PixelSpad0),
        /* input [7:0] */ 	.PixelSpad1(PixelSpad1),
