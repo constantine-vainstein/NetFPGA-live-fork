@@ -196,7 +196,7 @@
         <net name="eth_wrap/tx_axis_fifo_out_tlast"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
         <Option Id="CORE_LOCATION" value="1:0"/>
@@ -206,7 +206,7 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="eth_wrap/tx_axis_frame_tready"/>
+        <net name="eth_wrap/probe7[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
@@ -219,70 +219,70 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
       </probeOptions>
       <nets>
-        <net name="eth_wrap/tx_axis_eth_tdata[63]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[62]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[61]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[60]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[59]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[58]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[57]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[56]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[55]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[54]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[53]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[52]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[51]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[50]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[49]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[48]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[47]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[46]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[45]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[44]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[43]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[42]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[41]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[40]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[39]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[38]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[37]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[36]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[35]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[34]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[33]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[32]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[31]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[30]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[29]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[28]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[27]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[26]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[25]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[24]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[23]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[22]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[21]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[20]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[19]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[18]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[17]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[16]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[15]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[14]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[13]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[12]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[11]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[10]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[9]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[8]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[7]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[6]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[5]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[4]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[3]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[2]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[1]"/>
-        <net name="eth_wrap/tx_axis_eth_tdata[0]"/>
+        <net name="eth_wrap/out[63]"/>
+        <net name="eth_wrap/out[62]"/>
+        <net name="eth_wrap/out[61]"/>
+        <net name="eth_wrap/out[60]"/>
+        <net name="eth_wrap/out[59]"/>
+        <net name="eth_wrap/out[58]"/>
+        <net name="eth_wrap/out[57]"/>
+        <net name="eth_wrap/out[56]"/>
+        <net name="eth_wrap/out[55]"/>
+        <net name="eth_wrap/out[54]"/>
+        <net name="eth_wrap/out[53]"/>
+        <net name="eth_wrap/out[52]"/>
+        <net name="eth_wrap/out[51]"/>
+        <net name="eth_wrap/out[50]"/>
+        <net name="eth_wrap/out[49]"/>
+        <net name="eth_wrap/out[48]"/>
+        <net name="eth_wrap/out[47]"/>
+        <net name="eth_wrap/out[46]"/>
+        <net name="eth_wrap/out[45]"/>
+        <net name="eth_wrap/out[44]"/>
+        <net name="eth_wrap/out[43]"/>
+        <net name="eth_wrap/out[42]"/>
+        <net name="eth_wrap/out[41]"/>
+        <net name="eth_wrap/out[40]"/>
+        <net name="eth_wrap/out[39]"/>
+        <net name="eth_wrap/out[38]"/>
+        <net name="eth_wrap/out[37]"/>
+        <net name="eth_wrap/out[36]"/>
+        <net name="eth_wrap/out[35]"/>
+        <net name="eth_wrap/out[34]"/>
+        <net name="eth_wrap/out[33]"/>
+        <net name="eth_wrap/out[32]"/>
+        <net name="eth_wrap/out[31]"/>
+        <net name="eth_wrap/out[30]"/>
+        <net name="eth_wrap/out[29]"/>
+        <net name="eth_wrap/out[28]"/>
+        <net name="eth_wrap/out[27]"/>
+        <net name="eth_wrap/out[26]"/>
+        <net name="eth_wrap/out[25]"/>
+        <net name="eth_wrap/out[24]"/>
+        <net name="eth_wrap/out[23]"/>
+        <net name="eth_wrap/out[22]"/>
+        <net name="eth_wrap/out[21]"/>
+        <net name="eth_wrap/out[20]"/>
+        <net name="eth_wrap/out[19]"/>
+        <net name="eth_wrap/out[18]"/>
+        <net name="eth_wrap/out[17]"/>
+        <net name="eth_wrap/out[16]"/>
+        <net name="eth_wrap/out[15]"/>
+        <net name="eth_wrap/out[14]"/>
+        <net name="eth_wrap/out[13]"/>
+        <net name="eth_wrap/out[12]"/>
+        <net name="eth_wrap/out[11]"/>
+        <net name="eth_wrap/out[10]"/>
+        <net name="eth_wrap/out[9]"/>
+        <net name="eth_wrap/out[8]"/>
+        <net name="eth_wrap/out[7]"/>
+        <net name="eth_wrap/out[6]"/>
+        <net name="eth_wrap/out[5]"/>
+        <net name="eth_wrap/out[4]"/>
+        <net name="eth_wrap/out[3]"/>
+        <net name="eth_wrap/out[2]"/>
+        <net name="eth_wrap/out[1]"/>
+        <net name="eth_wrap/out[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
@@ -295,14 +295,14 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
       </probeOptions>
       <nets>
-        <net name="eth_wrap/tx_axis_eth_tkeep[7]"/>
-        <net name="eth_wrap/tx_axis_eth_tkeep[6]"/>
-        <net name="eth_wrap/tx_axis_eth_tkeep[5]"/>
-        <net name="eth_wrap/tx_axis_eth_tkeep[4]"/>
-        <net name="eth_wrap/tx_axis_eth_tkeep[3]"/>
-        <net name="eth_wrap/tx_axis_eth_tkeep[2]"/>
-        <net name="eth_wrap/tx_axis_eth_tkeep[1]"/>
-        <net name="eth_wrap/tx_axis_eth_tkeep[0]"/>
+        <net name="eth_wrap/O1[7]"/>
+        <net name="eth_wrap/O1[6]"/>
+        <net name="eth_wrap/O1[5]"/>
+        <net name="eth_wrap/O1[4]"/>
+        <net name="eth_wrap/O1[3]"/>
+        <net name="eth_wrap/O1[2]"/>
+        <net name="eth_wrap/O1[1]"/>
+        <net name="eth_wrap/O1[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
@@ -318,7 +318,7 @@
         <net name="eth_wrap/in00"/>
       </nets>
     </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
         <Option Id="CORE_LOCATION" value="1:0"/>
@@ -328,7 +328,7 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="eth_wrap/tx_axis_eth_tlast"/>
+        <net name="eth_wrap/probe11[0]"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
@@ -341,1567 +341,13 @@
         <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
       </probeOptions>
       <nets>
-        <net name="eth_wrap/tx_axis_eth_tready"/>
+        <net name="eth_wrap/tx_axis_frame_eth_tready"/>
       </nets>
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
         <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="0"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_aresetn"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="1"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/pat_gen_start"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="2"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/reset_error_sync"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="3"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/n_0_0"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="4"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/n_0_2"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="5"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/frame_error"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="6"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/gen_active_flash"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="7"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/check_active_flash"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="8"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_tdata[63]"/>
-        <net name="example_design/tx_axis_tdata[62]"/>
-        <net name="example_design/tx_axis_tdata[61]"/>
-        <net name="example_design/tx_axis_tdata[60]"/>
-        <net name="example_design/tx_axis_tdata[59]"/>
-        <net name="example_design/tx_axis_tdata[58]"/>
-        <net name="example_design/tx_axis_tdata[57]"/>
-        <net name="example_design/tx_axis_tdata[56]"/>
-        <net name="example_design/tx_axis_tdata[55]"/>
-        <net name="example_design/tx_axis_tdata[54]"/>
-        <net name="example_design/tx_axis_tdata[53]"/>
-        <net name="example_design/tx_axis_tdata[52]"/>
-        <net name="example_design/tx_axis_tdata[51]"/>
-        <net name="example_design/tx_axis_tdata[50]"/>
-        <net name="example_design/tx_axis_tdata[49]"/>
-        <net name="example_design/tx_axis_tdata[48]"/>
-        <net name="example_design/tx_axis_tdata[47]"/>
-        <net name="example_design/tx_axis_tdata[46]"/>
-        <net name="example_design/tx_axis_tdata[45]"/>
-        <net name="example_design/tx_axis_tdata[44]"/>
-        <net name="example_design/tx_axis_tdata[43]"/>
-        <net name="example_design/tx_axis_tdata[42]"/>
-        <net name="example_design/tx_axis_tdata[41]"/>
-        <net name="example_design/tx_axis_tdata[40]"/>
-        <net name="example_design/tx_axis_tdata[39]"/>
-        <net name="example_design/tx_axis_tdata[38]"/>
-        <net name="example_design/tx_axis_tdata[37]"/>
-        <net name="example_design/tx_axis_tdata[36]"/>
-        <net name="example_design/tx_axis_tdata[35]"/>
-        <net name="example_design/tx_axis_tdata[34]"/>
-        <net name="example_design/tx_axis_tdata[33]"/>
-        <net name="example_design/tx_axis_tdata[32]"/>
-        <net name="example_design/tx_axis_tdata[31]"/>
-        <net name="example_design/tx_axis_tdata[30]"/>
-        <net name="example_design/tx_axis_tdata[29]"/>
-        <net name="example_design/tx_axis_tdata[28]"/>
-        <net name="example_design/tx_axis_tdata[27]"/>
-        <net name="example_design/tx_axis_tdata[26]"/>
-        <net name="example_design/tx_axis_tdata[25]"/>
-        <net name="example_design/tx_axis_tdata[24]"/>
-        <net name="example_design/tx_axis_tdata[23]"/>
-        <net name="example_design/tx_axis_tdata[22]"/>
-        <net name="example_design/tx_axis_tdata[21]"/>
-        <net name="example_design/tx_axis_tdata[20]"/>
-        <net name="example_design/tx_axis_tdata[19]"/>
-        <net name="example_design/tx_axis_tdata[18]"/>
-        <net name="example_design/tx_axis_tdata[17]"/>
-        <net name="example_design/tx_axis_tdata[16]"/>
-        <net name="example_design/tx_axis_tdata[15]"/>
-        <net name="example_design/tx_axis_tdata[14]"/>
-        <net name="example_design/tx_axis_tdata[13]"/>
-        <net name="example_design/tx_axis_tdata[12]"/>
-        <net name="example_design/tx_axis_tdata[11]"/>
-        <net name="example_design/tx_axis_tdata[10]"/>
-        <net name="example_design/tx_axis_tdata[9]"/>
-        <net name="example_design/tx_axis_tdata[8]"/>
-        <net name="example_design/tx_axis_tdata[7]"/>
-        <net name="example_design/tx_axis_tdata[6]"/>
-        <net name="example_design/tx_axis_tdata[5]"/>
-        <net name="example_design/tx_axis_tdata[4]"/>
-        <net name="example_design/tx_axis_tdata[3]"/>
-        <net name="example_design/tx_axis_tdata[2]"/>
-        <net name="example_design/tx_axis_tdata[1]"/>
-        <net name="example_design/tx_axis_tdata[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="9"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_tkeep[7]"/>
-        <net name="example_design/tx_axis_tkeep[6]"/>
-        <net name="example_design/tx_axis_tkeep[5]"/>
-        <net name="example_design/tx_axis_tkeep[4]"/>
-        <net name="example_design/tx_axis_tkeep[3]"/>
-        <net name="example_design/tx_axis_tkeep[2]"/>
-        <net name="example_design/tx_axis_tkeep[1]"/>
-        <net name="example_design/tx_axis_tkeep[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="10"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_tvalid"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="11"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_tlast"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="12"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_tready"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="13"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_frame_tdata[63]"/>
-        <net name="example_design/tx_axis_frame_tdata[62]"/>
-        <net name="example_design/tx_axis_frame_tdata[61]"/>
-        <net name="example_design/tx_axis_frame_tdata[60]"/>
-        <net name="example_design/tx_axis_frame_tdata[59]"/>
-        <net name="example_design/tx_axis_frame_tdata[58]"/>
-        <net name="example_design/tx_axis_frame_tdata[57]"/>
-        <net name="example_design/tx_axis_frame_tdata[56]"/>
-        <net name="example_design/tx_axis_frame_tdata[55]"/>
-        <net name="example_design/tx_axis_frame_tdata[54]"/>
-        <net name="example_design/tx_axis_frame_tdata[53]"/>
-        <net name="example_design/tx_axis_frame_tdata[52]"/>
-        <net name="example_design/tx_axis_frame_tdata[51]"/>
-        <net name="example_design/tx_axis_frame_tdata[50]"/>
-        <net name="example_design/tx_axis_frame_tdata[49]"/>
-        <net name="example_design/tx_axis_frame_tdata[48]"/>
-        <net name="example_design/tx_axis_frame_tdata[47]"/>
-        <net name="example_design/tx_axis_frame_tdata[46]"/>
-        <net name="example_design/tx_axis_frame_tdata[45]"/>
-        <net name="example_design/tx_axis_frame_tdata[44]"/>
-        <net name="example_design/tx_axis_frame_tdata[43]"/>
-        <net name="example_design/tx_axis_frame_tdata[42]"/>
-        <net name="example_design/tx_axis_frame_tdata[41]"/>
-        <net name="example_design/tx_axis_frame_tdata[40]"/>
-        <net name="example_design/tx_axis_frame_tdata[39]"/>
-        <net name="example_design/tx_axis_frame_tdata[38]"/>
-        <net name="example_design/tx_axis_frame_tdata[37]"/>
-        <net name="example_design/tx_axis_frame_tdata[36]"/>
-        <net name="example_design/tx_axis_frame_tdata[35]"/>
-        <net name="example_design/tx_axis_frame_tdata[34]"/>
-        <net name="example_design/tx_axis_frame_tdata[33]"/>
-        <net name="example_design/tx_axis_frame_tdata[32]"/>
-        <net name="example_design/tx_axis_frame_tdata[31]"/>
-        <net name="example_design/tx_axis_frame_tdata[30]"/>
-        <net name="example_design/tx_axis_frame_tdata[29]"/>
-        <net name="example_design/tx_axis_frame_tdata[28]"/>
-        <net name="example_design/tx_axis_frame_tdata[27]"/>
-        <net name="example_design/tx_axis_frame_tdata[26]"/>
-        <net name="example_design/tx_axis_frame_tdata[25]"/>
-        <net name="example_design/tx_axis_frame_tdata[24]"/>
-        <net name="example_design/tx_axis_frame_tdata[23]"/>
-        <net name="example_design/tx_axis_frame_tdata[22]"/>
-        <net name="example_design/tx_axis_frame_tdata[21]"/>
-        <net name="example_design/tx_axis_frame_tdata[20]"/>
-        <net name="example_design/tx_axis_frame_tdata[19]"/>
-        <net name="example_design/tx_axis_frame_tdata[18]"/>
-        <net name="example_design/tx_axis_frame_tdata[17]"/>
-        <net name="example_design/tx_axis_frame_tdata[16]"/>
-        <net name="example_design/tx_axis_frame_tdata[15]"/>
-        <net name="example_design/tx_axis_frame_tdata[14]"/>
-        <net name="example_design/tx_axis_frame_tdata[13]"/>
-        <net name="example_design/tx_axis_frame_tdata[12]"/>
-        <net name="example_design/tx_axis_frame_tdata[11]"/>
-        <net name="example_design/tx_axis_frame_tdata[10]"/>
-        <net name="example_design/tx_axis_frame_tdata[9]"/>
-        <net name="example_design/tx_axis_frame_tdata[8]"/>
-        <net name="example_design/tx_axis_frame_tdata[7]"/>
-        <net name="example_design/tx_axis_frame_tdata[6]"/>
-        <net name="example_design/tx_axis_frame_tdata[5]"/>
-        <net name="example_design/tx_axis_frame_tdata[4]"/>
-        <net name="example_design/tx_axis_frame_tdata[3]"/>
-        <net name="example_design/tx_axis_frame_tdata[2]"/>
-        <net name="example_design/tx_axis_frame_tdata[1]"/>
-        <net name="example_design/tx_axis_frame_tdata[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="14"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_frame_tkeep[7]"/>
-        <net name="example_design/tx_axis_frame_tkeep[6]"/>
-        <net name="example_design/tx_axis_frame_tkeep[5]"/>
-        <net name="example_design/tx_axis_frame_tkeep[4]"/>
-        <net name="example_design/tx_axis_frame_tkeep[3]"/>
-        <net name="example_design/tx_axis_frame_tkeep[2]"/>
-        <net name="example_design/tx_axis_frame_tkeep[1]"/>
-        <net name="example_design/tx_axis_frame_tkeep[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="15"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_frame_tvalid"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_frame_tlast"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:1"/>
-        <Option Id="HW_ILA" value="example_design/your_instance_name"/>
-        <Option Id="PROBE_PORT" value="17"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="example_design/tx_axis_frame_tready"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="0"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="32"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/write_data[31]"/>
-        <net name="frm_buffer/write_data[30]"/>
-        <net name="frm_buffer/write_data[29]"/>
-        <net name="frm_buffer/write_data[28]"/>
-        <net name="frm_buffer/write_data[27]"/>
-        <net name="frm_buffer/write_data[26]"/>
-        <net name="frm_buffer/write_data[25]"/>
-        <net name="frm_buffer/write_data[24]"/>
-        <net name="frm_buffer/write_data[23]"/>
-        <net name="frm_buffer/write_data[22]"/>
-        <net name="frm_buffer/write_data[21]"/>
-        <net name="frm_buffer/write_data[20]"/>
-        <net name="frm_buffer/write_data[19]"/>
-        <net name="frm_buffer/write_data[18]"/>
-        <net name="frm_buffer/write_data[17]"/>
-        <net name="frm_buffer/write_data[16]"/>
-        <net name="frm_buffer/write_data[15]"/>
-        <net name="frm_buffer/write_data[14]"/>
-        <net name="frm_buffer/write_data[13]"/>
-        <net name="frm_buffer/write_data[12]"/>
-        <net name="frm_buffer/write_data[11]"/>
-        <net name="frm_buffer/write_data[10]"/>
-        <net name="frm_buffer/write_data[9]"/>
-        <net name="frm_buffer/write_data[8]"/>
-        <net name="frm_buffer/write_data[7]"/>
-        <net name="frm_buffer/write_data[6]"/>
-        <net name="frm_buffer/write_data[5]"/>
-        <net name="frm_buffer/write_data[4]"/>
-        <net name="frm_buffer/write_data[3]"/>
-        <net name="frm_buffer/write_data[2]"/>
-        <net name="frm_buffer/write_data[1]"/>
-        <net name="frm_buffer/write_data[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq3&apos;hX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="1"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="3"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/write_state[2]"/>
-        <net name="frm_buffer/write_state[1]"/>
-        <net name="frm_buffer/write_state[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="2"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/write_enable"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq12&apos;hXXX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="3"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="12"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/write_address[11]"/>
-        <net name="frm_buffer/write_address[10]"/>
-        <net name="frm_buffer/write_address[9]"/>
-        <net name="frm_buffer/write_address[8]"/>
-        <net name="frm_buffer/write_address[7]"/>
-        <net name="frm_buffer/write_address[6]"/>
-        <net name="frm_buffer/write_address[5]"/>
-        <net name="frm_buffer/write_address[4]"/>
-        <net name="frm_buffer/write_address[3]"/>
-        <net name="frm_buffer/write_address[2]"/>
-        <net name="frm_buffer/write_address[1]"/>
-        <net name="frm_buffer/write_address[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="4"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/is_area_a_written_read_clk_domain"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq3&apos;hX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="5"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="3"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/write_delay_clk[2]"/>
-        <net name="frm_buffer/write_delay_clk[1]"/>
-        <net name="frm_buffer/write_delay_clk[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="6"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/dpr_write_enable"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="7"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/area_a_valid"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="8"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/area_b_valid"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq11&apos;hXXX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="9"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="11"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/maximal_write_address_1[10]"/>
-        <net name="frm_buffer/maximal_write_address_1[9]"/>
-        <net name="frm_buffer/maximal_write_address_1[8]"/>
-        <net name="frm_buffer/maximal_write_address_1[7]"/>
-        <net name="frm_buffer/maximal_write_address_1[6]"/>
-        <net name="frm_buffer/maximal_write_address_1[5]"/>
-        <net name="frm_buffer/maximal_write_address_1[4]"/>
-        <net name="frm_buffer/maximal_write_address_1[3]"/>
-        <net name="frm_buffer/maximal_write_address_1[2]"/>
-        <net name="frm_buffer/maximal_write_address_1[1]"/>
-        <net name="frm_buffer/maximal_write_address_1[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="9"/>
-        <Option Id="PROBE_PORT_BITS" value="11"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/maximal_write_address[1]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="10"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="32"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/cur_wrFrameId_1[31]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[30]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[29]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[28]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[27]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[26]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[25]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[24]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[23]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[22]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[21]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[20]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[19]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[18]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[17]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[16]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[15]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[14]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[13]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[12]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[11]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[10]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[9]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[8]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[7]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[6]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[5]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[4]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[3]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[2]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[1]"/>
-        <net name="frm_buffer/cur_wrFrameId_1[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:2"/>
-        <Option Id="HW_ILA" value="frm_buffer/dpr_signals"/>
-        <Option Id="PROBE_PORT" value="11"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="32"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/wrFrameId[31]"/>
-        <net name="frm_buffer/wrFrameId[30]"/>
-        <net name="frm_buffer/wrFrameId[29]"/>
-        <net name="frm_buffer/wrFrameId[28]"/>
-        <net name="frm_buffer/wrFrameId[27]"/>
-        <net name="frm_buffer/wrFrameId[26]"/>
-        <net name="frm_buffer/wrFrameId[25]"/>
-        <net name="frm_buffer/wrFrameId[24]"/>
-        <net name="frm_buffer/wrFrameId[23]"/>
-        <net name="frm_buffer/wrFrameId[22]"/>
-        <net name="frm_buffer/wrFrameId[21]"/>
-        <net name="frm_buffer/wrFrameId[20]"/>
-        <net name="frm_buffer/wrFrameId[19]"/>
-        <net name="frm_buffer/wrFrameId[18]"/>
-        <net name="frm_buffer/wrFrameId[17]"/>
-        <net name="frm_buffer/wrFrameId[16]"/>
-        <net name="frm_buffer/wrFrameId[15]"/>
-        <net name="frm_buffer/wrFrameId[14]"/>
-        <net name="frm_buffer/wrFrameId[13]"/>
-        <net name="frm_buffer/wrFrameId[12]"/>
-        <net name="frm_buffer/wrFrameId[11]"/>
-        <net name="frm_buffer/wrFrameId[10]"/>
-        <net name="frm_buffer/wrFrameId[9]"/>
-        <net name="frm_buffer/wrFrameId[8]"/>
-        <net name="frm_buffer/wrFrameId[7]"/>
-        <net name="frm_buffer/wrFrameId[6]"/>
-        <net name="frm_buffer/wrFrameId[5]"/>
-        <net name="frm_buffer/wrFrameId[4]"/>
-        <net name="frm_buffer/wrFrameId[3]"/>
-        <net name="frm_buffer/wrFrameId[2]"/>
-        <net name="frm_buffer/wrFrameId[1]"/>
-        <net name="frm_buffer/wrFrameId[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq12&apos;hXXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="0"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="12"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/maximal_read_address[11]"/>
-        <net name="frm_buffer/maximal_read_address[10]"/>
-        <net name="frm_buffer/maximal_read_address[9]"/>
-        <net name="frm_buffer/maximal_read_address[8]"/>
-        <net name="frm_buffer/maximal_read_address[7]"/>
-        <net name="frm_buffer/maximal_read_address[6]"/>
-        <net name="frm_buffer/maximal_read_address[5]"/>
-        <net name="frm_buffer/maximal_read_address[4]"/>
-        <net name="frm_buffer/maximal_read_address[3]"/>
-        <net name="frm_buffer/maximal_read_address[2]"/>
-        <net name="frm_buffer/maximal_read_address[1]"/>
-        <net name="frm_buffer/maximal_read_address[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="1"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/read_area_is_a"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="2"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/prev_is_area_a_written"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="3"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/data_from_dpr_1[63]"/>
-        <net name="frm_buffer/data_from_dpr_1[62]"/>
-        <net name="frm_buffer/data_from_dpr_1[61]"/>
-        <net name="frm_buffer/data_from_dpr_1[60]"/>
-        <net name="frm_buffer/data_from_dpr_1[59]"/>
-        <net name="frm_buffer/data_from_dpr_1[58]"/>
-        <net name="frm_buffer/data_from_dpr_1[57]"/>
-        <net name="frm_buffer/data_from_dpr_1[56]"/>
-        <net name="frm_buffer/data_from_dpr_1[55]"/>
-        <net name="frm_buffer/data_from_dpr_1[54]"/>
-        <net name="frm_buffer/data_from_dpr_1[53]"/>
-        <net name="frm_buffer/data_from_dpr_1[52]"/>
-        <net name="frm_buffer/data_from_dpr_1[51]"/>
-        <net name="frm_buffer/data_from_dpr_1[50]"/>
-        <net name="frm_buffer/data_from_dpr_1[49]"/>
-        <net name="frm_buffer/data_from_dpr_1[48]"/>
-        <net name="frm_buffer/data_from_dpr_1[47]"/>
-        <net name="frm_buffer/data_from_dpr_1[46]"/>
-        <net name="frm_buffer/data_from_dpr_1[45]"/>
-        <net name="frm_buffer/data_from_dpr_1[44]"/>
-        <net name="frm_buffer/data_from_dpr_1[43]"/>
-        <net name="frm_buffer/data_from_dpr_1[42]"/>
-        <net name="frm_buffer/data_from_dpr_1[41]"/>
-        <net name="frm_buffer/data_from_dpr_1[40]"/>
-        <net name="frm_buffer/data_from_dpr_1[39]"/>
-        <net name="frm_buffer/data_from_dpr_1[38]"/>
-        <net name="frm_buffer/data_from_dpr_1[37]"/>
-        <net name="frm_buffer/data_from_dpr_1[36]"/>
-        <net name="frm_buffer/data_from_dpr_1[35]"/>
-        <net name="frm_buffer/data_from_dpr_1[34]"/>
-        <net name="frm_buffer/data_from_dpr_1[33]"/>
-        <net name="frm_buffer/data_from_dpr_1[32]"/>
-        <net name="frm_buffer/data_from_dpr_1[31]"/>
-        <net name="frm_buffer/data_from_dpr_1[30]"/>
-        <net name="frm_buffer/data_from_dpr_1[29]"/>
-        <net name="frm_buffer/data_from_dpr_1[28]"/>
-        <net name="frm_buffer/data_from_dpr_1[27]"/>
-        <net name="frm_buffer/data_from_dpr_1[26]"/>
-        <net name="frm_buffer/data_from_dpr_1[25]"/>
-        <net name="frm_buffer/data_from_dpr_1[24]"/>
-        <net name="frm_buffer/data_from_dpr_1[23]"/>
-        <net name="frm_buffer/data_from_dpr_1[22]"/>
-        <net name="frm_buffer/data_from_dpr_1[21]"/>
-        <net name="frm_buffer/data_from_dpr_1[20]"/>
-        <net name="frm_buffer/data_from_dpr_1[19]"/>
-        <net name="frm_buffer/data_from_dpr_1[18]"/>
-        <net name="frm_buffer/data_from_dpr_1[17]"/>
-        <net name="frm_buffer/data_from_dpr_1[16]"/>
-        <net name="frm_buffer/data_from_dpr_1[15]"/>
-        <net name="frm_buffer/data_from_dpr_1[14]"/>
-        <net name="frm_buffer/data_from_dpr_1[13]"/>
-        <net name="frm_buffer/data_from_dpr_1[12]"/>
-        <net name="frm_buffer/data_from_dpr_1[11]"/>
-        <net name="frm_buffer/data_from_dpr_1[10]"/>
-        <net name="frm_buffer/data_from_dpr_1[9]"/>
-        <net name="frm_buffer/data_from_dpr_1[8]"/>
-        <net name="frm_buffer/data_from_dpr_1[7]"/>
-        <net name="frm_buffer/data_from_dpr_1[6]"/>
-        <net name="frm_buffer/data_from_dpr_1[5]"/>
-        <net name="frm_buffer/data_from_dpr_1[4]"/>
-        <net name="frm_buffer/data_from_dpr_1[3]"/>
-        <net name="frm_buffer/data_from_dpr_1[2]"/>
-        <net name="frm_buffer/data_from_dpr_1[1]"/>
-        <net name="frm_buffer/data_from_dpr_1[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="4"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/at_least_one_readable_area"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="5"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/data_from_dpr_valid"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="6"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/start_read"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="7"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="32"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/cur_wrFrameId[31]"/>
-        <net name="frm_buffer/cur_wrFrameId[30]"/>
-        <net name="frm_buffer/cur_wrFrameId[29]"/>
-        <net name="frm_buffer/cur_wrFrameId[28]"/>
-        <net name="frm_buffer/cur_wrFrameId[27]"/>
-        <net name="frm_buffer/cur_wrFrameId[26]"/>
-        <net name="frm_buffer/cur_wrFrameId[25]"/>
-        <net name="frm_buffer/cur_wrFrameId[24]"/>
-        <net name="frm_buffer/cur_wrFrameId[23]"/>
-        <net name="frm_buffer/cur_wrFrameId[22]"/>
-        <net name="frm_buffer/cur_wrFrameId[21]"/>
-        <net name="frm_buffer/cur_wrFrameId[20]"/>
-        <net name="frm_buffer/cur_wrFrameId[19]"/>
-        <net name="frm_buffer/cur_wrFrameId[18]"/>
-        <net name="frm_buffer/cur_wrFrameId[17]"/>
-        <net name="frm_buffer/cur_wrFrameId[16]"/>
-        <net name="frm_buffer/cur_wrFrameId[15]"/>
-        <net name="frm_buffer/cur_wrFrameId[14]"/>
-        <net name="frm_buffer/cur_wrFrameId[13]"/>
-        <net name="frm_buffer/cur_wrFrameId[12]"/>
-        <net name="frm_buffer/cur_wrFrameId[11]"/>
-        <net name="frm_buffer/cur_wrFrameId[10]"/>
-        <net name="frm_buffer/cur_wrFrameId[9]"/>
-        <net name="frm_buffer/cur_wrFrameId[8]"/>
-        <net name="frm_buffer/cur_wrFrameId[7]"/>
-        <net name="frm_buffer/cur_wrFrameId[6]"/>
-        <net name="frm_buffer/cur_wrFrameId[5]"/>
-        <net name="frm_buffer/cur_wrFrameId[4]"/>
-        <net name="frm_buffer/cur_wrFrameId[3]"/>
-        <net name="frm_buffer/cur_wrFrameId[2]"/>
-        <net name="frm_buffer/cur_wrFrameId[1]"/>
-        <net name="frm_buffer/cur_wrFrameId[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="8"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/active_area_changed"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq11&apos;hXXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="9"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="11"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/read_address[10]"/>
-        <net name="frm_buffer/read_address[9]"/>
-        <net name="frm_buffer/read_address[8]"/>
-        <net name="frm_buffer/read_address[7]"/>
-        <net name="frm_buffer/read_address[6]"/>
-        <net name="frm_buffer/read_address[5]"/>
-        <net name="frm_buffer/read_address[4]"/>
-        <net name="frm_buffer/read_address[3]"/>
-        <net name="frm_buffer/read_address[2]"/>
-        <net name="frm_buffer/read_address[1]"/>
-        <net name="frm_buffer/read_address[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq4&apos;hX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="10"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="4"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/read_state[3]"/>
-        <net name="frm_buffer/read_state[2]"/>
-        <net name="frm_buffer/read_state[1]"/>
-        <net name="frm_buffer/read_state[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq6&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="11"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="6"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/column_id[5]"/>
-        <net name="frm_buffer/column_id[4]"/>
-        <net name="frm_buffer/column_id[3]"/>
-        <net name="frm_buffer/column_id[2]"/>
-        <net name="frm_buffer/column_id[1]"/>
-        <net name="frm_buffer/column_id[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq3&apos;hX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="12"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="3"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/pixels_block_in_column_id[2]"/>
-        <net name="frm_buffer/pixels_block_in_column_id[1]"/>
-        <net name="frm_buffer/pixels_block_in_column_id[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="13"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/last_pixel_in_block[7]"/>
-        <net name="frm_buffer/last_pixel_in_block[6]"/>
-        <net name="frm_buffer/last_pixel_in_block[5]"/>
-        <net name="frm_buffer/last_pixel_in_block[4]"/>
-        <net name="frm_buffer/last_pixel_in_block[3]"/>
-        <net name="frm_buffer/last_pixel_in_block[2]"/>
-        <net name="frm_buffer/last_pixel_in_block[1]"/>
-        <net name="frm_buffer/last_pixel_in_block[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="14"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/data_from_dpr[63]"/>
-        <net name="frm_buffer/data_from_dpr[62]"/>
-        <net name="frm_buffer/data_from_dpr[61]"/>
-        <net name="frm_buffer/data_from_dpr[60]"/>
-        <net name="frm_buffer/data_from_dpr[59]"/>
-        <net name="frm_buffer/data_from_dpr[58]"/>
-        <net name="frm_buffer/data_from_dpr[57]"/>
-        <net name="frm_buffer/data_from_dpr[56]"/>
-        <net name="frm_buffer/data_from_dpr[55]"/>
-        <net name="frm_buffer/data_from_dpr[54]"/>
-        <net name="frm_buffer/data_from_dpr[53]"/>
-        <net name="frm_buffer/data_from_dpr[52]"/>
-        <net name="frm_buffer/data_from_dpr[51]"/>
-        <net name="frm_buffer/data_from_dpr[50]"/>
-        <net name="frm_buffer/data_from_dpr[49]"/>
-        <net name="frm_buffer/data_from_dpr[48]"/>
-        <net name="frm_buffer/data_from_dpr[47]"/>
-        <net name="frm_buffer/data_from_dpr[46]"/>
-        <net name="frm_buffer/data_from_dpr[45]"/>
-        <net name="frm_buffer/data_from_dpr[44]"/>
-        <net name="frm_buffer/data_from_dpr[43]"/>
-        <net name="frm_buffer/data_from_dpr[42]"/>
-        <net name="frm_buffer/data_from_dpr[41]"/>
-        <net name="frm_buffer/data_from_dpr[40]"/>
-        <net name="frm_buffer/data_from_dpr[39]"/>
-        <net name="frm_buffer/data_from_dpr[38]"/>
-        <net name="frm_buffer/data_from_dpr[37]"/>
-        <net name="frm_buffer/data_from_dpr[36]"/>
-        <net name="frm_buffer/data_from_dpr[35]"/>
-        <net name="frm_buffer/data_from_dpr[34]"/>
-        <net name="frm_buffer/data_from_dpr[33]"/>
-        <net name="frm_buffer/data_from_dpr[32]"/>
-        <net name="frm_buffer/data_from_dpr[31]"/>
-        <net name="frm_buffer/data_from_dpr[30]"/>
-        <net name="frm_buffer/data_from_dpr[29]"/>
-        <net name="frm_buffer/data_from_dpr[28]"/>
-        <net name="frm_buffer/data_from_dpr[27]"/>
-        <net name="frm_buffer/data_from_dpr[26]"/>
-        <net name="frm_buffer/data_from_dpr[25]"/>
-        <net name="frm_buffer/data_from_dpr[24]"/>
-        <net name="frm_buffer/data_from_dpr[23]"/>
-        <net name="frm_buffer/data_from_dpr[22]"/>
-        <net name="frm_buffer/data_from_dpr[21]"/>
-        <net name="frm_buffer/data_from_dpr[20]"/>
-        <net name="frm_buffer/data_from_dpr[19]"/>
-        <net name="frm_buffer/data_from_dpr[18]"/>
-        <net name="frm_buffer/data_from_dpr[17]"/>
-        <net name="frm_buffer/data_from_dpr[16]"/>
-        <net name="frm_buffer/data_from_dpr[15]"/>
-        <net name="frm_buffer/data_from_dpr[14]"/>
-        <net name="frm_buffer/data_from_dpr[13]"/>
-        <net name="frm_buffer/data_from_dpr[12]"/>
-        <net name="frm_buffer/data_from_dpr[11]"/>
-        <net name="frm_buffer/data_from_dpr[10]"/>
-        <net name="frm_buffer/data_from_dpr[9]"/>
-        <net name="frm_buffer/data_from_dpr[8]"/>
-        <net name="frm_buffer/data_from_dpr[7]"/>
-        <net name="frm_buffer/data_from_dpr[6]"/>
-        <net name="frm_buffer/data_from_dpr[5]"/>
-        <net name="frm_buffer/data_from_dpr[4]"/>
-        <net name="frm_buffer/data_from_dpr[3]"/>
-        <net name="frm_buffer/data_from_dpr[2]"/>
-        <net name="frm_buffer/data_from_dpr[1]"/>
-        <net name="frm_buffer/data_from_dpr[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="15"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tdata[63]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[62]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[61]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[60]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[59]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[58]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[57]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[56]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[55]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[54]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[53]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[52]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[51]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[50]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[49]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[48]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[47]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[46]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[45]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[44]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[43]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[42]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[41]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[40]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[39]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[38]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[37]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[36]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[35]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[34]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[33]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[32]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[31]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[30]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[29]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[28]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[27]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[26]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[25]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[24]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[23]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[22]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[21]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[20]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[19]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[18]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[17]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[16]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[15]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[14]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[13]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[12]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[11]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[10]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[9]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[8]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[7]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[6]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[5]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[4]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[3]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[2]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[1]"/>
-        <net name="frm_buffer/tx_axis_frame_tdata[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq2&apos;hX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="2"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tkeep_1[1]"/>
-        <net name="frm_buffer/tx_axis_frame_tkeep_1[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="2"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tkeep_2[1]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="3"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tkeep_3[1]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="4"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tkeep_4[1]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="5"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tkeep_5[1]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="6"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tkeep_6[1]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="16"/>
-        <Option Id="PROBE_PORT_BITS" value="7"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tkeep[1]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="17"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/in00"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="18"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tlast"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:3"/>
-        <Option Id="HW_ILA" value="frm_buffer/ila_dpr_read_part"/>
-        <Option Id="PROBE_PORT" value="19"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="frm_buffer/tx_axis_frame_tready"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:4"/>
-        <Option Id="HW_ILA" value="input_to_eth_wrapper"/>
-        <Option Id="PROBE_PORT" value="0"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="clk_156MHz_1"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:4"/>
-        <Option Id="HW_ILA" value="input_to_eth_wrapper"/>
-        <Option Id="PROBE_PORT" value="1"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_tdata[63]"/>
-        <net name="tx_axis_frame_tdata[62]"/>
-        <net name="tx_axis_frame_tdata[61]"/>
-        <net name="tx_axis_frame_tdata[60]"/>
-        <net name="tx_axis_frame_tdata[59]"/>
-        <net name="tx_axis_frame_tdata[58]"/>
-        <net name="tx_axis_frame_tdata[57]"/>
-        <net name="tx_axis_frame_tdata[56]"/>
-        <net name="tx_axis_frame_tdata[55]"/>
-        <net name="tx_axis_frame_tdata[54]"/>
-        <net name="tx_axis_frame_tdata[53]"/>
-        <net name="tx_axis_frame_tdata[52]"/>
-        <net name="tx_axis_frame_tdata[51]"/>
-        <net name="tx_axis_frame_tdata[50]"/>
-        <net name="tx_axis_frame_tdata[49]"/>
-        <net name="tx_axis_frame_tdata[48]"/>
-        <net name="tx_axis_frame_tdata[47]"/>
-        <net name="tx_axis_frame_tdata[46]"/>
-        <net name="tx_axis_frame_tdata[45]"/>
-        <net name="tx_axis_frame_tdata[44]"/>
-        <net name="tx_axis_frame_tdata[43]"/>
-        <net name="tx_axis_frame_tdata[42]"/>
-        <net name="tx_axis_frame_tdata[41]"/>
-        <net name="tx_axis_frame_tdata[40]"/>
-        <net name="tx_axis_frame_tdata[39]"/>
-        <net name="tx_axis_frame_tdata[38]"/>
-        <net name="tx_axis_frame_tdata[37]"/>
-        <net name="tx_axis_frame_tdata[36]"/>
-        <net name="tx_axis_frame_tdata[35]"/>
-        <net name="tx_axis_frame_tdata[34]"/>
-        <net name="tx_axis_frame_tdata[33]"/>
-        <net name="tx_axis_frame_tdata[32]"/>
-        <net name="tx_axis_frame_tdata[31]"/>
-        <net name="tx_axis_frame_tdata[30]"/>
-        <net name="tx_axis_frame_tdata[29]"/>
-        <net name="tx_axis_frame_tdata[28]"/>
-        <net name="tx_axis_frame_tdata[27]"/>
-        <net name="tx_axis_frame_tdata[26]"/>
-        <net name="tx_axis_frame_tdata[25]"/>
-        <net name="tx_axis_frame_tdata[24]"/>
-        <net name="tx_axis_frame_tdata[23]"/>
-        <net name="tx_axis_frame_tdata[22]"/>
-        <net name="tx_axis_frame_tdata[21]"/>
-        <net name="tx_axis_frame_tdata[20]"/>
-        <net name="tx_axis_frame_tdata[19]"/>
-        <net name="tx_axis_frame_tdata[18]"/>
-        <net name="tx_axis_frame_tdata[17]"/>
-        <net name="tx_axis_frame_tdata[16]"/>
-        <net name="tx_axis_frame_tdata[15]"/>
-        <net name="tx_axis_frame_tdata[14]"/>
-        <net name="tx_axis_frame_tdata[13]"/>
-        <net name="tx_axis_frame_tdata[12]"/>
-        <net name="tx_axis_frame_tdata[11]"/>
-        <net name="tx_axis_frame_tdata[10]"/>
-        <net name="tx_axis_frame_tdata[9]"/>
-        <net name="tx_axis_frame_tdata[8]"/>
-        <net name="tx_axis_frame_tdata[7]"/>
-        <net name="tx_axis_frame_tdata[6]"/>
-        <net name="tx_axis_frame_tdata[5]"/>
-        <net name="tx_axis_frame_tdata[4]"/>
-        <net name="tx_axis_frame_tdata[3]"/>
-        <net name="tx_axis_frame_tdata[2]"/>
-        <net name="tx_axis_frame_tdata[1]"/>
-        <net name="tx_axis_frame_tdata[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:4"/>
-        <Option Id="HW_ILA" value="input_to_eth_wrapper"/>
-        <Option Id="PROBE_PORT" value="2"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_tkeep[7]"/>
-        <net name="tx_axis_frame_tkeep[6]"/>
-        <net name="tx_axis_frame_tkeep[5]"/>
-        <net name="tx_axis_frame_tkeep[4]"/>
-        <net name="tx_axis_frame_tkeep[3]"/>
-        <net name="tx_axis_frame_tkeep[2]"/>
-        <net name="tx_axis_frame_tkeep[1]"/>
-        <net name="tx_axis_frame_tkeep[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:4"/>
-        <Option Id="HW_ILA" value="input_to_eth_wrapper"/>
-        <Option Id="PROBE_PORT" value="3"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_tvalid"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:4"/>
-        <Option Id="HW_ILA" value="input_to_eth_wrapper"/>
-        <Option Id="PROBE_PORT" value="4"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_tlast"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:4"/>
-        <Option Id="HW_ILA" value="input_to_eth_wrapper"/>
-        <Option Id="PROBE_PORT" value="5"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_tready"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:5"/>
-        <Option Id="HW_ILA" value="input_to_example_design"/>
-        <Option Id="PROBE_PORT" value="0"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="clk_156MHz"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:5"/>
-        <Option Id="HW_ILA" value="input_to_example_design"/>
-        <Option Id="PROBE_PORT" value="1"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="64"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_eth_tdata[63]"/>
-        <net name="tx_axis_frame_eth_tdata[62]"/>
-        <net name="tx_axis_frame_eth_tdata[61]"/>
-        <net name="tx_axis_frame_eth_tdata[60]"/>
-        <net name="tx_axis_frame_eth_tdata[59]"/>
-        <net name="tx_axis_frame_eth_tdata[58]"/>
-        <net name="tx_axis_frame_eth_tdata[57]"/>
-        <net name="tx_axis_frame_eth_tdata[56]"/>
-        <net name="tx_axis_frame_eth_tdata[55]"/>
-        <net name="tx_axis_frame_eth_tdata[54]"/>
-        <net name="tx_axis_frame_eth_tdata[53]"/>
-        <net name="tx_axis_frame_eth_tdata[52]"/>
-        <net name="tx_axis_frame_eth_tdata[51]"/>
-        <net name="tx_axis_frame_eth_tdata[50]"/>
-        <net name="tx_axis_frame_eth_tdata[49]"/>
-        <net name="tx_axis_frame_eth_tdata[48]"/>
-        <net name="tx_axis_frame_eth_tdata[47]"/>
-        <net name="tx_axis_frame_eth_tdata[46]"/>
-        <net name="tx_axis_frame_eth_tdata[45]"/>
-        <net name="tx_axis_frame_eth_tdata[44]"/>
-        <net name="tx_axis_frame_eth_tdata[43]"/>
-        <net name="tx_axis_frame_eth_tdata[42]"/>
-        <net name="tx_axis_frame_eth_tdata[41]"/>
-        <net name="tx_axis_frame_eth_tdata[40]"/>
-        <net name="tx_axis_frame_eth_tdata[39]"/>
-        <net name="tx_axis_frame_eth_tdata[38]"/>
-        <net name="tx_axis_frame_eth_tdata[37]"/>
-        <net name="tx_axis_frame_eth_tdata[36]"/>
-        <net name="tx_axis_frame_eth_tdata[35]"/>
-        <net name="tx_axis_frame_eth_tdata[34]"/>
-        <net name="tx_axis_frame_eth_tdata[33]"/>
-        <net name="tx_axis_frame_eth_tdata[32]"/>
-        <net name="tx_axis_frame_eth_tdata[31]"/>
-        <net name="tx_axis_frame_eth_tdata[30]"/>
-        <net name="tx_axis_frame_eth_tdata[29]"/>
-        <net name="tx_axis_frame_eth_tdata[28]"/>
-        <net name="tx_axis_frame_eth_tdata[27]"/>
-        <net name="tx_axis_frame_eth_tdata[26]"/>
-        <net name="tx_axis_frame_eth_tdata[25]"/>
-        <net name="tx_axis_frame_eth_tdata[24]"/>
-        <net name="tx_axis_frame_eth_tdata[23]"/>
-        <net name="tx_axis_frame_eth_tdata[22]"/>
-        <net name="tx_axis_frame_eth_tdata[21]"/>
-        <net name="tx_axis_frame_eth_tdata[20]"/>
-        <net name="tx_axis_frame_eth_tdata[19]"/>
-        <net name="tx_axis_frame_eth_tdata[18]"/>
-        <net name="tx_axis_frame_eth_tdata[17]"/>
-        <net name="tx_axis_frame_eth_tdata[16]"/>
-        <net name="tx_axis_frame_eth_tdata[15]"/>
-        <net name="tx_axis_frame_eth_tdata[14]"/>
-        <net name="tx_axis_frame_eth_tdata[13]"/>
-        <net name="tx_axis_frame_eth_tdata[12]"/>
-        <net name="tx_axis_frame_eth_tdata[11]"/>
-        <net name="tx_axis_frame_eth_tdata[10]"/>
-        <net name="tx_axis_frame_eth_tdata[9]"/>
-        <net name="tx_axis_frame_eth_tdata[8]"/>
-        <net name="tx_axis_frame_eth_tdata[7]"/>
-        <net name="tx_axis_frame_eth_tdata[6]"/>
-        <net name="tx_axis_frame_eth_tdata[5]"/>
-        <net name="tx_axis_frame_eth_tdata[4]"/>
-        <net name="tx_axis_frame_eth_tdata[3]"/>
-        <net name="tx_axis_frame_eth_tdata[2]"/>
-        <net name="tx_axis_frame_eth_tdata[1]"/>
-        <net name="tx_axis_frame_eth_tdata[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:5"/>
-        <Option Id="HW_ILA" value="input_to_example_design"/>
-        <Option Id="PROBE_PORT" value="2"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_eth_tkeep[7]"/>
-        <net name="tx_axis_frame_eth_tkeep[6]"/>
-        <net name="tx_axis_frame_eth_tkeep[5]"/>
-        <net name="tx_axis_frame_eth_tkeep[4]"/>
-        <net name="tx_axis_frame_eth_tkeep[3]"/>
-        <net name="tx_axis_frame_eth_tkeep[2]"/>
-        <net name="tx_axis_frame_eth_tkeep[1]"/>
-        <net name="tx_axis_frame_eth_tkeep[0]"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:5"/>
-        <Option Id="HW_ILA" value="input_to_example_design"/>
-        <Option Id="PROBE_PORT" value="3"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_eth_tvalid"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:5"/>
-        <Option Id="HW_ILA" value="input_to_example_design"/>
-        <Option Id="PROBE_PORT" value="4"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_eth_tlast"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:5"/>
-        <Option Id="HW_ILA" value="input_to_example_design"/>
-        <Option Id="PROBE_PORT" value="5"/>
-        <Option Id="PROBE_PORT_BITS" value="0"/>
-        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
-      </probeOptions>
-      <nets>
-        <net name="tx_axis_frame_eth_tready"/>
-      </nets>
-    </probe>
-    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
-      <probeOptions Id="DebugProbeParams">
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="0"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -1914,7 +360,7 @@
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq32&apos;hXXXX_XXXX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="1"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -1958,7 +404,7 @@
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq4&apos;hX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="2"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -1974,7 +420,7 @@
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq6&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="3"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -1992,7 +438,7 @@
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="4"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -2005,7 +451,7 @@
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="5"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -2025,7 +471,7 @@
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="6"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -2045,7 +491,7 @@
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="7"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -2065,7 +511,7 @@
     <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
-        <Option Id="CORE_LOCATION" value="1:6"/>
+        <Option Id="CORE_LOCATION" value="1:1"/>
         <Option Id="HW_ILA" value="input_to_frm_buffer"/>
         <Option Id="PROBE_PORT" value="8"/>
         <Option Id="PROBE_PORT_BITS" value="0"/>
@@ -2080,6 +526,158 @@
         <net name="to_dpr_pixel_out3[2]"/>
         <net name="to_dpr_pixel_out3[1]"/>
         <net name="to_dpr_pixel_out3[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="0"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="latch_spad_OBUF"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="1"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="reset_spad_OBUF"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq6&apos;hXX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="2"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="6"/>
+      </probeOptions>
+      <nets>
+        <net name="col_select_OBUF[5]"/>
+        <net name="col_select_OBUF[4]"/>
+        <net name="col_select_OBUF[3]"/>
+        <net name="col_select_OBUF[2]"/>
+        <net name="col_select_OBUF[1]"/>
+        <net name="col_select_OBUF[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq3&apos;hX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="3"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="3"/>
+      </probeOptions>
+      <nets>
+        <net name="row_select_OBUF[2]"/>
+        <net name="row_select_OBUF[1]"/>
+        <net name="row_select_OBUF[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="4"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="1"/>
+      </probeOptions>
+      <nets>
+        <net name="row_group_OBUF"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="5"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
+      </probeOptions>
+      <nets>
+        <net name="PixelSpad0_IBUF[7]"/>
+        <net name="PixelSpad0_IBUF[6]"/>
+        <net name="PixelSpad0_IBUF[5]"/>
+        <net name="PixelSpad0_IBUF[4]"/>
+        <net name="PixelSpad0_IBUF[3]"/>
+        <net name="PixelSpad0_IBUF[2]"/>
+        <net name="PixelSpad0_IBUF[1]"/>
+        <net name="PixelSpad0_IBUF[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="6"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
+      </probeOptions>
+      <nets>
+        <net name="PixelSpad1_IBUF[7]"/>
+        <net name="PixelSpad1_IBUF[6]"/>
+        <net name="PixelSpad1_IBUF[5]"/>
+        <net name="PixelSpad1_IBUF[4]"/>
+        <net name="PixelSpad1_IBUF[3]"/>
+        <net name="PixelSpad1_IBUF[2]"/>
+        <net name="PixelSpad1_IBUF[1]"/>
+        <net name="PixelSpad1_IBUF[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="7"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
+      </probeOptions>
+      <nets>
+        <net name="PixelSpad2_IBUF[7]"/>
+        <net name="PixelSpad2_IBUF[6]"/>
+        <net name="PixelSpad2_IBUF[5]"/>
+        <net name="PixelSpad2_IBUF[4]"/>
+        <net name="PixelSpad2_IBUF[3]"/>
+        <net name="PixelSpad2_IBUF[2]"/>
+        <net name="PixelSpad2_IBUF[1]"/>
+        <net name="PixelSpad2_IBUF[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="CORE_LOCATION" value="1:2"/>
+        <Option Id="HW_ILA" value="interface_to_spad_i"/>
+        <Option Id="PROBE_PORT" value="8"/>
+        <Option Id="PROBE_PORT_BITS" value="0"/>
+        <Option Id="PROBE_PORT_BIT_COUNT" value="8"/>
+      </probeOptions>
+      <nets>
+        <net name="PixelSpad3_IBUF[7]"/>
+        <net name="PixelSpad3_IBUF[6]"/>
+        <net name="PixelSpad3_IBUF[5]"/>
+        <net name="PixelSpad3_IBUF[4]"/>
+        <net name="PixelSpad3_IBUF[3]"/>
+        <net name="PixelSpad3_IBUF[2]"/>
+        <net name="PixelSpad3_IBUF[1]"/>
+        <net name="PixelSpad3_IBUF[0]"/>
       </nets>
     </probe>
   </probeset>

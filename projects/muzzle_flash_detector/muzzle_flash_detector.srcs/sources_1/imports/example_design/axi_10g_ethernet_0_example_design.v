@@ -280,7 +280,7 @@ module axi_10g_ethernet_0_example_design
       .rx_axis_tlast         (tx_axis_frame_tlast ),
       .rx_axis_tready        (tx_axis_frame_tready)
    );
-   
+`ifdef debug 
    ila_3 your_instance_name (
    	.clk(clk156), // input wire clk
    
@@ -304,7 +304,7 @@ module axi_10g_ethernet_0_example_design
    	.probe16(tx_axis_frame_tlast), // input wire [0:0]  probe16 
    	.probe17(tx_axis_frame_tready) // input wire [0:0]  probe17
    );
-
+`endif
 
    //--------------------------------------------------------------------------
    // serialise the stats vector output to ensure logic isn't stripped during

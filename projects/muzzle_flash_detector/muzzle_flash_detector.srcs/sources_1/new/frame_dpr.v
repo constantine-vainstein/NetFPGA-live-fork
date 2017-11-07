@@ -306,7 +306,7 @@ module frame_dpr(
 		.en(start_read),
 		.valid(data_from_dpr_valid)
 	);
-	
+`ifdef debug
 	ila_1 dpr_signals (
 		.clk(wrClk), // input  clk
 
@@ -349,7 +349,7 @@ module frame_dpr(
 		.probe18(tx_axis_frame_tlast),
 		.probe19(tx_axis_frame_tready)
 	);
-		
+`endif		
 	assign tx_axis_frame_tdata = 	(read_state == READ_STATE_FRAME_ID) ? data_from_dpr :
 								  	(read_state == READ_STATE_COLUMN_DATA) ? 
 								  		{data_from_dpr[55:0], (pixels_block_in_column_id == 0) ? column_id : last_pixel_in_block} :

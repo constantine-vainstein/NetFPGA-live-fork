@@ -21,6 +21,7 @@
 
 
 `timescale 1ps / 1ps
+`define debug_spad_interface
 
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module port_wraper
@@ -212,6 +213,7 @@ module port_wraper
        /* input [7:0] */ 	.PixelSpad3(PixelSpad3)    
     );
     
+`ifdef debug_spad_interface
     ila_0 input_to_frm_buffer (
     	.clk(clk_100MHz), // input wire clk
     
@@ -227,8 +229,23 @@ module port_wraper
     	.probe8(to_dpr_pixel_out3) // input wire [7:0]  probe8
     );
     
+    interface_to_spad interface_to_spad_i (
+    	.clk(clk_100MHz), // input wire clk
+    
+    
+    	.probe0(latch_spad), // input wire [0:0]  probe0  
+    	.probe1(reset_spad), // input wire [0:0]  probe1 
+    	.probe2(col_select), // input wire [5:0]  probe2 
+    	.probe3(row_select), // input wire [2:0]  probe3 
+    	.probe4(row_group), // input wire [0:0]  probe4 
+    	.probe5(PixelSpad0), // input wire [7:0]  probe5 
+    	.probe6(PixelSpad1), // input wire [7:0]  probe6 
+    	.probe7(PixelSpad2), // input wire [7:0]  probe7 
+    	.probe8(PixelSpad3) // input wire [7:0]  probe8
+    );
+`endif    
     frame_dpr frm_buffer (
-		/* input 		*/ .spad_reset(spad_ss_reset),//!!!!!!!!!!!
+		/* input 		*/ .spad_reset(spad_ss_reset),
 		/* input        */ .eth_reset(eth_ss_reset),
 		/*              */ 
 		/* input 		*/ .wrClk(clk_100MHz),
@@ -274,7 +291,7 @@ module port_wraper
     
     assign sfp0_tx_led = resetdone | gen_active_flash;
     assign sfp0_rx_led = (~frame_error) & check_active_flash;
-    
+`ifdef debug  
     my_ila input_to_example_design (
     	.clk(clk_156MHz), // input wire clk 
     
@@ -285,7 +302,8 @@ module port_wraper
     	.probe4(tx_axis_frame_eth_tlast), // input wire [0:0]  probe4 
     	.probe5(tx_axis_frame_eth_tready) // input wire [0:0]  probe5
     );
-    
+`endif
+`ifdef debug
     my_ila input_to_eth_wrapper (
      	.clk(clk_156MHz), // input wire clk 
     
@@ -296,6 +314,7 @@ module port_wraper
 		.probe4(tx_axis_frame_tlast), // input wire [0:0]  probe4 
 		.probe5(tx_axis_frame_tready) // input wire [0:0]  probe5   
     );
+`endif
 
 
 

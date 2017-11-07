@@ -73,9 +73,8 @@ set_property -dict { PACKAGE_PIN AV36  IOSTANDARD LVCMOS18     } [get_ports { co
 #set_property -dict { PACKAGE_PIN AU36  IOSTANDARD LVDS     } [get_ports { FMC_LA_N[33] }]; #IO_L8N_T1_13 Sch=fmc_la__n[33]
 #set_property -dict { PACKAGE_PIN AT36  IOSTANDARD LVDS     } [get_ports { FMC_LA_P[33] }]; #IO_L8P_T1_13 Sch=fmc_la__p[33]
 
-
-# costa should be mapped set_property PULLDOWN true [get_ports PixelSpad0[0]];
-# costa should be mapped set_property PULLDOWN true [get_ports PixelSpad0[1]];
+set_property -dict { PACKAGE_PIN AP26  IOSTANDARD LVCMOS18} [get_ports { PixelSpad0[0] }];
+set_property -dict { PACKAGE_PIN AU37  IOSTANDARD LVCMOS18} [get_ports { PixelSpad0[1] }];
 
 
 
