@@ -15,10 +15,17 @@
 #define DEFAULT_ROW 0
 #define DEFAULT_COL 0
 
+#define MIN_ROW 0
+#define MAX_ROW 7
+#define MIN_COL 0
+#define MAX_COL 63
+
+#define ETHERNET_FRMS_PER_CAMERA_FRM 65
+
 typedef struct InputArgs
 {
 	char * device;
-	unsigned int rowToCpature;
+	unsigned int rowToCapture;
 	unsigned int colToCapture;
 	unsigned int framesToCapture;
 } InputArgs;
@@ -34,7 +41,7 @@ void processPacket(u_char *arg, const struct pcap_pkthdr* pkthdr, const u_char *
  int i=0, *counter = (int *)arg;
 
  printf("Packet Count: %d\n", ++(*counter));
- printf("Received Packet Size: %d\n", pkthdr->len);
+ printf("Received Packet Size:inputArgs %d\n", pkthdr->len);
  printf("Payload:\n");
  for (i=0; i<pkthdr->len; i++){
 
@@ -65,6 +72,59 @@ void fillArgs(int argc, const char *argv[], char * errbuf, InputArgs * inputArgs
 	    }
 	 }
 
+	 /* Fill row to capture */
+	 if (argc > 2)
+	 {
+		 int enteredRow = atoi(argv[2]);
+		 if ((enteredRow >= MIN_ROW) && (enteredRow <= MAX_ROW))
+		 {
+			 inputArgs->rowToCapture = (unsigned int)enteredRow;
+		 }
+		 else
+		 {
+			 inputArgs->rowToCapture = DEFAULT_ROW;
+		 }
+	 }
+	 else
+	 {
+		 inputArgs->rowToCapture = DEFAULT_ROW;
+	 }
+
+	 /* Fill column to capture */
+	 if (argc > 3)
+	 {
+		 int enteredCol = atoi(argv[3]);
+		 if ((enteredCol >= MIN_COL) && (enteredCol <= MAX_COL))
+		 {
+			 inputArgs->colToCapture = (unsigned int)enteredCol;
+		 }
+		 else
+		 {
+			 inputArgs->colToCapture = DEFAULT_COL;
+		 }
+	 }
+	 else
+	 {
+		 inputArgs->colToCapture = DEFAULT_COL;
+	 }
+
+	 /* Fill number of frames to capture */
+	 if (argc > 4)
+	 {
+		 int enteredFramesToCap = atoi(argv[4]);
+		 if (enteredFramesToCap >= 0)
+		 {
+			 inputArgs->framesToCapture = (unsigned int)enteredFramesToCap;
+		 }
+		 else
+		 {
+			 inputArgs->framesToCapture = FRAMES_TO_CAPTURE_BY_DEFAULT;
+		 }
+	 }
+	 else
+	 {
+		 inputArgs->framesToCapture = FRAMES_TO_CAPTURE_BY_DEFAULT;
+	 }
 
 }
 
@@ -76,30 +136,31 @@ int main(int argc, char *argv[] ){
  int i=0, count=0;
  pcap_t *descr = NULL;
  char errbuf[PCAP_ERRBUF_SIZE], *device=NULL;
+ InputArgs inputArgs;
+ int pcapLoopReturn;
+
  memset(errbuf,0,PCAP_ERRBUF_SIZE);
 
 
- if( argc > 1){  /* If user supplied interface name, use it. */
-    device = argv[1];
- }
- else{  /* Get the name of the first device suitable for capture */
+ fillArgs(argc, argv, errbuf, &inputArgs);
 
-    if ( (device = pcap_lookupdev(errbuf)) == NULL){
-        fprintf(stderr, "ERROR: %s\n", errbuf);
-        exit(1);
-    }
- }
 
- printf("Opening device %s\n", device);
+ printf("Opening device %s\n", inputArgs.device);
 
  /* Open device in promiscuous mode */
- if ( (descr = pcap_open_live(device, MAXBYTES2CAPTURE, 1,  512, errbuf)) == NULL){
+ if ( (descr = pcap_open_live(inputArgs.device, MAXBYTES2CAPTURE, 1,  512, errbuf)) == NULL){
     fprintf(stderr, "ERROR: %s\n", errbuf);
     exit(1);
  }
 
- /* Loop forever & call processPacket() for every received packet*/
- if ( pcap_loop(descr, -1, processPacket, (u_char *)&count) == -1){
+ /* Loop & call processPacket() for every received packet*/
+ pcapLoopReturn = pcap_loop(
+		 	 	 	 	 	 descr,
+		 	 	 	 	 	 (int)((inputArgs.framesToCapture + 1) * ETHERNET_FRMS_PER_CAMERA_FRM),
+		 	 	 	 	 	 /* framesToCapture + 1 because may be we are in the middle of a frame */
+		 	 	 	 	 	 processPacket,
+		 	 	 	 	 	 (u_char *)&inputArgs);
+ if (pcapLoopReturn == -1){
     fprintf(stderr, "ERROR: %s\n", pcap_geterr(descr) );
     exit(1);
  }
