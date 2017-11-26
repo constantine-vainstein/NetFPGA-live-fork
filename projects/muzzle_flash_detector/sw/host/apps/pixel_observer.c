@@ -248,6 +248,40 @@ void printDesiredAddresOverTime(PixelObserver * me)
 	}
 }
 
+void saveMonitoredData(PixelObserver * me)
+{
+	u_int frm;
+	u_int row;
+	u_int col;
+
+	FILE * f;
+	f = fopen("monitoredData.dat", "w");
+
+	for(frm = 0; frm < me->args.framesToCapture; frm++)
+	{
+		for(row = 0; row < ROW_SIZE; row++)
+		{
+			for(col = 0; col < COL_SIZE; col++)
+			{
+				fprintf(f, "%d", me->monitoredFrames[frm].pixels[row][col]);
+				if(col < COL_SIZE - 1)
+				{
+					fprintf(f, ",");
+				}
+			}
+			if(row < ROW_SIZE - 1)
+			{
+				fprintf(f, ",");
+			}
+		}
+		if(frm < me->args.framesToCapture - 1)
+		{
+			fprintf(f, "\n");
+		}
+	}
+	fclose(f);
+}
+
 
 
 /* main(): Main function. Opens network interface and calls pcap_loop() */
@@ -287,6 +321,7 @@ int main(int argc, char *argv[] ){
  }
 
  printDesiredAddresOverTime(&pxlObserver);
+ saveMonitoredData(&pxlObserver);
 free(pxlObserver.monitoredFrames);
 
 return 0;
