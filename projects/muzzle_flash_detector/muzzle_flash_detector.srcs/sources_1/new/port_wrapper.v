@@ -100,20 +100,7 @@ module port_wraper
    
    wire clk_156MHz;
    
-   wire [31:0]  to_dpr_frame_id;
-   wire [3:0]   to_dpr_row_set;
-   wire [5:0]   to_dpr_col_set;
-   wire         to_dpr_read_enable;
-   wire [7:0]   to_dpr_pixel_out0;
-   wire [7:0]   to_dpr_pixel_out1;
-   wire [7:0]   to_dpr_pixel_out2;
-   wire [7:0]   to_dpr_pixel_out3;
    
-   wire [63:0] tx_axis_frame_tdata;
-   wire [7:0]  tx_axis_frame_tkeep;
-   wire tx_axis_frame_tvalid;
-   wire tx_axis_frame_tlast;
-   wire tx_axis_frame_tready;
    
    wire [63:0] tx_axis_frame_eth_tdata;
    wire [7:0]  tx_axis_frame_eth_tkeep;
@@ -146,6 +133,7 @@ module port_wraper
    wire areset_clk156;
    wire qplloutclk;
    wire qplloutrefclk;
+   wire qplllock;
    wire txusrclk;
    wire txusrclk2;
    wire gttxreset;
@@ -267,7 +255,7 @@ module port_wraper
     /* output */           .gen_active_flash(gen_active_flash),
     /* output */           .check_active_flash(check_active_flash), //indicates a non-dropped data has been received
     /* output */           .block_lock(block_lock1),
-    /* output */           .qplllock_out(),
+    /* output */           .qplllock_out(qplllock),
     /* output */           .tx_disable(sfp0_tx_disable),
     /* output */           .resetdone(resetdone),
     /* output */		   .areset_clk156(areset_clk156),
@@ -298,23 +286,7 @@ module port_wraper
 
     
  
-    
-`ifdef debug_spad_interface
-    ila_0 input_to_frm_buffer (
-    	.clk(clk_100MHz), // input wire clk
-    
-    
-    	.probe0(0), // input wire [0:0]  probe0  
-    	.probe1(to_dpr_frame_id), // input wire [31:0]  probe1 
-    	.probe2(to_dpr_row_set), // input wire [3:0]  probe2 
-    	.probe3(to_dpr_col_set), // input wire [5:0]  probe3 
-    	.probe4(to_dpr_read_enable), // input wire [0:0]  probe4 
-    	.probe5(to_dpr_pixel_out0), // input wire [7:0]  probe5 
-    	.probe6(to_dpr_pixel_out1), // input wire [7:0]  probe6 
-    	.probe7(to_dpr_pixel_out2), // input wire [7:0]  probe7 
-    	.probe8(to_dpr_pixel_out3) // input wire [7:0]  probe8
-    );
-    
+`ifdef debug_spad_interface    
     interface_to_spad interface_to_spad_i (
     	.clk(clk_100MHz), // input wire clk
     
@@ -359,8 +331,8 @@ module port_wraper
     	/*                  */ 
     	/* output 			*/ .txp(ETH2_RX_P),
     	/* output 			*/ .txn(ETH2_RX_N),
-    	/* input 			*/ .rxp(ETH1_TX_P),
-    	/* input 			*/ .rxn(ETH1_TX_N),
+    	/* input 			*/ .rxp(ETH2_TX_P),
+    	/* input 			*/ .rxn(ETH2_TX_N),
     	/*                  */ 
     	/* input 			*/ .tx_abs(sfp1_tx_abs),
     	/* input 			*/ .tx_fault(sfp1_tx_fault),
@@ -370,10 +342,12 @@ module port_wraper
     	/* // Shared Logic   */ 
     	/* input 			*/ .qplloutclk(qplloutclk),
     	/* input 			*/ .qplloutrefclk(qplloutrefclk),
+    	/* input			*/ .reset_counter_done(reset_counter_done),
     	/* input 			*/ .txusrclk(txusrclk),
     	/* input 			*/ .txusrclk2(txusrclk2),
     	/* input 			*/ .gttxreset(gttxreset),
     	/* input 			*/ .gtrxreset(gtrxreset),
+    	/* input			*/ .qplllock(qplllock),
     	/* input 			*/ .txuserrdy(txuserrdy)
     
         );

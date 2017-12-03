@@ -18,7 +18,7 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
+`define debug_dpr
 
 module data_path(
 	// Clock inputs
@@ -107,7 +107,7 @@ wire [15 : 0] payload_length;
     /* input [7:0] */ 	.PixelSpad3(PixelSpad3)    
  );
  
-`ifdef debug_spad_interface
+`ifdef debug_dpr
  ila_0 input_to_frm_buffer (
  	.clk(clk_100MHz), // input wire clk
  
