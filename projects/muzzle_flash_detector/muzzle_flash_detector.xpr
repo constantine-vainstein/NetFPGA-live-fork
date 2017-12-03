@@ -322,6 +322,56 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/mac2_interface.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/new/mac2_interface.v"/>
+          <Attr Name="ImportTime" Val="1509596434"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/control_hub.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/status_register_file.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/status_serializer.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/button_stabilizer.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/data_path.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../lib/hw/contrib/cores/spad_manager/matlab_sim/ConsoleApplication1/ConsoleApplication1/symetricWaveForRom8pxlRow.coe">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="port_wraper"/>
@@ -419,9 +469,16 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sim_1/new/data_path_tb.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="spad_ss_and_dpr_tb"/>
+        <Option Name="TopModule" Val="data_path_tb"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="SrcSet" Val="sources_1"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/frame_buffer_io.wcfg"/>
@@ -459,7 +516,7 @@
       </Config>
     </FileSet>
     <FileSet Name="blk_mem_gen_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/blk_mem_gen_1">
-      <File Path="W:/projects/muzzle_flash_detector/muzzle_flash_detector.srcs/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci">
+      <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -526,33 +583,6 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
-    <FileSet Name="spad_manager_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/spad_manager_0">
-      <File Path="$PSRCDIR/sources_1/ip/spad_manager_0/spad_manager_0.xci">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.xml"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.vhdl"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.veo"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="synth/spad_manager_0.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="sim/spad_manager_0.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/manager.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/controller.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/spad_controller_definitions.vh"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.dcp"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/read_process_manager.v"/>
-      </File>
-      <Config>
-        <Option Name="TopModule" Val="spad_manager_0"/>
-        <Option Name="VerilogDir" Val="$PSRCDIR/sources_1/ip/axis_data_fifo_0/axis_infrastructure_v1_1/hdl/verilog"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
     <FileSet Name="interface_to_spad" Type="BlockSrcs" RelSrcDir="$PSRCDIR/interface_to_spad">
       <File Path="$PSRCDIR/sources_1/ip/interface_to_spad/interface_to_spad.xci">
         <FileInfo>
@@ -563,6 +593,61 @@
       </File>
       <Config>
         <Option Name="TopModule" Val="interface_to_spad"/>
+        <Option Name="VerilogDir" Val="$PSRCDIR/sources_1/ip/axis_data_fifo_0/axis_infrastructure_v1_1/hdl/verilog"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="axi_10g_ethernet_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/axi_10g_ethernet_1">
+      <File Path="$PSRCDIR/sources_1/ip/axi_10g_ethernet_1_1/axi_10g_ethernet_1.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="axi_10g_ethernet_1"/>
+        <Option Name="VerilogDir" Val="$PSRCDIR/sources_1/ip/axis_data_fifo_0/axis_infrastructure_v1_1/hdl/verilog"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="axis_data_fifo_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/axis_data_fifo_1">
+      <File Path="$PSRCDIR/sources_1/ip/axis_data_fifo_1/axis_data_fifo_1.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="axis_data_fifo_1"/>
+        <Option Name="VerilogDir" Val="$PSRCDIR/sources_1/ip/axis_data_fifo_0/axis_infrastructure_v1_1/hdl/verilog"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="spad_manager_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/spad_manager_0">
+      <File Path="$PSRCDIR/sources_1/ip/spad_manager_0/spad_manager_0.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.xml"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.vhdl"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.vhdl"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.dcp"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="synth/spad_manager_0.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="sim/spad_manager_0.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/manager.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/controller.v"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/spad_controller_definitions.vh"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.veo"/>
+        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/read_process_manager.v"/>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="spad_manager_0"/>
         <Option Name="VerilogDir" Val="$PSRCDIR/sources_1/ip/axis_data_fifo_0/axis_infrastructure_v1_1/hdl/verilog"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
@@ -640,14 +725,30 @@
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
-    <Run Id="spad_manager_0_synth_1" Type="Ft3:Synth" SrcSet="spad_manager_0" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/spad_manager_0_synth_1">
+    <Run Id="interface_to_spad_synth_1" Type="Ft3:Synth" SrcSet="interface_to_spad" Part="xc7vx690tffg1761-3" ConstrsSet="interface_to_spad" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/interface_to_spad_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
-    <Run Id="interface_to_spad_synth_1" Type="Ft3:Synth" SrcSet="interface_to_spad" Part="xc7vx690tffg1761-3" ConstrsSet="interface_to_spad" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/interface_to_spad_synth_1">
+    <Run Id="axi_10g_ethernet_1_synth_1" Type="Ft3:Synth" SrcSet="axi_10g_ethernet_1" Part="xc7vx690tffg1761-3" ConstrsSet="axi_10g_ethernet_1" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/axi_10g_ethernet_1_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+    </Run>
+    <Run Id="axis_data_fifo_1_synth_1" Type="Ft3:Synth" SrcSet="axis_data_fifo_1" Part="xc7vx690tffg1761-3" ConstrsSet="axis_data_fifo_1" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/axis_data_fifo_1_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+    </Run>
+    <Run Id="spad_manager_0_synth_1" Type="Ft3:Synth" SrcSet="spad_manager_0" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/spad_manager_0_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -769,7 +870,7 @@
         <Step Id="write_bitstream"/>
       </Strategy>
     </Run>
-    <Run Id="spad_manager_0_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Implementation Defaults" SynthRun="spad_manager_0_synth_1">
+    <Run Id="interface_to_spad_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="interface_to_spad" Description="Vivado Implementation Defaults" SynthRun="interface_to_spad_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
         <Step Id="init_design"/>
@@ -783,7 +884,37 @@
         <Step Id="write_bitstream"/>
       </Strategy>
     </Run>
-    <Run Id="interface_to_spad_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="interface_to_spad" Description="Vivado Implementation Defaults" SynthRun="interface_to_spad_synth_1">
+    <Run Id="axi_10g_ethernet_1_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="axi_10g_ethernet_1" Description="Vivado Implementation Defaults" SynthRun="axi_10g_ethernet_1_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+    </Run>
+    <Run Id="axis_data_fifo_1_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="axis_data_fifo_1" Description="Vivado Implementation Defaults" SynthRun="axis_data_fifo_1_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
+          <Desc>Vivado Implementation Defaults</Desc>
+        </StratHandle>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+    </Run>
+    <Run Id="spad_manager_0_impl_1" Type="Ft2:EntireDesign" Part="xc7vx690tffg1761-3" ConstrsSet="spad_manager_0" Description="Vivado Implementation Defaults" SynthRun="spad_manager_0_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
           <Desc>Vivado Implementation Defaults</Desc>

@@ -65,6 +65,7 @@ module axi_10g_ethernet_0_support (
    input                               refclk_n,
    input                               dclk,
    output                              core_clk156_out,
+   output 							   areset_clk156,
    input                               reset,
    output                              qplloutclk_out,
    output                              qplloutrefclk_out,
@@ -143,7 +144,6 @@ module axi_10g_ethernet_0_support (
   wire qplllock;
   wire tx_resetdone_int;
   wire rx_resetdone_int;
-  wire areset_clk156;
   wire gttxreset;
   wire gtrxreset;
   wire qpllreset;

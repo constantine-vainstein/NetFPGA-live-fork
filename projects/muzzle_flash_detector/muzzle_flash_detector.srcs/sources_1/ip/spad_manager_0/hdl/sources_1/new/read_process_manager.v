@@ -72,9 +72,9 @@ module read_process_manager(
     
     always @(posedge clk) begin
 		if (reset) begin
-			state_durations[STATE_SPAD_AND_MUX_DELAY] <= 4;
+			state_durations[STATE_SPAD_AND_MUX_DELAY] <= 5;
 			state_durations[STATE_READ_1ST_ROW_GROUP] <= 2;
-			state_durations[STATE_MUX_DELAY] <= 1;
+			state_durations[STATE_MUX_DELAY] <= 2;
 			state_durations[STATE_READ_2ND_ROW_GROUP] <= 2;    
 		end
     end

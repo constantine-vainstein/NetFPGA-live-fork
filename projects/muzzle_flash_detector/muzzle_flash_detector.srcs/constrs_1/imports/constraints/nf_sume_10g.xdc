@@ -47,19 +47,19 @@ set_property IOSTANDARD LVCMOS15 [get_ports sfp0_tx_fault]
 set_property PACKAGE_PIN N18 [get_ports sfp0_tx_abs]
 set_property IOSTANDARD LVCMOS15 [get_ports sfp0_tx_abs]
 #currently relevant only for interface 0 set_property. after arranging the names as in NETFPGA, uncomment the following line, and remove the next.
-set_property LOC GTHE2_CHANNEL_X1Y39 [get_cells -hier -filter name=~*gthe2_i]
+set_property LOC GTHE2_CHANNEL_X1Y39 [get_cells -hier -filter name=~*example_design*gthe2_i]
 
 
 # XGE-SFP1 -- SUME
 
-#sfp1 set_property PACKAGE_PIN B31 [get_ports sfp1_tx_disable]
-#sfp1 set_property IOSTANDARD LVCMOS15 [get_ports sfp1_tx_disable]
-#sfp1 set_property PACKAGE_PIN C26 [get_ports sfp1_tx_fault]
-#sfp1 set_property IOSTANDARD LVCMOS15 [get_ports sfp1_tx_fault]
-#sfp1 set_property PACKAGE_PIN L19 [get_ports sfp1_tx_abs]
-#sfp1 set_property IOSTANDARD LVCMOS15 [get_ports sfp1_tx_abs]
+set_property PACKAGE_PIN B31 [get_ports sfp1_tx_disable]
+set_property IOSTANDARD LVCMOS15 [get_ports sfp1_tx_disable]
+set_property PACKAGE_PIN C26 [get_ports sfp1_tx_fault]
+set_property IOSTANDARD LVCMOS15 [get_ports sfp1_tx_fault]
+set_property PACKAGE_PIN L19 [get_ports sfp1_tx_abs]
+set_property IOSTANDARD LVCMOS15 [get_ports sfp1_tx_abs]
 
-#costa: uncomment and replace interface_1 by something more clever... set_property LOC GTHE2_CHANNEL_X1Y38 [get_cells -hier -filter name=~*interface_1*gthe2_i]
+set_property LOC GTHE2_CHANNEL_X1Y38 [get_cells -hier -filter name=~*mac2_interface*gthe2_i]
 #set_property LOC GTHE2_CHANNEL_X1Y38 [get_cells nf_10g_interface_1/inst/nf_10g_interface_block_i/axi_10g_ethernet_i/inst/ten_gig_eth_pcs_pma/inst/gt0_gtwizard_10gbaser_multi_gt_i/gt0_gtwizard_gth_10gbaser_i/gthe2_i]
 
 # XGE-SFP2 -- SUME
@@ -103,7 +103,7 @@ create_clock -period 6.400 [get_ports xphy_refclk_p]
 #   GRN - TX
 #   YLW - RX
 set_property PACKAGE_PIN G13 [get_ports sfp0_tx_led]
-#sfp1 set_property PACKAGE_PIN AL22 [get_ports sfp1_tx_led]
+set_property PACKAGE_PIN AL22 [get_ports sfp1_tx_led]
 # sfp2 not in use
 # set_property PACKAGE_PIN AY18 [get_ports sfp2_tx_led]
 # end sfp2 not in use
@@ -112,7 +112,7 @@ set_property PACKAGE_PIN G13 [get_ports sfp0_tx_led]
 # end sfp3 not in use
 
 set_property PACKAGE_PIN L15 [get_ports sfp0_rx_led]
-#sfp1 set_property PACKAGE_PIN BA20 [get_ports sfp1_rx_led]
+set_property PACKAGE_PIN BA20 [get_ports sfp1_rx_led]
 # sfp2 not in use
 # set_property PACKAGE_PIN AY17 [get_ports sfp2_rx_led]
 # end sfp2 not in use
@@ -128,10 +128,10 @@ set_property -dict { PACKAGE_PIN A6 } [get_ports { ETH1_TX_P }];
 set_property -dict { PACKAGE_PIN A5 } [get_ports { ETH1_TX_N }];
 set_property -dict { PACKAGE_PIN B4 } [get_ports { ETH1_RX_P }];
 set_property -dict { PACKAGE_PIN B3 } [get_ports { ETH1_RX_N }];
-#sfp1 set_property -dict { PACKAGE_PIN B8 } [get_ports { ETH2_TX_P }];
-#sfp1 set_property -dict { PACKAGE_PIN B7 } [get_ports { ETH2_TX_N }];
-#sfp1 set_property -dict { PACKAGE_PIN C2 } [get_ports { ETH2_RX_P }];
-#sfp1 set_property -dict { PACKAGE_PIN C1 } [get_ports { ETH2_RX_N }];
+set_property -dict { PACKAGE_PIN B8 } [get_ports { ETH2_TX_P }];
+set_property -dict { PACKAGE_PIN B7 } [get_ports { ETH2_TX_N }];
+set_property -dict { PACKAGE_PIN C2 } [get_ports { ETH2_RX_P }];
+set_property -dict { PACKAGE_PIN C1 } [get_ports { ETH2_RX_N }];
 #unused ports
 # set_property -dict { PACKAGE_PIN C6 } [get_ports { ETH3_TX_P }];
 # set_property -dict { PACKAGE_PIN C5 } [get_ports { ETH3_TX_N }];

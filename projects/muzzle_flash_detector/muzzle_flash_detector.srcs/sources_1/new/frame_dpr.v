@@ -81,7 +81,7 @@ module frame_dpr(
     localparam AREA_B_LAST_ADDRESS_64BIT = 1025;
     
     // *************** Block RAM delays ************
-    localparam MEM_WRITE_DELAY_ANY_CLK = 2;
+    localparam MEM_WRITE_DELAY_ANY_CLK = 1;
     
     reg [31:0] write_data;
     reg [WRITE_STATE_SIZE_BITS_ - 1 : 0] write_state;
@@ -117,12 +117,56 @@ module frame_dpr(
     
     assign maximal_write_address = is_area_a_written ? (AREA_A_LAST_ADDRESS_32BIT) : (AREA_B_LAST_ADDRESS_32BIT);
     
+    
+    wire in_fifo_resetn = ~spad_reset;
+    wire in_fifo_tvalid;
+    wire in_fifo_tready;
+    wire [31:0] in_fifo_tdata;
+    
+    wire data_from_in_fifo_tvalid;
+    reg data_from_in_fifo_tready;
+    wire [31:0] data_from_in_fifo_tdata;
+    
+    wire [31:0] fifo_axis_data_count;
+    wire [31:0] fifo_axis_wr_data_count;
+    wire [31:0] fifo_axis_rd_data_count;
+    
+    reg prev_wrValid;
+    
+    always @(posedge wrClk) begin
+    	prev_wrValid <= wrValid;
+    end
+	
+	assign in_fifo_tvalid = ((~prev_wrValid) & wrValid);
+	assign in_fifo_tdata = {wrPixel3, wrPixel2, wrPixel1, wrPixel0};
+	
+	/* nothing to do with in_fifo_tready... If the fifo is not ready, there will be frame loss. */
+	
+    
+    axis_data_fifo_1 pixels_input_fifo (
+      .s_axis_aresetn(in_fifo_resetn),          // input wire s_axis_aresetn
+      .s_axis_aclk(wrClk),                // input wire s_axis_aclk
+      .s_axis_tvalid(in_fifo_tvalid),            // input wire s_axis_tvalid
+      .s_axis_tready(in_fifo_tready),            // output wire s_axis_tready
+      .s_axis_tdata(in_fifo_tdata),              // input wire [31 : 0] s_axis_tdata
+      .m_axis_tvalid(data_from_in_fifo_tvalid),            // output wire m_axis_tvalid
+      .m_axis_tready(data_from_in_fifo_tready),            // input wire m_axis_tready
+      .m_axis_tdata(data_from_in_fifo_tdata),              // output wire [31 : 0] m_axis_tdata
+      .axis_data_count(fifo_axis_data_count),        // output wire [31 : 0] axis_data_count
+      .axis_wr_data_count(fifo_axis_wr_data_count),  // output wire [31 : 0] axis_wr_data_count
+      .axis_rd_data_count(fifo_axis_rd_data_count)  // output wire [31 : 0] axis_rd_data_count
+    );
+    
+    
+    
+    
 	always @(posedge wrClk) begin  
 		if (spad_reset) begin
     		write_state <= WRITE_STATE_WAIT_FOR_START;
 			is_area_a_written <= 1;
 			cur_wrFrameId <= 32'hFFFFFFFF;
 			wrEnable <= 0;
+			data_from_in_fifo_tready <= 0;
 			area_a_valid <= 0;
 			area_b_valid <= 0;
 			dpr_write_enable <= 0;
@@ -130,7 +174,6 @@ module frame_dpr(
 	
 			case (write_state)
 				WRITE_STATE_WAIT_FOR_START: begin
-					write_enable <= 0;
 					write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;	
 					if (is_area_a_written) begin
 						area_a_valid <= 0;
@@ -139,7 +182,14 @@ module frame_dpr(
 					end
 					if (wrFrameId != cur_wrFrameId) begin
 						write_state <= WRITE_STATE_STORE_FRAME_ID;
-						cur_wrFrameId <= wrFrameId;		
+						cur_wrFrameId <= wrFrameId;	
+						// Already prepare everithing to store FrameId. (no time!)
+						write_enable <= 1;
+						write_address <= is_area_a_written ? AREA_A_FIRST_ADDRESS_32BIT : AREA_B_FIRST_ADDRESS_32BIT;
+						write_data <= wrFrameId;
+						dpr_write_enable <= 1;
+					end else begin
+						write_enable <= 0;
 					end
 				end
 					
@@ -149,22 +199,30 @@ module frame_dpr(
 					write_data <= wrFrameId;
 					dpr_write_enable <= 1;
 					if (write_delay_clk == 0) begin
-						// after 2 posedge clocks (or 4 any edge clocks), go to the next write_state and increment the address.
+						// after 2 posedge clocks, go to the next write_state and increment the address.
 						write_state <= WRITE_STATE_STORE_DATA;
 						write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
 						wrEnable <= 1;
-						dpr_write_enable <= 0; // don't write to the dpr unless validate that wrValid.
+						data_from_in_fifo_tready <= 1;
+						if(data_from_in_fifo_tvalid) begin
+							dpr_write_enable <= 1; 
+							// already capture the data
+							write_data <= data_from_in_fifo_tdata;
+						end else begin// don't write to the dpr unless validate that wrValid.
+							dpr_write_enable <= 0;
+						end
 					end else begin
 						// stay in the same write_state, but decrement the write-delay counter.
 						write_delay_clk <= write_delay_clk - 1;
+						data_from_in_fifo_tready <= 0;
 					end
 				end
 				
 				WRITE_STATE_STORE_DATA: begin
 					if (write_address <= maximal_write_address) begin
-						if (wrValid & (~dpr_write_enable)) begin
+						if (data_from_in_fifo_tvalid & (write_delay_clk == 0 || (~dpr_write_enable))) begin
 							// capture the data
-							write_data <= {wrPixel3, wrPixel2, wrPixel1, wrPixel0};
+							write_data <= data_from_in_fifo_tdata;
 							// enable the writing to the dpr. But if now write_address == maximal_write_address, then in the next cycle it will exceed the maximum, so don't write.
 							dpr_write_enable <= (write_address < maximal_write_address);
 							// and prepare the address register to the write operation
@@ -174,10 +232,12 @@ module frame_dpr(
 							if (write_delay_clk > 0) begin
 								write_delay_clk <= write_delay_clk - 1;
 								wrEnable <= 0;
+								data_from_in_fifo_tready <= 0;
 							end else begin
 								write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
 								// if write_address has reached the maximum and this is the last clock cycle of write delay, deassert dpr_write_enable
 								wrEnable <= 1;
+								data_from_in_fifo_tready <= 1;
 								dpr_write_enable <= 0;
 							end
 						end
@@ -192,6 +252,7 @@ module frame_dpr(
 						is_area_a_written <= ~is_area_a_written;
 						write_state <= WRITE_STATE_WAIT_FOR_START;
 						wrEnable <= 0;
+						data_from_in_fifo_tready <= 0;
 					end
 				end
 			endcase

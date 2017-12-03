@@ -53,8 +53,8 @@ module spad_emulator(
     wire address_stable;
     wire address_stable_for_rom;
         
-    wire [3 : 0] exact_row;
     wire [31:0] pixels_out;        
+    wire [63:0] data_out;
         
     assign time_from_address_change_ns = (Latch | prev_latch | reset | (prev_row_select != row_select) | (prev_col_select != col_select)) ?
         0 : prev_time_from_address_change_ns + 10;
@@ -107,16 +107,17 @@ module spad_emulator(
     assign address_stable = (time_from_address_change_ns >= 40 & time_from_row_group_change_ns >= 0);
     assign address_stable_for_rom = (time_from_address_change_ns >= 00 & time_from_row_group_change_ns >= 0);
     
-    assign exact_row = {row_select, second_half_rows};
     
     blk_mem_gen_0 initial_rom (
         .clka(clk),    // input wire clka
         .ena(address_stable_for_rom),      // input wire ena
         .wea(0),      // input wire [0 : 0] wea
-        .addra({sample_number,exact_row,col_select}),  // input wire [16 : 0] addra
+        .addra({sample_number,row_select,col_select}),  // input wire [15 : 0] addra
         .dina(0),    // input wire [31 : 0] dina
-        .douta(pixels_out)  // output wire [31 : 0] douta       
+        .douta(data_out)  // output wire [63 : 0] douta       
     );
+    
+    assign pixels_out = second_half_rows ? data_out[31:0] : data_out[63:32];
         
     assign pixel_out_0 = (address_stable) ? pixels_out[31:24] : -1;
     assign pixel_out_1 = (address_stable) ? pixels_out[23:16] : -1;

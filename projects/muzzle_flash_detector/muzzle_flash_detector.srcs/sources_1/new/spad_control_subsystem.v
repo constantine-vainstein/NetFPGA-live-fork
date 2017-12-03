@@ -139,7 +139,8 @@ module spad_control_subsystem(
 		end
     end
     
-    assign ReadEnable = (isEmulated) ? ((emulated_mem_delay_count >= 1) & mgr_read_enable) : mgr_read_enable;
+    assign ReadEnable = (isEmulated) ? ((prev_exact_address == exact_address) & (emulated_mem_delay_count >= 1) & mgr_read_enable) : mgr_read_enable;
+    // emulated_mem_delay_count >= 2 because spad_manager introduces additional clock delay in addition to BRAM 2 clocks delay in data of pixels.
     
     
     

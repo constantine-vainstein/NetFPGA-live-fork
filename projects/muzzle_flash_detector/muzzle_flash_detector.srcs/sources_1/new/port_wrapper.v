@@ -64,6 +64,22 @@ module port_wraper
    output sfp0_tx_led,
    output sfp0_rx_led,
    
+   // **** MAC2 ****
+   input             sfp1_tx_fault,
+   input             sfp1_tx_abs,
+
+   output            sfp1_tx_disable,
+
+   // Serial I/O from/to transceiver
+   input            ETH2_TX_P,
+   input            ETH2_TX_N,
+   output             ETH2_RX_P,
+   output             ETH2_RX_N,
+   
+   // leds
+   output sfp1_tx_led,
+   output sfp1_rx_led,
+   
    // debug
    output [1:0] leds,
    
@@ -106,6 +122,8 @@ module port_wraper
    wire tx_axis_frame_eth_tready;
    wire [15 : 0] payload_length;
    
+   wire [1 : 0] stable_btn;
+   
    wire clk_100MHz;
    wire clk_100MHz_locked;
    
@@ -117,14 +135,52 @@ module port_wraper
    wire spad_ss_reset;
    wire eth_ss_reset; // ethernet subsystem reset
    
-   wire block_lock;
+   wire block_lock1;
+   wire block_lock2;
+   
+   wire block_lock = block_lock1 & block_lock2;
    
    wire is_emulated;
+   
+   // Shared logic from MAC interface
+   wire areset_clk156;
+   wire qplloutclk;
+   wire qplloutrefclk;
+   wire txusrclk;
+   wire txusrclk2;
+   wire gttxreset;
+   wire gtrxreset;
+   wire txuserrdy;
+   wire reset_counter_done;
+   
+   wire [63 : 0]	tx_axis_control_tdata;
+   wire [7 : 0] 	tx_axis_control_tkeep;
+   wire 			tx_axis_control_tvalid;
+   wire 			tx_axis_control_tlast;
+   wire			tx_axis_control_tready;
+   
+   wire [63 : 0]	rx_axis_control_tdata;
+   wire [7 : 0] 	rx_axis_control_tkeep;
+   wire 			rx_axis_control_tvalid;
+   wire 			rx_axis_control_tlast;
+   wire			rx_axis_control_tready; 
+   
+   button_stabilizer button_stabilizer_0(
+   		.clk(clk_100MHz),
+   		.isPressed(btn[0]),
+   		.isStablePressed(stable_btn[0])
+   		);
+   		
+   button_stabilizer button_stabilizer_1(
+   		   		.clk(clk_100MHz),
+   		   		.isPressed(btn[1]),
+   		   		.isStablePressed(stable_btn[1])
+   		   		);
    
    btn_release_count emulation_button_i (
    	.clk(clk_100MHz),
    	.reset(spad_ss_reset),
-   	.button_pressed(btn[1]),
+   	.button_pressed(stable_btn[1]),
    	.count(is_emulated)
 	);
    	
@@ -135,17 +191,61 @@ module port_wraper
        .clk_in_n               (fpga_sysclk_n),
        .clk_100                (clk_100MHz),       // generates 100MHz clk
        .locked                 (clk_100MHz_locked),
-       .reset                 (btn[0])
+       .reset                 (stable_btn[0])
      );
      
    all_reset sys_rst_i (
 	   /* input  */ .clk_spad(clk_100MHz),
 	   /* input  */ .clk_eth(clk_156MHz),
-	   /* input  */ .reset(btn[0]),
+	   /* input  */ .reset(stable_btn[0]),
 	   /* input  */ .block_lock(block_lock),
 	   /* output */ .reset_spad(spad_ss_reset),
 	   /* output */ .reset_eth(eth_ss_reset)
    );
+   
+   
+   
+   data_path data_path_i(
+   	// Clock inputs
+   	/* input */ .clk_156MHz(clk_156MHz),
+   	/* input */ .clk_100MHz(clk_100MHz),
+   	/* input */ .spad_ss_reset(spad_ss_reset),
+   	/* input */ .eth_ss_reset(eth_ss_reset), // ethernet subsystem reset
+   	
+   	// SPAD control subsystem
+   	/* input */ .is_emulated(is_emulated),
+   	// interface to SPAD
+   	/* output */ .latch_spad(latch_spad),
+   	/* output */ .reset_spad(reset_spad),
+   	/*output [5:0] */ .col_select(col_select),
+   	/* output [2:0] */ .row_select(row_select),
+   	/* output */ .row_group(row_group),
+   	/* input [7:0] */ .PixelSpad0(PixelSpad0),
+   	/* input [7:0] */ .PixelSpad1(PixelSpad1),
+   	/* input [7:0] */ .PixelSpad2(PixelSpad2),
+   	/* input [7:0] */ .PixelSpad3(PixelSpad3),
+   	
+   	// interface to frames data MAC
+   	/* output [63:0] */ .tx_axis_frame_eth_tdata(tx_axis_frame_eth_tdata),
+   	/* output [7:0]  */ .tx_axis_frame_eth_tkeep(tx_axis_frame_eth_tkeep),
+   	/* output */ .tx_axis_frame_eth_tvalid(tx_axis_frame_eth_tvalid),
+   	/* output */ .tx_axis_frame_eth_tlast(tx_axis_frame_eth_tlast),
+   	/* input */ .tx_axis_frame_eth_tready(tx_axis_frame_eth_tready),
+   	
+   	// interface to control MAC 
+   	/* output [63 : 0]	*/ .tx_axis_control_tdata(tx_axis_control_tdata),
+   	/* output [7 : 0] 	*/ .tx_axis_control_tkeep(tx_axis_control_tkeep),
+   	/* output 			*/ .tx_axis_control_tvalid(tx_axis_control_tvalid),
+   	/* output 			*/ .tx_axis_control_tlast(tx_axis_control_tlast),
+   	/* input			*/ .tx_axis_control_tready(tx_axis_control_tready),
+   	
+   	/* input [63 : 0]	*/ .rx_axis_control_tdata(rx_axis_control_tdata),
+   	/* input [7 : 0] 	*/ .rx_axis_control_tkeep(rx_axis_control_tkeep),
+   	/* input 			*/ .rx_axis_control_tvalid(rx_axis_control_tvalid),
+   	/* input 			*/ .rx_axis_control_tlast(rx_axis_control_tlast),
+   	/* output			*/ .rx_axis_control_tready(rx_axis_control_tready)
+   );
+
      
    axi_10g_ethernet_0_example_design  example_design (
     /* input */            .xphy_refclk_p(xphy_refclk_p),
@@ -153,7 +253,7 @@ module port_wraper
     /* output*/			   .clk156_out(clk_156MHz),
     /* input */            .pcs_loopback(0),
     /* input */            .reset(eth_ss_reset),
-    /* input */            .reset_error(btn[1]),
+    /* input */            .reset_error(stable_btn[1]),
     /* input */            .insert_error(0),
     /* input  */           .enable_pat_gen(0),
     /* input  */           .enable_pat_check(0),
@@ -166,10 +266,19 @@ module port_wraper
     /* output */           .frame_error(frame_error),
     /* output */           .gen_active_flash(gen_active_flash),
     /* output */           .check_active_flash(check_active_flash), //indicates a non-dropped data has been received
-    /* output */           .block_lock(block_lock),
+    /* output */           .block_lock(block_lock1),
     /* output */           .qplllock_out(),
     /* output */           .tx_disable(sfp0_tx_disable),
     /* output */           .resetdone(resetdone),
+    /* output */		   .areset_clk156(areset_clk156),
+						   .qplloutclk_out                  (qplloutclk),
+						   .qplloutrefclk_out               (qplloutrefclk),
+						   .txusrclk_out                    (txusrclk),
+						   .txusrclk2_out                   (txusrclk2),
+						   .gttxreset_out                   (gttxreset),
+						   .gtrxreset_out                   (gtrxreset),
+						   .txuserrdy_out                   (txuserrdy),
+						   .reset_counter_done_out			(reset_counter_done),
     /*        */           
     /*        */           
     /* output */           .txp(ETH1_RX_P),
@@ -188,30 +297,7 @@ module port_wraper
     
 
     
-    spad_control_subsystem spad_control_ss (
-        /* input */         .clk(clk_100MHz),
-        /* input */         .reset(spad_ss_reset),
-        /* output [31:0] */ .FrameId(to_dpr_frame_id),
-        /* output [3:0] */  .RowSet(to_dpr_row_set),
-        /* output [5:0] */  .ColSet(to_dpr_col_set),
-        /* output */        .ReadEnable(to_dpr_read_enable),
-        /* output [7:0] */  .PixelOut0(to_dpr_pixel_out0),
-        /* output [7:0] */  .PixelOut1(to_dpr_pixel_out1),
-        /* output [7:0] */  .PixelOut2(to_dpr_pixel_out2),
-        /* output [7:0] */  .PixelOut3(to_dpr_pixel_out3),
-        					.isEmulated(is_emulated),
-	   // interface to SPAD
-       /* output */			.latch_spad(latch_spad),
-       /* output */ 		.reset_spad(reset_spad),
-       /* output [5:0] */ 	.col_select(col_select),
-       /* output [2:0] */ 	.row_select(row_select),
-       /* output */ 		.row_group_select(row_group),
-       
-       /* input [7:0] */ 	.PixelSpad0(PixelSpad0),
-       /* input [7:0] */ 	.PixelSpad1(PixelSpad1),
-       /* input [7:0] */ 	.PixelSpad2(PixelSpad2),
-       /* input [7:0] */ 	.PixelSpad3(PixelSpad3)    
-    );
+ 
     
 `ifdef debug_spad_interface
     ila_0 input_to_frm_buffer (
@@ -244,53 +330,53 @@ module port_wraper
     	.probe8(PixelSpad3) // input wire [7:0]  probe8
     );
 `endif    
-    frame_dpr frm_buffer (
-		/* input 		*/ .spad_reset(spad_ss_reset),
-		/* input        */ .eth_reset(eth_ss_reset),
-		/*              */ 
-		/* input 		*/ .wrClk(clk_100MHz),
-		/* input [31:0] */ .wrFrameId(to_dpr_frame_id),
-		/* input [3:0] 	*/ .wrRowSet(to_dpr_row_set),
-		/* input [5:0] 	*/ .wrColSet(to_dpr_col_set),
-		/* input 		*/ .wrValid(to_dpr_read_enable),
-		/* output 		*/ .wrEnable(),
-		/* input [7:0] 	*/ .wrPixel0(to_dpr_pixel_out0),
-		/* input [7:0] 	*/ .wrPixel1(to_dpr_pixel_out1),
-		/* input [7:0] 	*/ .wrPixel2(to_dpr_pixel_out2),
-		/* input [7:0] 	*/ .wrPixel3(to_dpr_pixel_out3),
-		/*              */  
-		/* input 		*/ .rdClk(clk_156MHz),
-		/* output [63:0]*/ .tx_axis_frame_tdata(tx_axis_frame_tdata),
-		/* output [7:0] */ .tx_axis_frame_tkeep(tx_axis_frame_tkeep),
-		/* output 		*/ .tx_axis_frame_tvalid(tx_axis_frame_tvalid),
-		/* output 		*/ .tx_axis_frame_tlast(tx_axis_frame_tlast),
-		/* input 		*/ .tx_axis_frame_tready(tx_axis_frame_tready),
-						   .payload_length(payload_length)
-    );
-    
-    ethernet_wrapper eth_wrap(
-    /* input */	.clk(clk_156MHz),
-    /* input */	.reset(eth_ss_reset),
-	/*       */
-	/* input */	.dest_address(48'hffffffffffff),
-    /* input */	.source_address(48'h28cf013e1800),
-    /* input */	.type_length(payload_length), 
-    /*       */
-    /* input */	.tx_axis_frame_tdata(tx_axis_frame_tdata),
-    /* input */	.tx_axis_frame_tkeep(tx_axis_frame_tkeep),
-    /* input */	.tx_axis_frame_tvalid(tx_axis_frame_tvalid),
-    /* input */	.tx_axis_frame_tlast(tx_axis_frame_tlast),
-    /* output*/ .tx_axis_frame_tready(tx_axis_frame_tready),
-    /*       */
-    /* output*/ .tx_axis_eth_tdata(tx_axis_frame_eth_tdata),
-    /* output*/ .tx_axis_eth_tkeep(tx_axis_frame_eth_tkeep),
-    /* output*/ .tx_axis_eth_tvalid(tx_axis_frame_eth_tvalid),
-    /* output*/ .tx_axis_eth_tlast(tx_axis_frame_eth_tlast),
-    /* input */	.tx_axis_eth_tready(tx_axis_frame_eth_tready)
-    );
+
+
     
     assign sfp0_tx_led = resetdone | gen_active_flash;
     assign sfp0_rx_led = (~frame_error) & check_active_flash;
+    
+   
+    
+    
+    
+    mac2_interface mac2_interface_i(
+    	/* input 			*/ .reset(eth_ss_reset),
+    	/* input 			*/ .clk156(clk_156MHz),
+    	/* input 			*/ .areset_clk156(areset_clk156),
+    	/*                  */ 
+    	/* input [63 : 0] 	*/ .tx_axis_fifo_tdata(tx_axis_control_tdata),
+    	/* input [7 : 0] 	*/ .tx_axis_fifo_tkeep(tx_axis_control_tkeep),
+    	/* input 			*/ .tx_axis_fifo_tvalid(tx_axis_control_tvalid),
+    	/* input 			*/ .tx_axis_fifo_tlast(tx_axis_control_tlast),
+    	/* output 			*/ .tx_axis_fifo_tready(tx_axis_control_tready),
+    	/*                  */ 
+    	/* output [63 : 0] 	*/ .rx_axis_fifo_tdata(rx_axis_control_tdata),
+    	/* output [7 : 0] 	*/ .rx_axis_fifo_tkeep(rx_axis_control_tkeep),
+    	/* output 			*/ .rx_axis_fifo_tvalid(rx_axis_control_tvalid),
+    	/* output 			*/ .rx_axis_fifo_tlast(rx_axis_control_tlast),
+    	/* input 			*/ .rx_axis_fifo_tready(rx_axis_control_tready),
+    	/*                  */ 
+    	/* output 			*/ .txp(ETH2_RX_P),
+    	/* output 			*/ .txn(ETH2_RX_N),
+    	/* input 			*/ .rxp(ETH1_TX_P),
+    	/* input 			*/ .rxn(ETH1_TX_N),
+    	/*                  */ 
+    	/* input 			*/ .tx_abs(sfp1_tx_abs),
+    	/* input 			*/ .tx_fault(sfp1_tx_fault),
+    	/* output 			*/ .tx_disable(sfp1_tx_disable),
+    	/* output 			*/ .block_lock(block_lock2),
+    	/*                  */ 
+    	/* // Shared Logic   */ 
+    	/* input 			*/ .qplloutclk(qplloutclk),
+    	/* input 			*/ .qplloutrefclk(qplloutrefclk),
+    	/* input 			*/ .txusrclk(txusrclk),
+    	/* input 			*/ .txusrclk2(txusrclk2),
+    	/* input 			*/ .gttxreset(gttxreset),
+    	/* input 			*/ .gtrxreset(gtrxreset),
+    	/* input 			*/ .txuserrdy(txuserrdy)
+    
+        );
 `ifdef debug  
     my_ila input_to_example_design (
     	.clk(clk_156MHz), // input wire clk 
@@ -303,19 +389,6 @@ module port_wraper
     	.probe5(tx_axis_frame_eth_tready) // input wire [0:0]  probe5
     );
 `endif
-`ifdef debug
-    my_ila input_to_eth_wrapper (
-     	.clk(clk_156MHz), // input wire clk 
-    
-		.probe0(clk_156MHz), // input wire [0:0]  probe0  
-		.probe1(tx_axis_frame_tdata), // input wire [63:0]  probe1 
-		.probe2(tx_axis_frame_tkeep), // input wire [7:0]  probe2 
-		.probe3(tx_axis_frame_tvalid), // input wire [0:0]  probe3 
-		.probe4(tx_axis_frame_tlast), // input wire [0:0]  probe4 
-		.probe5(tx_axis_frame_tready) // input wire [0:0]  probe5   
-    );
-`endif
-
 
 
 	

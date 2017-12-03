@@ -90,6 +90,17 @@ module axi_10g_ethernet_0_example_design
    output            qplllock_out,
    output            tx_disable,
    output            resetdone,
+   
+   // Sahred logic
+   output areset_clk156,
+   output qplloutclk_out,
+   output qplloutrefclk_out,
+   output txusrclk_out,
+   output txusrclk2_out,
+   output gttxreset_out,
+   output gtrxreset_out,
+   output txuserrdy_out,
+   output reset_counter_done_out,
 
    // Serial I/O from/to transceiver
    output            txp,
@@ -233,7 +244,16 @@ module axi_10g_ethernet_0_example_design
       .sim_speedup_control    (sim_speedup_control),
       .pcspma_status          (pcspma_status),
       .resetdone              (resetdone),
-      .qplllock_out           (qplllock_out)
+      .areset_clk156		  (areset_clk156),
+      .qplllock_out           (qplllock_out),
+      .qplloutclk_out                  (qplloutclk_out),
+      .qplloutrefclk_out               (qplloutrefclk_out),
+      .txusrclk_out                    (txusrclk_out),
+      .txusrclk2_out                   (txusrclk2_out),
+      .gttxreset_out                   (gttxreset_out),
+      .gtrxreset_out                   (gtrxreset_out),
+      .txuserrdy_out                   (txuserrdy_out),
+      .reset_counter_done_out		   (reset_counter_done_out)
       );
 
 
