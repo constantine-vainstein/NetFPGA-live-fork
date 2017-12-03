@@ -109,7 +109,7 @@ module port_wraper
    wire tx_axis_frame_eth_tready;
    wire [15 : 0] payload_length;
    
-   wire [1 : 0] stable_btn;
+   /*wire [1 : 0] stable_btn;*/
    
    wire clk_100MHz;
    wire clk_100MHz_locked;
@@ -153,7 +153,7 @@ module port_wraper
    wire 			rx_axis_control_tlast;
    wire			rx_axis_control_tready; 
    
-   button_stabilizer button_stabilizer_0(
+   /*button_stabilizer button_stabilizer_0(
    		.clk(clk_100MHz),
    		.isPressed(btn[0]),
    		.isStablePressed(stable_btn[0])
@@ -163,12 +163,12 @@ module port_wraper
    		   		.clk(clk_100MHz),
    		   		.isPressed(btn[1]),
    		   		.isStablePressed(stable_btn[1])
-   		   		);
+   		   		);*/
    
    btn_release_count emulation_button_i (
    	.clk(clk_100MHz),
    	.reset(spad_ss_reset),
-   	.button_pressed(stable_btn[1]),
+   	.button_pressed(btn[1]),
    	.count(is_emulated)
 	);
    	
@@ -179,13 +179,13 @@ module port_wraper
        .clk_in_n               (fpga_sysclk_n),
        .clk_100                (clk_100MHz),       // generates 100MHz clk
        .locked                 (clk_100MHz_locked),
-       .reset                 (stable_btn[0])
+       .reset                 (btn[0])
      );
      
    all_reset sys_rst_i (
 	   /* input  */ .clk_spad(clk_100MHz),
 	   /* input  */ .clk_eth(clk_156MHz),
-	   /* input  */ .reset(stable_btn[0]),
+	   /* input  */ .reset(btn[0]),
 	   /* input  */ .block_lock(block_lock),
 	   /* output */ .reset_spad(spad_ss_reset),
 	   /* output */ .reset_eth(eth_ss_reset)
@@ -241,7 +241,7 @@ module port_wraper
     /* output*/			   .clk156_out(clk_156MHz),
     /* input */            .pcs_loopback(0),
     /* input */            .reset(eth_ss_reset),
-    /* input */            .reset_error(stable_btn[1]),
+    /* input */            .reset_error(btn[1]),
     /* input */            .insert_error(0),
     /* input  */           .enable_pat_gen(0),
     /* input  */           .enable_pat_check(0),
