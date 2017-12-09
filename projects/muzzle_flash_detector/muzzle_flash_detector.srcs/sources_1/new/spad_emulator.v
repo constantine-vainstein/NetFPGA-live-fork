@@ -66,39 +66,43 @@ module spad_emulator(
     
         if (reset) begin
         
-            current_time = 0;
-            latch_time = 0;
+            current_time <= 0;
+            latch_time <= 0;
         
-            sample_number = 0;
+            sample_number <= 0;
         
-            prev_time_from_address_change_ns = 0;
+            prev_time_from_address_change_ns <= 0;
         
-            prev_time_from_row_group_change_ns = 0;
+            prev_time_from_row_group_change_ns <= 0;
             
-            prev_latch = 1; // intetionally in order not to cause sample_number to grow from 0 to 1 in the first frame.
+            prev_latch <= 1; // intetionally in order not to cause sample_number to grow from 0 to 1 in the first frame.
             
-            prev_row_select = -1;
+            prev_row_select <= -1;
             
-            prev_col_select = -1;
+            prev_col_select <= -1;
             
-            prev_second_half_rows = -1;
+            prev_second_half_rows <= -1;
         end else
         begin
-            current_time = current_time + 10;
+            current_time <= current_time + 10;
         
             if(Latch) begin
-                latch_time = current_time;
+                latch_time <= current_time + 10;
                 if(~prev_latch) begin
-                    sample_number = sample_number + 1;
+                	if (sample_number < 99) begin
+                    	sample_number <= sample_number + 1;
+					end else begin
+						sample_number <= 0;
+					end
                 end
             end
       
-            prev_row_select = row_select;
-            prev_col_select = col_select;
-            prev_second_half_rows = second_half_rows;
+            prev_row_select <= row_select;
+            prev_col_select <= col_select;
+            prev_second_half_rows <= second_half_rows;
             prev_latch <= Latch;
-            prev_time_from_address_change_ns = time_from_address_change_ns;
-            prev_time_from_row_group_change_ns = time_from_row_group_change_ns;  
+            prev_time_from_address_change_ns <= time_from_address_change_ns;
+            prev_time_from_row_group_change_ns <= time_from_row_group_change_ns;  
         end
     end
     
