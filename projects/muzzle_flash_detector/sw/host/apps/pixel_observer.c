@@ -32,6 +32,8 @@
 #define PIXEL_BLOCK_WIDTH 8
 #define LAST_BLOCK_ID (PIXEL_BLOCK_HEIGHT * PIXEL_BLOCK_WIDTH - 1)
 
+#define FRAME_RATE_FPS 21677.8668978972
+
 #define FRAME_START_PREAMABLE 0xcccccccc
 
 typedef struct InputArgs
@@ -106,7 +108,6 @@ static const PixelObserver initObsever = {
 /* arrives to the network card. This function prints the captured raw data in  */
 /* hexadecimal.                                                                */
 void processPacket(u_char *arg, const struct pcap_pkthdr* pkthdr, const u_char * packet){
-
 	PixelObserver *observer = (PixelObserver *)arg;
 	const FrameIdMessage * frmIdMsg = (FrameIdMessage *)packet;
 	const PixelBlockMessage * pxlBlkMsg = (PixelBlockMessage *)packet;
@@ -163,7 +164,15 @@ void fillArgs(int argc, char *argv[], char * errbuf, InputArgs * inputArgs)
 
 	/* Fill device */
 	 if( argc > 1){  /* If user supplied interface name, use it. */
-		 inputArgs->device = argv[1];
+		 if(strcmp(argv[1], "-?") == 0)
+		 {
+			 printf("Usage: pixel_observer <ethernetinterface> <row> <column> <frames to sample>\n\n");
+			 exit(1);
+		 }
+		 else
+		 {
+			 inputArgs->device = argv[1];
+		 }
 	 }
 	 else{  /* Get the name of the first device suitable for capture */
 
@@ -233,19 +242,36 @@ void printDesiredAddresOverTime(PixelObserver * me)
 {
 	u_int frameCount = 0;
 	u_int pixelNum = 0;
+	float average[PIXEL_BLOCK_HEIGHT] = {0.0};
 
-	printf("\t  Frm Id\tPixel 0\tPixel 1\tPixel 2\tPixel 3\tPixel 4\tPixel 5\tPixel 6\tPixel 7\n");
-	printf("---------------------------------------------------------------------------------------\n");
+	printf("\t  Frm Id\tPixel 0\t\tPixel 1\t\tPixel 2\t\tPixel 3\t\tPixel 4\t\tPixel 5\t\tPixel 6\t\tPixel 7\n");
+	printf("=========================================================================================================================================================\n");
 	for(frameCount = 0; frameCount < me->args.framesToCapture ; frameCount++)
 	{
 		printf("Frm #%2d\t",frameCount);
 		printf("%8X\t",me->monitoredFrames[frameCount].frameId);
 		for(pixelNum = 0; pixelNum < PIXEL_BLOCK_HEIGHT; pixelNum++)
 		{
-			printf("%4d\t",me->monitoredFrames[frameCount].pixels[me->args.rowToCapture * 8 + pixelNum][me->args.colToCapture]);
+			u_int capturedPixel = me->monitoredFrames[frameCount].pixels[me->args.rowToCapture * 8 + pixelNum][me->args.colToCapture];
+			printf("%4d\t\t", capturedPixel);
+			average[pixelNum] += ((float)capturedPixel / (float)me->args.framesToCapture);
 		}
 		printf("\n");
 	}
+	printf("--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("Average\t\t\t\t");
+	for(pixelNum = 0; pixelNum < PIXEL_BLOCK_HEIGHT; pixelNum++)
+	{
+		printf("%3.3f\t\t", average[pixelNum]);
+	}
+	printf("\n");
+	printf("Phot/sec\t\t\t");
+	for(pixelNum = 0; pixelNum < PIXEL_BLOCK_HEIGHT; pixelNum++)
+	{
+		printf("%8.1f\t", average[pixelNum] * FRAME_RATE_FPS);
+	}
+	printf("\n");
+
 }
 
 void saveMonitoredData(PixelObserver * me)
