@@ -125,7 +125,7 @@ module port_wraper
    wire block_lock1;
    wire block_lock2;
    
-   wire block_lock = block_lock1 & block_lock2;
+   wire block_lock = block_lock1 /*& block_lock2*/; // forget about mac2 for now
    
    wire is_emulated;
    
