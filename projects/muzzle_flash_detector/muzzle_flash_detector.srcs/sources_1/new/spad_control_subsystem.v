@@ -95,7 +95,7 @@ module spad_control_subsystem(
         
         .ReadEnable(mgr_read_enable),
 
-        .FrameDurationRequestedClks(0), // default frame duration
+        .FrameDurationRequestedClks(3333333), // default frame duration
         .FrameDurationChangeEnable(FrameDurationChangeEnable),
         .FrameDurationCurrentClks(frame_duration_current_clks)
         );
