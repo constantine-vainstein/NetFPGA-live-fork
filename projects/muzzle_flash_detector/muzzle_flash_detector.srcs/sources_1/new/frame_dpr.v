@@ -124,7 +124,7 @@ module frame_dpr(
     wire [31:0] in_fifo_tdata;
     
     wire data_from_in_fifo_tvalid;
-    reg data_from_in_fifo_tready;
+    wire data_from_in_fifo_tready;
     wire [31:0] data_from_in_fifo_tdata;
     
     wire [31:0] fifo_axis_data_count;
@@ -166,7 +166,6 @@ module frame_dpr(
 			is_area_a_written <= 1;
 			cur_wrFrameId <= 32'hFFFFFFFF;
 			wrEnable <= 0;
-			data_from_in_fifo_tready <= 0;
 			area_a_valid <= 0;
 			area_b_valid <= 0;
 			dpr_write_enable <= 0;
@@ -203,18 +202,11 @@ module frame_dpr(
 						write_state <= WRITE_STATE_STORE_DATA;
 						write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
 						wrEnable <= 1;
-						data_from_in_fifo_tready <= 1;
-						if(data_from_in_fifo_tvalid) begin
-							dpr_write_enable <= 1; 
-							// already capture the data
-							write_data <= data_from_in_fifo_tdata;
-						end else begin// don't write to the dpr unless validate that wrValid.
-							dpr_write_enable <= 0;
-						end
+						dpr_write_enable <= 0;
+						/*end*/
 					end else begin
 						// stay in the same write_state, but decrement the write-delay counter.
 						write_delay_clk <= write_delay_clk - 1;
-						data_from_in_fifo_tready <= 0;
 					end
 				end
 				
@@ -232,13 +224,14 @@ module frame_dpr(
 							if (write_delay_clk > 0) begin
 								write_delay_clk <= write_delay_clk - 1;
 								wrEnable <= 0;
-								data_from_in_fifo_tready <= 0;
 							end else begin
 								write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
-								// if write_address has reached the maximum and this is the last clock cycle of write delay, deassert dpr_write_enable
 								wrEnable <= 1;
-								data_from_in_fifo_tready <= 1;
 								dpr_write_enable <= 0;
+								// if write_address has reached the maximum, increment it in order to get to the "else" of the main "if" of the state-case.
+								if(write_address == maximal_write_address) begin
+									write_address <= write_address + 1; 
+								end
 							end
 						end
 					end else begin
@@ -252,12 +245,15 @@ module frame_dpr(
 						is_area_a_written <= ~is_area_a_written;
 						write_state <= WRITE_STATE_WAIT_FOR_START;
 						wrEnable <= 0;
-						data_from_in_fifo_tready <= 0;
 					end
 				end
 			endcase
 		end
     end 
+    
+    assign data_from_in_fifo_tready = 	(write_state == WRITE_STATE_STORE_DATA) && 
+    									(~dpr_write_enable) && 
+    									(write_address <= maximal_write_address);
 
 
 	// *********************** Read State Machine **********************
