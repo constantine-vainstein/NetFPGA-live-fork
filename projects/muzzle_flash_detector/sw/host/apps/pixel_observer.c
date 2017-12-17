@@ -5,8 +5,12 @@
 /*                                                                       */
 /* This code is distributed under the GPL License. For more info check:  */
 /* http://www.gnu.org/copyleft/gpl.html                                  */
-
+#ifdef WIN32
+#include "pcapFile.h"
+#else
 #include <pcap.h>
+#endif
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -318,8 +322,7 @@ int main(int argc, char *argv[] ){
  PixelObserver pxlObserver = initObsever;
  int pcapLoopReturn;
 
- memset(errbuf,0,PCAP_ERRBUF_SIZE);
-
+ memset(errbuf, 0, PCAP_ERRBUF_SIZE);
 
  fillArgs(argc, argv, errbuf, &(pxlObserver.args));
  /* allocate space for frames */
@@ -349,6 +352,9 @@ int main(int argc, char *argv[] ){
  printDesiredAddresOverTime(&pxlObserver);
  saveMonitoredData(&pxlObserver);
 free(pxlObserver.monitoredFrames);
+#ifdef WIN32
+fclose(descr);
+#endif
 
 return 0;
 

@@ -81,7 +81,9 @@ module read_process_manager(
     
     assign state_time_expired = (prev_state_counter + 1 >= state_durations[prev_state]);
     assign zeroize = (reset | ~ReadData | (~prev_read_data & ReadData)); 
-    assign state = zeroize ? STATE_FIRST_STATE : (state_time_expired ? get_next_state(prev_state) : prev_state);
+    assign state = zeroize ? STATE_FIRST_STATE : 
+					(prev_state == STATE_LAST_STATE && prev_requested_address == 9'b111111111) ? prev_state :
+					(state_time_expired ? get_next_state(prev_state) : prev_state);
     assign state_counter = (zeroize | state_time_expired) ? 0 : prev_state_counter + 1;
     assign inc_address = ~zeroize & (prev_requested_address != 9'b111111111) & (state_counter == 0) & (state == STATE_FIRST_STATE);
     assign requested_address = (zeroize) ? 0 : ((inc_address) ? prev_requested_address + 1 : prev_requested_address);

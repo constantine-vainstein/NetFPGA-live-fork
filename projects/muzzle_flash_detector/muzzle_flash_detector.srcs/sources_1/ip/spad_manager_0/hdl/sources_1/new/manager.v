@@ -30,12 +30,12 @@ module spad_manager(
     output [2:0] RowSelect,
     output [5:0] ColSelect,
     output RowGroup,
+	output [31:0] FrameId,
     input [7:0] PixelIn0,
     input [7:0] PixelIn1,
     input [7:0] PixelIn2,
     input [7:0] PixelIn3,
     // Interface with Core
-    output reg [31:0] FrameId,
     output reg [7:0] PixelOut0,
     output reg [7:0] PixelOut1,
     output reg [7:0] PixelOut2,
@@ -80,10 +80,11 @@ module spad_manager(
 				PixelOut1 <= PixelIn1;
 				PixelOut2 <= PixelIn2;
 				PixelOut3 <= PixelIn3;
-				FrameId <= controller_frame_id;
 			end
 		end
 	end
+	
+	assign FrameId = controller_frame_id;
 
 
 endmodule

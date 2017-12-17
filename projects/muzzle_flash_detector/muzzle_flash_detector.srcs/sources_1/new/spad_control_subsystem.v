@@ -67,10 +67,10 @@ module spad_control_subsystem(
     
     wire mgr_read_enable;
 
-    assign pixel_in_0 = (isEmulated) ? emulated_pixel_in_0 : PixelSpad0;
-    assign pixel_in_1 = (isEmulated) ? emulated_pixel_in_1 : PixelSpad1;
-    assign pixel_in_2 = (isEmulated) ? emulated_pixel_in_2 : PixelSpad2;
-    assign pixel_in_3 = (isEmulated) ? emulated_pixel_in_3 : PixelSpad3;
+    assign pixel_in_0 = (is_emulated_reg) ? emulated_pixel_in_0 : PixelSpad0;
+    assign pixel_in_1 = (is_emulated_reg) ? emulated_pixel_in_1 : PixelSpad1;
+    assign pixel_in_2 = (is_emulated_reg) ? emulated_pixel_in_2 : PixelSpad2;
+    assign pixel_in_3 = (is_emulated_reg) ? emulated_pixel_in_3 : PixelSpad3;
     
     assign row_group_select = ~row_group;
     
@@ -95,7 +95,7 @@ module spad_control_subsystem(
         
         .ReadEnable(mgr_read_enable),
 
-        .FrameDurationRequestedClks(0), // default frame duration
+        .FrameDurationRequestedClks(0/*3333333*/), // default frame duration
         .FrameDurationChangeEnable(FrameDurationChangeEnable),
         .FrameDurationCurrentClks(frame_duration_current_clks)
         );
@@ -120,6 +120,7 @@ module spad_control_subsystem(
     
     reg [1:0] emulated_mem_delay_count;
     reg [10:0] prev_exact_address;
+    reg is_emulated_reg;
     wire [10:0] exact_address;
     
     assign exact_address = {row_group, row_select, col_select};
@@ -129,6 +130,7 @@ module spad_control_subsystem(
     	if(reset) begin
     		emulated_mem_delay_count <= 0;
     		prev_exact_address <= 0;
+    		is_emulated_reg <= isEmulated;
 		end else begin
 			prev_exact_address <= exact_address;
 			if(prev_exact_address != exact_address) begin
@@ -136,10 +138,13 @@ module spad_control_subsystem(
 			end else begin
 				emulated_mem_delay_count <= (emulated_mem_delay_count < 3) ? (emulated_mem_delay_count + 1) : 3;
 			end
+			if(FrameDurationChangeEnable) begin
+				is_emulated_reg <= isEmulated;
+			end
 		end
     end
     
-    assign ReadEnable = (isEmulated) ? ((prev_exact_address == exact_address) & (emulated_mem_delay_count >= 1) & mgr_read_enable) : mgr_read_enable;
+    assign ReadEnable = (is_emulated_reg) ? ((prev_exact_address == exact_address) & (emulated_mem_delay_count >= 0) & mgr_read_enable) : mgr_read_enable;
     // emulated_mem_delay_count >= 2 because spad_manager introduces additional clock delay in addition to BRAM 2 clocks delay in data of pixels.
     
     

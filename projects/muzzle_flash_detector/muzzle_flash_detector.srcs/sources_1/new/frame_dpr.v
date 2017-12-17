@@ -211,49 +211,51 @@ module frame_dpr(
 				end
 				
 				WRITE_STATE_STORE_DATA: begin
-					if (write_address <= maximal_write_address) begin
-						if (data_from_in_fifo_tvalid & (write_delay_clk == 0 || (~dpr_write_enable))) begin
-							// capture the data
-							write_data <= data_from_in_fifo_tdata;
-							// enable the writing to the dpr. But if now write_address == maximal_write_address, then in the next cycle it will exceed the maximum, so don't write.
-							dpr_write_enable <= (write_address < maximal_write_address);
-							// and prepare the address register to the write operation
-							write_address <= write_address + 1;
-						end
-						if (dpr_write_enable) begin// we are during the write operation
-							if (write_delay_clk > 0) begin
-								write_delay_clk <= write_delay_clk - 1;
-								wrEnable <= 0;
+					// if we are not in write process, or we are in the end of it,
+					// restart the write process in the next cycle.
+					if (write_delay_clk == 0 || (~dpr_write_enable)) begin /* (1) */
+						if(write_address == maximal_write_address) begin
+							// reaching here means we are after (in in a cycle will be) in write process
+							// to the maximal address. 
+							// The write address is above the maximum. Don't write! Deassert dpr_write_enable
+							dpr_write_enable <= 0;
+							if (is_area_a_written) begin
+								area_a_valid <= 1;
 							end else begin
+								area_b_valid <= 1;
+							end
+							is_area_a_written <= ~is_area_a_written;
+							write_state <= WRITE_STATE_WAIT_FOR_START;
+							wrEnable <= 0;								
+						end else begin
+							if(data_from_in_fifo_tvalid) begin									
+								// capture the data
+								write_data <= data_from_in_fifo_tdata;
+								// enable the writing to the dpr. 
+								dpr_write_enable <= 1;
+								// and prepare the address register to the write operation
+								write_address <= write_address + 1;
+								// restart wite delay counter
 								write_delay_clk <= MEM_WRITE_DELAY_ANY_CLK;
-								wrEnable <= 1;
+								wrEnable <= 0;
+							end else begin // the data from fifo is not valid
 								dpr_write_enable <= 0;
-								// if write_address has reached the maximum, increment it in order to get to the "else" of the main "if" of the state-case.
-								if(write_address == maximal_write_address) begin
-									write_address <= write_address + 1; 
-								end
 							end
 						end
-					end else begin
-						// The write address is above the maximum. Don't write! Deassert dpr_write_enable
-						dpr_write_enable <= 0;
-						if (is_area_a_written) begin
-							area_a_valid <= 1;
-						end else begin
-							area_b_valid <= 1;
-						end
-						is_area_a_written <= ~is_area_a_written;
-						write_state <= WRITE_STATE_WAIT_FOR_START;
+					end else begin // we ARE during write process, and we are not in the end of it.
+						write_delay_clk <= write_delay_clk - 1;
 						wrEnable <= 0;
 					end
-				end
+				end // case
 			endcase
 		end
     end 
     
     assign data_from_in_fifo_tready = 	(write_state == WRITE_STATE_STORE_DATA) && 
-    									(~dpr_write_enable) && 
-    									(write_address <= maximal_write_address);
+    									(write_delay_clk == 0 || (~dpr_write_enable)) && 
+    									(write_address < maximal_write_address); // strcit "<" because otherwise, when it is "=",
+    									// it means that this maximal address was already writen, because we are currently 
+    									// (write_delay_clk == 0 || (~dpr_write_enable))
 
 
 	// *********************** Read State Machine **********************

@@ -447,16 +447,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/frame_buffer_io.wcfg">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/spad_ss_and_dpr_eth_tb_behav1.wcfg">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sim_1/new/fifo_tb.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -464,15 +454,24 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/eth_wrapper.wcfg">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sim_1/new/data_path_tb.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sim_1/new/save_eth_to_file.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sim_1/imports/muzzle_flash_detector/data_path_tb_behav.wcfg">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/data_path_tb_behav.wcfg"/>
+          <Attr Name="ImportTime" Val="1513343940"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -632,19 +631,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.xml"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.vhdl"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_funcsim.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0_stub.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.dcp"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="synth/spad_manager_0.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="sim/spad_manager_0.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/manager.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/controller.v"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/spad_controller_definitions.vh"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="spad_manager_0.veo"/>
-        <CompFileExtendedInfo CompFileName="spad_manager_0.xci" FileRelPathName="hdl/sources_1/new/read_process_manager.v"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="spad_manager_0"/>

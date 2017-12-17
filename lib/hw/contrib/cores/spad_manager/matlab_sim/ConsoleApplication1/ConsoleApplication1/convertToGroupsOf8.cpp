@@ -103,7 +103,7 @@ void main()
 			for (col = 0; col < NUM_OF_COLS; col++)
 			{
 				compressedWave[frameNum][rowGroup][col] = 0;
-				for (row = rowGroup * NUM_OF_ROWGROUPS; row < rowGroup * NUM_OF_ROWGROUPS + NUM_OF_ROWS_IN_GROUP; row++)
+				for (row = rowGroup * NUM_OF_ROWS_IN_GROUP; row < (rowGroup + 1) * NUM_OF_ROWS_IN_GROUP; row++)
 				{
 					if (frameNum < NUM_OF_FRAMES && rowGroup < NUM_OF_ROWGROUPS && row < NUM_OF_ROWS && col < NUM_OF_COLS)
 					{
