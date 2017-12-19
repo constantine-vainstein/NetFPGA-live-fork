@@ -36,8 +36,8 @@ set_property -dict { PACKAGE_PIN AN26  IOSTANDARD LVCMOS18     } [get_ports { Pi
 set_property -dict { PACKAGE_PIN AN25  IOSTANDARD LVCMOS18     } [get_ports { PixelSpad0[6] }]; #[get_ports { FMC_LA_P[14] }]; #IO_L18P_T2_12 Sch=fmc_la__p[14]
 #set_property -dict { PACKAGE_PIN AM27  IOSTANDARD LVDS     } [get_ports { FMC_LA_N[15] }]; #IO_L21N_T3_DQS_12 Sch=fmc_la__n[15]
 #set_property -dict { PACKAGE_PIN AM26  IOSTANDARD LVDS     } [get_ports { FMC_LA_P[15] }]; #IO_L21P_T3_DQS_12 Sch=fmc_la__p[15]
-#set_property -dict { PACKAGE_PIN AL27  IOSTANDARD LVDS     } [get_ports { FMC_LA_N[16] }]; #IO_L20N_T3_12 Sch=fmc_la__n[16]
-#set_property -dict { PACKAGE_PIN AK27  IOSTANDARD LVDS     } [get_ports { FMC_LA_P[16] }]; #IO_L20P_T3_12 Sch=fmc_la__p[16]
+set_property -dict { PACKAGE_PIN AL27  IOSTANDARD LVCMOS18     } [get_ports { PixelSpad0[1] }]; #[get_ports { FMC_LA_N[16] }]; #IO_L20N_T3_12 Sch=fmc_la__n[16]
+set_property -dict { PACKAGE_PIN AK27  IOSTANDARD LVCMOS18     } [get_ports { PixelSpad0[0] }]; #[get_ports { FMC_LA_P[16] }]; #IO_L20P_T3_12 Sch=fmc_la__p[16]
 set_property -dict { PACKAGE_PIN AY33  IOSTANDARD LVCMOS18     } [get_ports { PixelSpad2[5] }]; #[get_ports { FMC_LA_N[17] }]; #IO_L14N_T2_SRCC_13 Sch=fmc_la_17_cc_n
 set_property -dict { PACKAGE_PIN AY32  IOSTANDARD LVCMOS18     } [get_ports { PixelSpad2[4] }]; #[get_ports { FMC_LA_P[17] }]; #IO_L14P_T2_SRCC_13 Sch=fmc_la_17_cc_p
 set_property -dict { PACKAGE_PIN AV33  IOSTANDARD LVCMOS18     } [get_ports { PixelSpad1[1] }]; #[get_ports { FMC_LA_N[18] }]; #IO_L11N_T1_SRCC_13 Sch=fmc_la_18_cc_n
@@ -72,9 +72,6 @@ set_property -dict { PACKAGE_PIN AY34  IOSTANDARD LVCMOS18     } [get_ports { co
 set_property -dict { PACKAGE_PIN AV36  IOSTANDARD LVCMOS18     } [get_ports { col_select[5] }]; #[get_ports { FMC_LA_P[32] }]; #IO_L2P_T0_13 Sch=fmc_la__p[32]
 #set_property -dict { PACKAGE_PIN AU36  IOSTANDARD LVDS     } [get_ports { FMC_LA_N[33] }]; #IO_L8N_T1_13 Sch=fmc_la__n[33]
 #set_property -dict { PACKAGE_PIN AT36  IOSTANDARD LVDS     } [get_ports { FMC_LA_P[33] }]; #IO_L8P_T1_13 Sch=fmc_la__p[33]
-
-set_property -dict { PACKAGE_PIN AP26  IOSTANDARD LVCMOS18} [get_ports { PixelSpad0[0] }];
-set_property -dict { PACKAGE_PIN AU37  IOSTANDARD LVCMOS18} [get_ports { PixelSpad0[1] }];
 
 
 
