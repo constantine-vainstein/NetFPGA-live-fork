@@ -102,7 +102,7 @@ module controller(
             state_counter <= 0;
             FrameId <= 0;
             state <= STATE_LATCH;
-            state_durations[STATE_READDATA] <= 5638; // `MINIMAL_FRAME_DURATION_CLKS - (state_durations[STATE_LATCH] + state_durations[STATE_PAUSE_LATCH_RESET] + state_durations[STATE_RESET]);
+            state_durations[STATE_READDATA] <= 6662; // `MINIMAL_FRAME_DURATION_CLKS - (state_durations[STATE_LATCH] + state_durations[STATE_PAUSE_LATCH_RESET] + state_durations[STATE_RESET]);
         	state_durations[STATE_LATCH] <= 2;
 			state_durations[STATE_PAUSE_LATCH_RESET] <= 1;
 			state_durations[STATE_RESET] <= 2;
