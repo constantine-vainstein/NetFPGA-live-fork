@@ -214,7 +214,7 @@ output wire rx_statistics_valid;
 (* X_INTERFACE_INFO = "xilinx.com:display_ten_gig_eth_mac:statistics:2.0 rx_statistics vector" *)
 output wire [29 : 0] rx_statistics_vector;
 
-  bd_1 inst (
+  bd_0 inst (
     .tx_axis_aresetn(tx_axis_aresetn),
     .rx_axis_aresetn(rx_axis_aresetn),
     .tx_ifg_delay(tx_ifg_delay),

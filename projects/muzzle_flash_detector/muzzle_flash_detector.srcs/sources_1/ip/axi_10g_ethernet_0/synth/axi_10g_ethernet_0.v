@@ -50,9 +50,9 @@
 // IP VLNV: xilinx.com:ip:axi_10g_ethernet:2.0
 // IP Revision: 1
 
-(* X_CORE_INFO = "bd_1,Vivado 2014.4" *)
-(* CHECK_LICENSE_TYPE = "axi_10g_ethernet_0,bd_1,{ten_gig_eth_mac=bought,ten_gig_eth_pcs_pma_basekr=bought}" *)
-(* CORE_GENERATION_INFO = "axi_10g_ethernet_0,bd_1,{x_ipProduct=Vivado 2014.4,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axi_10g_ethernet,x_ipVersion=2.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,x_ipLicense=ten_gig_eth_mac@2014.10(bought),x_ipLicense=ten_gig_eth_pcs_pma_basekr@2014.10(bought)}" *)
+(* X_CORE_INFO = "bd_0,Vivado 2014.4" *)
+(* CHECK_LICENSE_TYPE = "axi_10g_ethernet_0,bd_0,{ten_gig_eth_mac=bought,ten_gig_eth_pcs_pma_basekr=bought}" *)
+(* CORE_GENERATION_INFO = "axi_10g_ethernet_0,bd_0,{x_ipProduct=Vivado 2014.4,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axi_10g_ethernet,x_ipVersion=2.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,x_ipLicense=ten_gig_eth_mac@2014.10(bought),x_ipLicense=ten_gig_eth_pcs_pma_basekr@2014.10(bought)}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module axi_10g_ethernet_0 (
   tx_axis_aresetn,
@@ -215,7 +215,7 @@ output wire rx_statistics_valid;
 (* X_INTERFACE_INFO = "xilinx.com:display_ten_gig_eth_mac:statistics:2.0 rx_statistics vector" *)
 output wire [29 : 0] rx_statistics_vector;
 
-  bd_1 inst (
+  bd_0 inst (
     .tx_axis_aresetn(tx_axis_aresetn),
     .rx_axis_aresetn(rx_axis_aresetn),
     .tx_ifg_delay(tx_ifg_delay),
