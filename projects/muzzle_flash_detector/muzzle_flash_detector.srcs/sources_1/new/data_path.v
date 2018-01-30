@@ -112,15 +112,14 @@ wire [15 : 0] payload_length;
  	.clk(clk_100MHz), // input wire clk
  
  
- 	.probe0(0), // input wire [0:0]  probe0  
- 	.probe1(to_dpr_frame_id), // input wire [31:0]  probe1 
- 	.probe2(to_dpr_row_set), // input wire [3:0]  probe2 
- 	.probe3(to_dpr_col_set), // input wire [5:0]  probe3 
- 	.probe4(to_dpr_read_enable), // input wire [0:0]  probe4 
- 	.probe5(to_dpr_pixel_out0), // input wire [7:0]  probe5 
- 	.probe6(to_dpr_pixel_out1), // input wire [7:0]  probe6 
- 	.probe7(to_dpr_pixel_out2), // input wire [7:0]  probe7 
- 	.probe8(to_dpr_pixel_out3) // input wire [7:0]  probe8
+ 	.probe0(to_dpr_frame_id), // input wire [31:0]  probe1 
+ 	.probe1(to_dpr_row_set), // input wire [3:0]  probe2 
+ 	.probe2(to_dpr_col_set), // input wire [5:0]  probe3 
+ 	.probe3(to_dpr_read_enable), // input wire [0:0]  probe4 
+ 	.probe4(to_dpr_pixel_out0), // input wire [7:0]  probe5 
+ 	.probe5(to_dpr_pixel_out1), // input wire [7:0]  probe6 
+ 	.probe6(to_dpr_pixel_out2), // input wire [7:0]  probe7 
+ 	.probe7(to_dpr_pixel_out3) // input wire [7:0]  probe8
  );
  
 `endif    

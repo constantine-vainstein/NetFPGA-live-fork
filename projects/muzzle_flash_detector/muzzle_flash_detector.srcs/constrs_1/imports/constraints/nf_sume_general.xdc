@@ -110,6 +110,10 @@ create_clock -period 10.000 -name clk_100MHz -add [get_pins -hier -filter name=~
 #i2c not in use set_property IOSTANDARD LVCMOS15 [get_ports {i2c_reset[0]}]
 #i2c not in use set_property PACKAGE_PIN BA29 [get_ports {i2c_reset[1]}]
 #i2c not in use set_property IOSTANDARD LVCMOS18 [get_ports {i2c_reset[1]}]
+#IIC Mux
+set_property -dict { PACKAGE_PIN AK24  IOSTANDARD LVCMOS18 } [get_ports { I2C_FPGA_SCL }]; #IO_L22P_T3_12 Sch=i2c_fpga_scl
+set_property -dict { PACKAGE_PIN AK25  IOSTANDARD LVCMOS18 } [get_ports { I2C_FPGA_SDA }]; #IO_L22N_T3_12 Sch=i2c_fpga_sda
+#set_property -dict { PACKAGE_PIN AM39  IOSTANDARD LVCMOS15 } [get_ports { I2C_MUX_RESET }]; #IO_L6P_T0_15 Sch=i2c_mux_reset
 
 #BTN
 set_property PACKAGE_PIN AR13 [get_ports {btn[0]}]
@@ -142,21 +146,6 @@ set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
 #sys_clk and clk_200 not in use set_false_path -from [get_clocks axi_clk] -to [get_clocks clk_200]
 #sys_clk and clk_200 not in use set_false_path -from [get_clocks clk_200] -to [get_clocks axi_clk]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

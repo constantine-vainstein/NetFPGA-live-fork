@@ -93,7 +93,11 @@ module port_wraper
    input [7:0] PixelSpad0,
    input [7:0] PixelSpad1,
    input [7:0] PixelSpad2,
-   input [7:0] PixelSpad3
+   input [7:0] PixelSpad3,
+   
+   // init sfp clock interface (i2c)
+   inout wire I2C_FPGA_SCL,
+   inout wire I2C_FPGA_SDA
    );
    
    wire resetdone;
@@ -191,6 +195,15 @@ module port_wraper
 	   /* output */ .reset_eth(eth_ss_reset)
    );
    
+	sfp_refclk_init_0 sfp_refclk_init_i (
+		 .CLK(clk_100MHz),      			// input wire CLK
+		 .RST(btn[0]),          			// input wire RST
+		 .SFP_REC_CLK_P(),      			// output wire SFP_REC_CLK_P
+		 .SFP_REC_CLK_N(),      			// output wire SFP_REC_CLK_N
+		 .SFP_CLK_ALARM_B(SFP_CLK_ALARM_B), // input wire SFP_CLK_ALARM_B
+		 .I2C_FPGA_SCL(I2C_FPGA_SCL),       // inout wire I2C_FPGA_SCL
+		 .I2C_FPGA_SDA(I2C_FPGA_SDA)        // inout wire I2C_FPGA_SDA
+	   );   
    
    
    data_path data_path_i(

@@ -73,13 +73,13 @@ architecture Behavioral of clk_init_engine is
 
 ----------------------------------------
 -- si5324_regs ROM
-component si5324_regs_rom
-PORT(
-  A     : in  std_logic_vector(5 downto 0);
-  CLK   : in  std_logic;
-  QSPO  : out std_logic_vector(15 downto 0)
-);
-end component;
+COMPONENT si5324_regs_rom
+  PORT (
+    clka : IN STD_LOGIC;
+    addra : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+    douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+  );
+END COMPONENT;
 
 signal addr_to_rom    : std_logic_vector(5 downto 0) := (others => '0');
 signal data_from_rom  : std_logic_vector(15 downto 0) := (others => '0');
@@ -249,9 +249,9 @@ end process state_cntr_process;
 -- si5324_regs ROM
 si5324_regs_rom_init : si5324_regs_rom
 port map(
-  A     => addr_to_rom, --: in  std_logic_vector(5 downto 0);
-  CLK   => CLK_I, --: in  std_logic;
-  QSPO  => data_from_rom --: out std_logic_vector(15 downto 0)
+  clka   => CLK_I, --: in  std_logic;
+  addra  => addr_to_rom, --: in  std_logic_vector(5 downto 0);
+  douta  => data_from_rom --: out std_logic_vector(15 downto 0)
 );
   
 addr_to_rom_process: process(CLK_I)
